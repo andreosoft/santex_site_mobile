@@ -198,7 +198,7 @@ export async function getData({ route, $axios, $config }) {
   function breadcrumbs(category_id, title, value) {
     let breadcrumbsData;
     if (category_id !== undefined) {
-      if(resCat.data.data.parent_name){
+      if(resCat){
         breadcrumbsData = [
           {
             url: "/catalog/" + resCat.data.data.parent_id,
@@ -223,10 +223,10 @@ export async function getData({ route, $axios, $config }) {
           url: "",
           title: "Поиск"
         },
-        {
-          url: "",
-          title: value
-        }
+        // {
+        //   url: "",
+        //   title: value
+        // }
       ]
     }
     return breadcrumbsData;

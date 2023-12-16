@@ -2,7 +2,7 @@
   <v-card>
     <NuxtLink v-if="el.isparent == 0" :to="'/catalog/' + el.id">
       <img v-if="el.images" :src="$config.baseImageURL + el.images[0]" style="width: 100%;"/>
-      <div v-else style="width: 419px; height: 419px; background-color: black;"></div>
+      <v-img v-else src="/black-square.jpg" style="width: 100%;" />
       <div style="position: absolute; bottom: 50px; left: 0; right: 0">
         <div class="pa-2 text-center">
           <p style="color: white; font-weight: bold" class="s-btn-text">{{ el.name }}</p>
@@ -10,8 +10,8 @@
         </div>
       </div>
     </NuxtLink>
-    <NuxtLink v-else :to="'/interior/' + el.id">
-      <img :src="$config.baseImageURL + el.images[0]" style="width: 100%;"/>
+    <NuxtLink v-else :to="'/interior/' + el.id" class="d-flex">
+      <v-img :src="$config.baseImageURL + el.images[0]" style="width: 100%;"/>
       <div style="position: absolute; bottom: 50px; left: 0; right: 0">
         <div class="pa-2 text-center">
           <v-btn class="s-btn-text">Перейти в интерьер</v-btn>

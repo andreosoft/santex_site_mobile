@@ -53,10 +53,19 @@
 
   .s-title-img {
     margin-left: 0;
+    width: 100%;
   }
 
   .s-title-img1 {
     display: none;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .s-title-header {
+    font-size: 25px;
+  }
+  .s-btn-main{
+    width: 100%;
   }
 }
 </style>

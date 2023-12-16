@@ -10,7 +10,7 @@
             <s-select-city v-model="currentCity" />
           </div>
         </div>
-        <div>
+        <div style="width: 50%" class="d-flex justify-end align-center me-3">
           <span class="s-top-link" v-for="(el, i) in links" :key="i">
             <nuxt-link :to="el.to"> {{ el.title }} </nuxt-link>
           </span>
@@ -55,8 +55,20 @@ export default {
   background: #f2f2f2;
   padding: 0 0;
 }
-.s-top-link a{
+.s-top-link{
   font-size: 14px;
+}
+.s-top-link:not(:first-child){
   padding-left: 20px;
+}
+@media screen and (max-width: 630px) {
+  .s-top-link{
+    font-size: 12px;
+  }
+ .s-top-bar{
+  span{
+    font-size: 12px !important;
+  }
+ } 
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="s-text-h2 text-center" style="margin-bottom: 86px">
+    <div class="s-text-h2 text-center mb-5">
       ПРИХОДИТЕ В SantehKonfort Elite:
     </div>
     <div>

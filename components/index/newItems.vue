@@ -1,27 +1,25 @@
 <template>
   <div>
-    <div style="margin-bottom: 96px !important;" class="s-text-h2 text-center">Новинки: из коллекций лучших брендов</div>
-    <div style="margin-bottom: 110px!important;">
-      <div class="d-none d-lg-block">
+    <div style="width: 100%" class="s-text-h2 text-center mb-5">Новинки: из коллекций лучших брендов</div>
+    <div class="mb-sm-14" style="width: 100%">
+      <div class="d-none" id="new-items">
         <v-row>
-          <v-col class="pa-0" lg="6" v-for="(el, i) in items" :key="i">
+          <v-col class="pa-0" sm="6" v-for="(el, i) in items" :key="i">
             <index-new-items-el :el="el" />
           </v-col>
         </v-row>
       </div>
-      <div class="d-bock d-lg-none">
-        <v-carousel v-model="carouselModel">
-          <v-carousel-item v-for="(el, i) in items" :key="i">
-            <index-new-items-el-carusel :el="el" />
-          </v-carousel-item>
-        </v-carousel>
+      <div class="d-block" id="new-items-slider">
+        <common-carusel :items="items" :slides="1" :pager="true"/>
       </div>
     </div>
-    <div class="text-center mt-14">
-      <v-btn class="s-btn-main s-btn-text">
-        <NuxtLink to="/">БОЛЬШЕ НОВИНОК</NuxtLink>
-      </v-btn>
-    </div>
+    <v-container>
+      <div class="text-center mt-sm-14">
+        <v-btn class="s-btn-main s-btn-text">
+          <NuxtLink to="/">БОЛЬШЕ НОВИНОК</NuxtLink>
+        </v-btn>
+      </div>
+    </v-container>
   </div>
 </template>
 
@@ -42,5 +40,16 @@ export default {
 .s-cart-tite-1 {
   position: absolute;
   bottom: 0;
+}
+.v-btn > .v-btn__content .v-icon{
+  color: black;
+}
+@media screen and (min-width: 769px) {
+  #new-items{
+    display: block !important;
+  }
+  #new-items-slider{
+    display: none !important;
+  }
 }
 </style>

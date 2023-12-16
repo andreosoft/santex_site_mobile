@@ -4,8 +4,9 @@
       <section ref="splideEl" class="splide">
         <div class="splide__track">
           <ul class="splide__list">
-            <li v-for="(els, i) in data" :key="i" class="splide__slide">
-              <slot :els="els"></slot>
+            <li v-for="(els, i) in items" :key="i" class="splide__slide">
+              <index-new-items-el-carusel v-if="items[0].titleCollection || sales" :el="els" />
+              <s-guide-style-items-el v-else :el="els" />
             </li>
           </ul>
         </div>
@@ -38,6 +39,26 @@ export default {
       type: Number,
       default: 2,
     },
+    slides: {
+      type: Number,
+      default: 3,
+    },
+    gap: {
+      type: String,
+      default: '1.5rem',
+    },
+    breakpointsNumbs: {
+      type: Object,
+      default: () => ({})
+    },
+    pager: {
+      type: Boolean,
+      default: false
+    },
+    sales: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -46,50 +67,49 @@ export default {
   },
   mounted() {
     var splide = new Splide(this.$refs.splideEl, {
-      perPage: 1,
-      fixedWidth: "1370px",
+      perPage: this.slides,
+      gap: '1.5rem',
+      // fixedWidth: "1370px",
       rewind: true,
-      type: 'loop'
+      type: 'loop',
+      pagination: this.pager,
+      breakpoints: this.breakpointsNumbs
     });
     splide.mount();
   },
   computed: {
-    data() {
-      let r = [];
-      if (this.items) {
-        for (let i = 0; i < this.items.length / this.type; i++) {
-          r[i] = [];
-          for (let k = 0; k < this.type; k++) {
-            let a = i * this.type + k;
-            if (this.items[a]) r[i].push(this.items[a]);
-          }
-        }
-      }
-      return r;
-    },
+    // data() {
+    //   let r = [];
+    //   if (this.items) {
+    //     for (let i = 0; i < this.items.length / this.type; i++) {
+    //       r[i] = [];
+    //       for (let k = 0; k < this.type; k++) {
+    //         let a = i * this.type + k;
+    //         if (this.items[a]) r[i].push(this.items[a]);
+    //       }
+    //     }
+    //   }
+    //   return r;
+    // },
     length() {
       return this.items.length / this.type;
     },
   },
-  methods: {
-    next() {
-      this.carouselModel =
-        this.carouselModel + 1 === this.length ? 0 : this.carouselModel + 1;
-    },
-    prev() {
-      this.carouselModel =
-        this.carouselModel - 1 < 0 ? this.length - 1 : this.carouselModel - 1;
-    },
-  },
+  // methods: {
+  //   next() {
+  //     this.carouselModel =
+  //       this.carouselModel + 1 === this.length ? 0 : this.carouselModel + 1;
+  //   },
+  //   prev() {
+  //     this.carouselModel =
+  //       this.carouselModel - 1 < 0 ? this.length - 1 : this.carouselModel - 1;
+  //   },
+  // },
 };
 </script>
 
 <style lang="scss">
 .s-common-carusel {
-  .splide__pagination {
-    display: none;
-  }
-
   .splide__arrow {
     position: absolute;
     top: calc(50%);

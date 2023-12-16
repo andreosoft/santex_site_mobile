@@ -55,16 +55,37 @@ export default {
 
 <style lang="scss">
 .s-main-slider {
-  margin: 0 -100px;
+  width: 100%;
+  overflow: hidden;
 
+  img{
+    width: 100%;
+  }
   .splide__slide {
-    margin: 0 100px;
+    width: 100% !important;
   }
 
   .splide__track {
     overflow: inherit;
   }
-
+  @media screen and (max-width: 769px) {
+    .splide__arrow--prev, .splide__arrow--next {
+      display: none !important;
+    }
+  }
+  @media screen and (max-width: 425px) {
+    .splide__arrow--prev, .splide__arrow--next {
+      width: 30px !important;
+      height: 30px !important;
+    }
+    .splide__arrow--prev {
+      left: 1.5em !important;
+    }
+  
+    .splide__arrow--next {
+      right: 1.5em !important;
+    }
+  }
   .splide__arrow {
     width: 50px;
     height: 50px;
@@ -84,11 +105,11 @@ export default {
   @media only screen and (max-width: 1600px) {
 
     .splide__arrow--prev {
-      left: 8em;
+      left: 4em;
     }
 
     .splide__arrow--next {
-      right: 8em;
+      right: 4em;
     }
   }
 

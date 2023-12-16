@@ -16,7 +16,7 @@
                 </div>
                 <div style="margin: 10px 64px 100px 64px;">
                     <div class="d-flex">
-                        <h2>Выбрать город</h2>
+                        <h2 class="s-text-city">Выбрать город</h2>
                         <v-spacer></v-spacer>
                         <div style="cursor: pointer; margin-top: 6px;" class="grey--text">Определить автоматически</div>
                     </div>

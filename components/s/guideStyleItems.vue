@@ -1,17 +1,9 @@
 <template>
   <div>
     <div>
-      <common-carusel :items="items" :type="type">
-        <template v-slot:default="{ els }">
-          <v-row>
-            <v-col :cols="12 / type" v-for="(el, k) in els" :key="k">
-              <s-guide-style-items-el :el="el" />
-            </v-col>
-          </v-row>
-        </template>
-      </common-carusel>
+      <common-carusel :items="items" :type="type" :breakpointsNumbs="breakpoints"/>
     </div>
-    <div class="text-center mt-14 pt-8">
+    <div class="text-center mt-sm-14 pt-8">
       <v-btn class="s-btn-main s-btn-text">
         <NuxtLink to="/">ВСЕ ИНТЕРЬЕРЫ</NuxtLink>
       </v-btn>
@@ -26,7 +18,15 @@ export default {
   },
   data() {
     return {
-      type: 3
+      type: 3,
+      breakpoints: {
+        830: {
+          perPage: 2,
+        },
+        580: {
+          perPage: 1,
+        }
+      }
     };
   },
 };

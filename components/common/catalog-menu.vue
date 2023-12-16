@@ -2,42 +2,22 @@
   <transition name="fade">
     <div v-if="value" class="s-menu-catalog">
       <v-container style="position: relative; height: 100%">
-        <div style="position: absolute; left: 0; right: 0; bottom: 0; top: 0">
-          <div class="s-menu-catalog-left">
-            <div class="pt-10">
-              <div class="s-catalog-links">
-                <div
-                  v-for="(el, i) in items"
-                  class="s-catalog-links-el"
-                  :class="{ active: i == activeEl }"
-                  @mouseover="activeEl = i"
-                  @click="$emit('input')"
-                  :key="i"
-                >
-                <nuxt-link :to="'/catalog/' + el.id">
-                  <span class="s-catalog-links-el-icon"><img/></span>
-                  <!-- <span class="s-catalog-links-el-icon"><img :src="el.icon"/></span> -->
-                  {{ el.name }}
-                </nuxt-link>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="s-menu-catalog-right">
-            <v-row>
-              <v-col cols="9">
-                <div class="pt-10 ma-5 ml-10 s-catalog-links">
-                  <v-row>
-                    <v-col
-                      style="padding: 0;"
-                      cols="6"
-                      v-for="(el, i) in items[activeEl].content"
-                      :key="i"
-                      @click="$emit('input')"
-                    >
-                      <nuxt-link :to="'/catalog/' + el.id" class="s-catalog-links-el">{{
-                        el.name
-                      }}</nuxt-link>
+        <common-divider1/>
+        <div v-if="activeEl>=0">
+            <v-row class="ma-0">
+              <v-col cols="12">
+                <div class="s-catalog-links">
+                  <v-row class="ma-0">
+                    <v-row class="d-flex flex-row align-center ma-0 mb-5 ">
+                      <img @click="activeEl = -1" src="/icons/arrow_left_black.svg" alt="">
+                      <h3 class="ms-5 pa-0">
+                        {{ items[activeEl].name }}
+                      </h3>
+                    </v-row>
+                    <v-col class="pa-0 d-flex flex-row flex-wrap col-12">
+                      <div class="s-catalog-links-el" v-for="(el, i) in items[activeEl].content" :key="i" @click="$emit('input')">
+                        <nuxt-link :to="'/catalog/' + el.id" >{{ el.name }}</nuxt-link>
+                      </div>
                     </v-col>
                   </v-row>
                   <div class="s-catalog-brends">
@@ -50,7 +30,7 @@
                         :key="i"
                         @click="$emit('input')"
                       >
-                        <nuxt-link class="underlined" :to="el">{{ el }}</nuxt-link>
+                        <nuxt-link class="underlined" style="color: #636363 !important;" to="#">{{ el }}</nuxt-link>
                       </v-col>
                     </v-row>
                   </div>
@@ -68,7 +48,120 @@
                 </div>
               </v-col>
             </v-row>
+        </div>
+        <div v-else>
+          <v-row class="flex-column flex-sm-row align-sm-center ma-0">
+            <v-col id="numb-head" class="col-12 col-sm-6 d-flex align-center justify-space-between">
+                <a @click="$emit('input')" class="s-header-phones" href="tel://88007759985">8 800 775 99 85</a>
+                <a @click="$emit('input')" class="s-header-phones" href="tel://84952256285">8 495 225 62 85</a>
+              <a @click="$emit('input')" class="s-header-phones me-5" target="_blank" href="https://api.whatsapp.com/send/?phone=89672823107"><span><img src="/icons/whats_small.svg" alt="" /></span></a>
+            </v-col>
+            <v-col class="col-12 col-sm-6 d-flex align-end align-sm-center justify-space-between right-up-menu" style="border-left: 1px solid #e5e5e5">
+              <div class="d-block d-sm-none">
+                <nuxt-link to="/" class="d-flex flex-column flex-sm-row align-center">
+                  <img class="mb-2 mb-sm-0 icons-head" src="/icons/location.svg" alt="" />
+                  <s-select-city v-model="currentCity" />
+                </nuxt-link>
+              </div>
+              <!-- <div>
+                <div>
+                  <img src="/icons/location.svg" style="height: 14px;" class="pr-2"
+                    />
+                  <span style="color: #aaa; font-size: 14px" class="pr-2">Ваш город:</span>
+                  <s-select-city v-model="currentCity" />
+                </div>
+              </div> -->
+              <div @click="$emit('input')" class="ms-sm-5">
+                <nuxt-link to="/" class="d-flex flex-column flex-sm-row align-center">
+                  <img class="mb-2 mb-sm-0 icons-head" src="/icons/profile.svg" alt="" />
+                  <span class="ms-sm-4">Личный кабинет</span>
+                </nuxt-link>
+              </div>
+              <div @click="$emit('input')">
+                <nuxt-link class="d-flex flex-column flex-sm-row align-center" to="/compare">
+                  <img class="mb-2 mb-sm-0 icons-head" src="/icons/compare.svg" alt="" />
+                  <div v-show="countItemsCom !== 0" class="cartIcon">{{ countItemsCom }}</div>
+                  <span class="ms-sm-4">Сравнение</span>
+                </nuxt-link>
+              </div>
+            </v-col>
+          </v-row>
+          <v-row class="ma-0">
+            <form style="width: 100%" class="s-header-search mt-4 ms-3 me-3" @submit.prevent="submitSearch()">
+              <div class="s-header-menu-search">
+                <v-text-field v-model="search" single-line outlined dense label="Я хочу найти">
+                  <template v-slot:append>
+                    <img style="cursor: pointer" @click="submitSearch()" src="/icons/Search.svg" />
+                  </template>
+                </v-text-field>
+              </div>
+            </form>
+          </v-row>
+          <div class="s-menu-catalog-left">
+            <div class="pt-10">
+              <div class="s-catalog-links">
+                <v-row class="ma-0 flex-column">
+                  <h3 class="mt-5 ms-5">Каталог</h3>
+                  <v-row class="ma-0">
+                    <v-col class="s-item col-sm-12 d-flex flex-column flex-sm-row flex-wrap">
+                      <div v-for="(el, i) in items" class="s-catalog-links-el" @click="activeEl = i" :key="i">
+                        <span class="s-catalog-links-el-icon"><img/></span>
+                        <!-- <span class="s-catalog-links-el-icon"><img :src="el.icon"/></span> -->
+                        <span>
+                          {{ el.name }}
+                        </span>
+                      </div>
+                    </v-col>
+                  </v-row>
+                </v-row>
+              </div>
+            </div>
           </div>
+          <common-divider1/>
+          <div class="s-menu-catalog-left">
+            <div class="pt-sm-8 ps-5">
+              <div class="s-catalog-links">
+                <v-row class="ma-0 flex-column">
+                  <v-row class="ma-0">
+                    <v-col class="col-6 d-flex flex-column ">
+                      <div class="pt-2 s-catalog-down-links" @click="$emit('input')">
+                        <nuxt-link to="/brends">Бренды</nuxt-link></div>
+                      <div class="pt-2 s-catalog-down-links" @click="$emit('input')">
+                        <nuxt-link to="/blog">Блог</nuxt-link></div>
+                      <div class="pt-2 s-catalog-down-links" @click="$emit('input')">
+                        <nuxt-link to="/designers">Наши дизайнеры</nuxt-link></div>
+                      <div class="pt-2 s-catalog-down-links" @click="$emit('input')">
+                        <nuxt-link to="/consulting">Запись на консультацию</nuxt-link></div>
+                      <div class="pt-2 s-catalog-down-links" @click="$emit('input')">
+                        <nuxt-link to="/promote/1">Распродажа</nuxt-link></div>
+                    </v-col>
+                    <v-col class="col-6 d-flex flex-column">
+                      <div @click="$emit('input')" class="pt-2 s-catalog-down-links" v-for="(el, i) in links" :key="i">
+                        <nuxt-link :to="el.to">{{ el.title }}</nuxt-link></div>
+                    </v-col>
+                  </v-row>
+                </v-row>
+              </div>
+            </div>
+          </div>
+          <common-divider1/>
+          <v-row class="common-links s-bottom d-flex flex-row align-center ps-4 mb-2" id="common-links">
+            <v-col @click="$emit('input')" class="col-6 text-center">
+              <nuxt-link @click="$emit('input')" to="/">© SantehKomfort Elite, {{ new Date().getFullYear() }}</nuxt-link> 
+            </v-col>
+            <v-col @click="$emit('input')" class="col-6 text-center">
+              <nuxt-link @click="$emit('input')" to="/publicOffer">Публичная оферта</nuxt-link> 
+            </v-col>
+            <v-col @click="$emit('input')" class="col-6 text-center">
+              <nuxt-link @click="$emit('input')" to="/privacy">Политика конфиденциальности</nuxt-link>
+            </v-col>
+            <v-col @click="$emit('input')" class="col-6 text-center">
+              <nuxt-link @click="$emit('input')" to="/acceptRules">Правила приемки</nuxt-link> 
+            </v-col>
+            <v-col @click="$emit('input')" class="col-6 text-center">
+              <nuxt-link @click="$emit('input')" to="/userAgreement">Пользовательское соглашение</nuxt-link>
+            </v-col>
+          </v-row>
         </div>
       </v-container>
     </div>
@@ -76,24 +169,110 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   props: {
     value: Boolean,
     items: Array,
   },
+  watch: {
+    value: function(){
+      if(this.value){
+        this.activeEl = -1
+      }
+    }
+  },
   data() {
     return {
-      activeEl: 0,
+      currentCity: "moscow",
+      activeEl: -1,
+      showSearch: false,
+      search: '',
+      links: [
+        {
+          to: "/pages/about",
+          title: "О компании",
+        },
+        {
+          to: "/pages/delivery",
+          title: "Доставка",
+        },
+        {
+          to: "/pages/payment",
+          title: "Оплата",
+        },
+        {
+          to: "/pages/contacts",
+          title: "Контакты",
+        },
+      ],
     };
   },
   methods: {
-    hi() {
-      alert('hi')
-    }
+    submitSearch() {
+      this.$router.push({ path: '/catalog/search', query: { q: this.search } })
+      this.showSearch = false
+    },
+  },
+  computed: {
+    ...mapGetters ({
+      countItemsCom: 'compare/countItems'
+    })
   }
 };
 </script>
 
 <style lang="scss">
-
+  @media screen and (min-width: 425px) and (max-width: 600px) {
+    #numb-head{
+      justify-content: flex-start !important;
+      align-items: end !important;
+      a:not(:first-child){
+        margin-left: 20px !important;
+      }
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .right-up-menu{
+      border-left: unset !important;
+    }
+  }
+@media screen and (max-width: 505px){
+  .common-links {
+    div{
+      padding: 0 !important;
+      padding-bottom: 20px !important;
+      a{
+        padding: 0 !important;
+      }
+    }
+  }
+}
+@media screen and (max-width: 375px){
+  .s-catalog-links{
+    div>h3{
+      font-size: 27px !important;
+      padding-bottom: 0 !important;
+    }
+  }
+  .s-catalog-links-el{
+    span{
+      font-size: 14px !important;
+    }
+  }
+  .s-catalog-down-links{
+    padding-top: 0 !important;
+    a{
+      font-size: 14px !important;
+    }
+  }
+  #common-links{
+    a{
+      font-size: 11px !important;
+    }
+  }
+}
+  .icons-head{
+    width: 1.5em;
+  }
 </style>
