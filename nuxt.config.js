@@ -1,6 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  server: {
+    port: 3001
+  },
   publicRuntimeConfig: {
     baseURL: process.env.BASE_URL || 'https://api.santehkomfort.ru',
     baseImageURL: "https://api.santehkomfort.ru/api/image/download/"
@@ -28,7 +31,7 @@ export default {
   plugins: [
     { src: '~/plugins/clientInit.js', mode: 'client' },
     { src: '~/plugins/input-mask.js', mode: 'client' },
-    {src: '~/plugins/vee-validate.js', ssr: false}
+    { src: '~/plugins/vee-validate.js', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -64,7 +67,7 @@ export default {
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['@splidejs/splide/dist/css/themes/splide-default.min.css', '~/assets/variables.scss'],
-    defaultAssets: {icons: 'fa'},
+    defaultAssets: { icons: 'fa' },
     theme: {
       dark: false,
       themes: {
