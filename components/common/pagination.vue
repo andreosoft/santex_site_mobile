@@ -3,7 +3,7 @@
         <!-- {{ page }} / {{ length }}
         {{ value }} -->
         <!-- <v-pagination v-if="page && length" :value="page" @input="onPage($event)" :length="length" circle></v-pagination> -->
-        <div v-if="page && length && value.count>30" class="d-flex flex-row justify-center">
+        <div v-if="page && length && value.count>30" class="d-flex flex-row justify-center" id="s-pagination-parent-block">
             <div>
                 <ul v-if="length > 7" class="s-pagination">
                     <li>
@@ -118,3 +118,13 @@ export default {
     }
 }
 </script>
+
+ <style lang="scss">
+ @media screen and (max-width: 470px) {
+     #s-pagination-parent-block{
+     display: none !important;
+     }
+ }
+
+
+</style>

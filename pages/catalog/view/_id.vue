@@ -1,28 +1,65 @@
 <template>
   <v-container class="mb-14">
+
+              <!-- Избранное -->
+              <v-snackbar v-model="snackbarFav">{{ dataResultFav }} <template v-slot:action="{ attrs }">
+                <v-btn color="pink" text v-bind="attrs" @click="snackbarFav = false">
+                  Закрыть
+                </v-btn>
+              </template>
+              </v-snackbar>
+              <!-- Сравнение -->
+                      <v-snackbar v-model="snackbarCom">{{ dataResultCom }} <template v-slot:action="{ attrs }">
+                <v-btn color="pink" text v-bind="attrs" @click="snackbarCom = false">
+                  Закрыть
+                </v-btn>
+              </template>
+              </v-snackbar>
+              <!-- Корзина -->
+                      <v-snackbar v-model="snackbarCart">{{ dataResultCart }} <template v-slot:action="{ attrs }">
+                <v-btn color="pink" text v-bind="attrs" @click="snackbarCart = false">
+                  Закрыть
+                </v-btn>
+              </template>
+              </v-snackbar>
+              
+
     <v-divider class="mb-8" />
     <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
-    <h1>{{ data.name }}</h1>
-    <v-row class="mt-4">
-      <v-col cols="6">
-        <common-image-gallery :value="data.images" />
-      </v-col>
-      <v-col cols="6">
-        <div class="d-flex justify-space-between">
-          <div>
-            <catalog-available :value="data.store" />
-          </div>
-          <div style="font-size: 14px;" class="grey--text"><span>Код товара: </span><span>{{ data.id }}</span></div>
+    <h1 class="s-card-title">{{ data.name }}</h1>
+    <v-row class="mt-4 s-parent-card">
+      <v-col cols="12" class="d-flex align-end d-md-none px-0 mb-4">
+      <div class="d-flex justify-space-between">
+        <div class="mr-4">
+          <catalog-available :value="data.store" />
         </div>
-        <div class="my-3">{{ data.decription }}</div>
-        <v-divider />
-        <div class="my-3 d-flex justify-space-between align-center">
+        <div style="font-size: 14px;" class="grey--text d-flex align-end"><span class="mr-1">Код товара: </span><span>{{ data.id }}</span></div>
+      </div>
+      </v-col>
+      <v-col cols="12" class="pa-0">
+        <common-image-gallery  :value="data.images" />
+      </v-col>
+      <!-- <v-col cols="12" class="pa-0 d-block d-sm-none">
+        <common-image-gallery  :value="data.images" />
+      </v-col> -->
+      <v-col cols="12">
+        <v-col cols="12" class="d-none d-md-block">
+          <div class="d-flex justify-space-between ">
+            <div>
+              <catalog-available :value="data.store" />
+            </div>
+            <div style="font-size: 14px;" class="grey--text"><span>Код товара: </span><span>{{ data.id }}</span></div>
+          </div>
+        </v-col>
+        <div v-if="data.decription" class="my-3">{{ data.decription }}</div>
+        <v-divider v-if="data.decription" />
+        <div class="mt-3 mb-2 d-flex justify-space-between align-center">
           <div>
-            <span v-if="data.price" style="font-size: 46px; font-weight: bold;">
+            <span v-if="data.price" class="price--text" style="font-size: 46px; font-weight: bold;">
               <number :value="data.price" /> <span style="font-weight: normal;">₽</span>
             </span>
             <span v-else style="font-size: 46px; font-weight: bold;">
-              <span style="font-weight: normal;">Цена не указана</span>
+              <span style="font-weight: normal;" class="price--text">Цена не указана</span>
             </span>
             <span class="ml-4 grey--text" style="
                   display: inline-block;
@@ -34,11 +71,9 @@
               <number :value="data.price_old" /> ₽
             </span>
           </div>
-          <div><a>
-              <v-img :src="data.brend_logo" contain height="100" />
-            </a></div>
+          <div><a><v-img :src="data.brend_logo" contain height="100" /></a></div>
         </div>
-        <div class="my-4">
+        <div class="mt-2 mb-4">
           <table>
             <tr>
               <td style="width: 50%"><b>Доставка:</b></td>
@@ -62,52 +97,30 @@
           </div>
         </div>
         <div class="my-8">
-          <div class="d-flex justify-space-between align-center">
-            <div>
+          <div class="d-flex justify-sm-space-between align-sm-center flex-column flex-sm-row ">
+            <div class="d-flex align-center align-sm-auto justify-space-between justify-sm-auto s-item-btns">
               <span>
-                <v-btn @click="toCart" style="width: 200px;" class="s-btn-cart s-btn-text" dark>Купить</v-btn>
-              </span><span class="ml-4">
-                <v-btn style="width: 200px;" class="s-btn-cart s-btn-text" @click="Buyoneclick">Купить в 1
-                  клик</v-btn>
+                <v-btn @click="toCart" style="width: 200px" class="s-btn-cart s-btn-text" dark>Купить</v-btn>
+              </span>
+              <span class="ml-4">
+                <v-btn class="s-btn-cart s-btn-text" style="width: 200px" @click="Buyoneclick">Купить в 1 клик</v-btn>
               </span>
               <!-- <s-popup-buyoneclick v-model="showBuyoneclick" /> -->
             </div>
-            <div>
-
-
-              <!-- Избранное -->
-<v-snackbar v-model="snackbarFav">{{ dataResultFav }} <template v-slot:action="{ attrs }">
-  <v-btn color="pink" text v-bind="attrs" @click="snackbarFav = false">
-    Закрыть
-  </v-btn>
-</template>
-</v-snackbar>
-<!-- Сравнение -->
-        <v-snackbar v-model="snackbarCom">{{ dataResultCom }} <template v-slot:action="{ attrs }">
-  <v-btn color="pink" text v-bind="attrs" @click="snackbarCom = false">
-    Закрыть
-  </v-btn>
-</template>
-</v-snackbar>
-<!-- Корзина -->
-        <v-snackbar v-model="snackbarCart">{{ dataResultCart }} <template v-slot:action="{ attrs }">
-  <v-btn color="pink" text v-bind="attrs" @click="snackbarCart = false">
-    Закрыть
-  </v-btn>
-</template>
-</v-snackbar>
-
-
-
-              <v-btn @click="toCompare" plain small><img src="/icon-similar.png" alt="compare" /></v-btn>
-              <v-btn @click="toFavorite" plain small>
+            <div class="mt-5 mt-sm-0 s-item-id-icons">
+              <v-btn @click="toCompare" plain small>
+                <img src="/icon-similar.png" alt="compare" />
+                <p class="ma-0 pa-0 ms-2 d-sm-none">Сравнить</p>
+              </v-btn>
+              <v-btn class="ms-2" @click="toFavorite" plain small>
                 <img :class="{'favorite': !checkAvailable}" src="/icons/like-black.svg" alt="favorite-black">
                 <img :class="{'favorite': checkAvailable}" src="/icons/like.svg" alt="favorite">
+                <p class="ma-0 pa-0 ms-2 d-sm-none">В избранное</p>
               </v-btn>
             </div>
           </div>
         </div>
-        <div class="my-4">
+        <div class="my-4 d-none d-sm-block">
           <div class="mb-4">
             <v-simple-table dense>
               <tbody>
@@ -145,13 +158,13 @@
         </div>
       </v-col>
     </v-row>
-    <v-divider class="my-4 mb-14" />
+    <v-divider class="my-4 mb-14 d-none d-sm-block" />
     <!-- <div class="mb-14">
       <h2 class="mb-8">Соберите комплект и получите скидку</h2>
       <catalog-complect-block :data="data.complect_data" />
     </div> -->
-    <div class="mb-8" id="full-info">
-      <v-tabs class=" mb-14" style="border-bottom: 1px solid #ddd" v-model="tabModel">
+    <div class="mb-8 d-none d-sm-block" id="full-info">
+      <v-tabs class="mb-7" style="border-bottom: 1px solid #ddd" v-model="tabModel">
         <v-tab>Описание и характеристики</v-tab>
         <v-tab>Комплектующие</v-tab>
         <!-- <v-tab>С этим товаром покупают</v-tab> -->
@@ -212,6 +225,40 @@
         </v-tab-item>
       </v-tabs-items>
     </div>
+    <div class="mb-8 d-block d-sm-none" id="full-info">
+      <v-row justify="center">
+        <v-expansion-panels accordion flat class="s-expansion-panels">
+          <v-expansion-panel class="s-expansion-panel">
+            <v-expansion-panel-header class="s-expansion-panel-header py-8">Описание и характеристики</v-expansion-panel-header>
+            <v-expansion-panel-content class="s-expansion-panel-content">
+                <div v-if="data.content" class="mb-6" v-html="data.content" />
+                <div class="mb-4">
+                  <v-row class="flex-column">
+                    <v-col :cols="12">
+                      <v-simple-table dense>
+                        <tbody>
+                          <tr v-for="(el, i) in data.filters" :key="i">
+                            <td>
+                              <b>{{ el.name }}</b>
+                            </td>
+                            <td>{{ el.value }}</td>
+                          </tr>
+                        </tbody>
+                      </v-simple-table>
+                    </v-col>
+                  </v-row>
+                </div>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel>
+            <v-expansion-panel-header class="s-expansion-panel-header py-8">Комплектующие</v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <catalog-complect-block :data="data.complect_data" />
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-row>
+    </div>
     <v-divider class="mb-10" />
     <div>
       <a @click="redirect_back"><i class="fas fa-long-arrow-alt-left mr-4"></i>Вернуться назад</a>
@@ -228,12 +275,8 @@ async function getData({ route, $axios, $config }) {
   const data = res.data.data;
   const resCat = await $axios.get($config.baseURL + '/api/site/categories/' + data.category_id);
   const dataCat = resCat.data.data;
-  console.log(dataCat);
+  // console.log(dataCat);
   const breadcrumbsData = [
-    {
-      url: "",
-      title: "Каталог",
-    },
     {
       url: "/catalog/" + dataCat.id,
       title: dataCat.name,
@@ -650,3 +693,75 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.s-expansion-panels .v-item--active>button{
+      color: #000 !important;
+}
+.v-expansion-panel-content__wrap{
+  padding: 0 !important;
+}
+.s-expansion-panel-header{
+  border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+  font-size: 18px !important;
+  color: #696969 !important;
+  .v-expansion-panel-header__icon{
+    i{
+      color: #000 !important;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .s-card-title{
+    font-size: 36px !important;
+    padding-bottom: 0px !important;
+  }
+  .s-parent-card{
+    flex-direction: column !important;
+  }
+  .price--text{
+    font-size: 40px !important;
+  }
+}
+@media screen and (max-width: 600px) {
+  .s-item-btns{
+    span{
+      width: 50%;
+      button{
+        width: 100% !important; 
+      }
+    }
+  }
+  .price--text{
+    font-size: 38px !important;
+  }
+}
+@media screen and (max-width: 500px) {
+  .s-card-title{
+    font-size: 30px !important;
+  }
+  .s-parent-card>div>div{
+        width: 100% !important;
+  }
+  
+}
+@media screen and (max-width: 425px) {
+  .price--text{
+    font-size: 35px !important;
+  }
+  .s-item-btns{
+    span{
+      font-size: 12px !important;
+    }
+  }
+  .s-item-id-icons{
+    img{
+      width: 1.2rem !important;
+    }
+    span{
+      font-size: 10px !important;
+    }
+  }
+}
+
+</style>

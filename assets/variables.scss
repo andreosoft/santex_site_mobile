@@ -48,7 +48,7 @@
 }
 
 .container {
-  width: 100%;
+  width: 98%;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -128,6 +128,13 @@ h4 {
   border: 1px solid #DDDDDD!important;
   &.active {
     border-bottom: 3px solid #030303!important;
+  }
+}
+.s-catalog-gallery-small {
+  border: 1px solid #DDDDDD!important;
+  &.active {
+    background-color: #030303!important;
+    border-radius: 50px;
   }
 }
 

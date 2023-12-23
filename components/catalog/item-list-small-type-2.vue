@@ -3,7 +3,7 @@
     <div class="mb-8">
       <nuxt-link :to="'/catalog/view/' + data.id">
         <div>
-          <v-img :src="data.image[0]" />
+          <v-img v-if="data.images" :src="data.images[0]" />
         </div>
         <div style="margin: 3px 0; font-size: 16px; height: 50px;">{{ data.name }}</div>
         <div class="my-2">

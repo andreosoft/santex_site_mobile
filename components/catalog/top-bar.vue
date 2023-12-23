@@ -1,10 +1,10 @@
 <template>
     <div class="d-flex justify-space-between">
-        <div class="d-flex">
+        <div class="d-none d-sm-flex">
             <v-select style="max-width: 200px;" dense outlined v-model="data.sort1" :items="sort1" class="mr-3" />
             <v-select style="max-width: 250px;" dense outlined :value="sort" @input="onInputSort($event)" :items="sortOrder" class="mr-3" />
         </div>
-        <div>
+        <div class="d-none d-md-block">
             <span>Всего: </span>
             <b>{{ countString }}</b>
         </div>

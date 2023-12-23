@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div v-if="value">
-      <i class="fas fa-check-circle"></i>
-      <span class="grey--text" style="font-size: 13px">Есть в наличии</span>
+    <div v-if="value" class="d-flex align-top">
+      <i class="fas fa-check-circle mr-2"></i>
+      <span class="grey--text" style="font-size: 14px">Есть в наличии</span>
     </div>
-    <div v-else>
-      <i class="fas fa-times-circle"></i>
-      <span class="grey--text" style="font-size: 13px">Нет в наличии</span>
+    <div v-else class="d-flex align-top">
+      <i class="fas fa-times-circle mr-2"></i>
+      <span class="grey--text" style="font-size: 14px">Нет в наличии</span>
     </div>
   </div>
 </template>

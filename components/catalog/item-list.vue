@@ -2,19 +2,19 @@
   <v-card class="s-card-good pa-4">
     <div>
       <nuxt-link v-if="el.isparent !== 0" :to="'/catalog/view/' + el.id">
-        <div style="position: relative;" class="mb-2">
+        <div class="mb-2" style="position: relative;">
           <v-img v-if="el.images && el.images[0]" :contain="true" style="width: 400px; height: 250px" :src="$config.baseImageURL+el.images[0]+'?height=250'" />
         </div>
-        <div class="d-flex justify-space-between mb-2">
-          <div style="margin: 3px 0; font-size: 13px">
+        <div class="d-flex flex-column flex-md-row justify-space-between mb-2">
+          <div class="s-item-list-available" style="margin: 3px 0; font-size: 13px">
             <catalog-available :value="el.store" />
           </div>
-          <div style="margin: 3px 0; font-size: 13px; color: #949494">
+          <div class="s-item-list-id" style="margin: 3px 0; font-size: 13px; color: #949494">
             Код товара: {{ el.id }}
           </div>
         </div>
-        <div class="mb-4" style="margin: 3px 0; font-size: 16px; font-weight: bold" :class="{ 'hidden-text': hiddentext }">{{ el.name }}</div>
-        <div class="my-1" style="font-size: 11px">
+        <div class="mb-4 s-item-list-name" style="margin: 3px 0; font-size: 16px; font-weight: bold" :class="{ 'hidden-text': hiddentext }">{{ el.name }}</div>
+        <div class="my-1 s-item-list-size" style="font-size: 11px">
           <div>
             <!-- <span style="color: #949494">Габариты (Д.Ш.В): </span><span>{{ el.width }}</span> -->
             <!-- <div v-if="itemList.depth && itemList.height"><span style="color: #949494">Габариты (Г.Ш.В): </span>
@@ -42,11 +42,11 @@
               
               
           </div>
-          <div>
-            <span style="color: #949494">Бренд: </span><span>{{ el.brand }}</span>
+          <div class="s-item-list-brand">
+            <span  style="color: #949494">Бренд: </span><span>{{ el.brand }}</span>
           </div>
         </div>
-        <div class="my-2" style=" font-weight: bold;">
+        <div class="my-2 s-item-list-price" style=" font-weight: bold;">
           <span v-if="el.price" style="font-size: 20px">
             <number :value="el.price" /> ₽
           </span>
@@ -64,15 +64,15 @@
           <v-img v-if="el.images && el.images[0]" :contain="true" style="width: 400px; height: 250px" :src="$config.baseImageURL+el.images[0]+'?height=250'" />
         </div>
         <div v-if="el.isparent !== 0" class="d-flex justify-space-between mb-2">
-          <div style="margin: 3px 0; font-size: 13px">
+          <div class="s-item-list-available" style="margin: 3px 0; font-size: 13px">
             <catalog-available :value="el.store" />
           </div>
-          <div style="margin: 3px 0; font-size: 13px; color: #949494">
+          <div class="s-item-list-id" style="margin: 3px 0; font-size: 13px; color: #949494">
             Код товара: {{ el.id }}
           </div>
         </div>
-        <div class="mb-4" style="margin: 3px 0; font-size: 16px; font-weight: bold" :class="{ 'hidden-text': hiddentext }">{{ el.name }}</div>
-        <div class="my-1" style="font-size: 11px">
+        <div class="mb-4 s-item-list-name" style="margin: 3px 0; font-size: 16px; font-weight: bold" :class="{ 'hidden-text': hiddentext }">{{ el.name }}</div>
+        <div class="my-1 s-item-list-size" style="font-size: 11px">
           <div v-if="el.width || el.depth || el.height">
             <!-- <span style="color: #949494">Габариты (Д.Ш.В): </span><span>{{ el.width }}</span> -->
             <!-- <div v-if="itemList.depth && itemList.height"><span style="color: #949494">Габариты (Г.Ш.В): </span>
@@ -100,11 +100,11 @@
               
               
           </div>
-          <div>
+          <div class="s-item-list-brand">
             <span v-if="el.brand" style="color: #949494">Бренд: </span><span>{{ el.brand }}</span>
           </div>
         </div>
-        <div class="my-2" v-if="el.isparent !== 0" style=" font-weight: bold;">
+        <div class="my-2 s-item-list-price" v-if="el.isparent !== 0" style=" font-weight: bold;">
           <span v-if="el.price" style="font-size: 20px">
             <number :value="el.price" /> ₽
           </span>
@@ -118,9 +118,9 @@
         </div>
       </nuxt-link>
     </div>
-    <div v-if="el.isparent !== 0" class="d-flex justify-space-between">
-      <div><v-btn @click="toCart(el)" dark class="s-btn-cart s-btn-text">В корзину</v-btn></div>
-      <div>
+    <div v-if="el.isparent !== 0" class="d-flex justify-space-between s-item-list-btn">
+      <v-btn @click="toCart(el)" dark class="s-btn-cart s-btn-text">В корзину</v-btn>
+      <div class="d-flex flex-row ms-5 s-item-list-icons">
         <v-btn @click="toFavorite(el)" icon>
           <img v-show="checkAvailable" src="/icons/like-black.svg" alt="favorite-black">
           <img v-show="!checkAvailable" src="/icons/like.svg" alt="favorite">
@@ -304,22 +304,68 @@ export default {
 };
 </script>
 
-<style lang="scss">
-  .hidden-text{
-    height: 48px;
-    position: relative;
-    hyphens: auto;
-    overflow: hidden !important;
+<style lang="scss" scoped>
+.hidden-text{
+  height: 48px;
+  position: relative;
+  hyphens: auto;
+  overflow: hidden !important;
+}
+.hidden-text:after{
+  content: "";
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 70%;
+  height: 1.2em;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), white 100%);
+  pointer-events: none;
+}
+
+
+@media screen and (max-width: 960px) {
+  .s-item-list-btn{
+    .s-btn-cart{
+      width: 50%;
+      font-size: 10px !important;
+      min-width: unset !important;
+    }
   }
-  .hidden-text:after{
-    content: "";
-    text-align: right;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 70%;
-    height: 1.2em;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0), white 100%);
-    pointer-events: none;
+}
+@media screen and (max-width: 768px) {
+  .s-item-list-available{
+    span{
+      font-size: 12px !important;
+    }
   }
+  .s-item-list-id{
+    font-size: 12px !important;
+  }
+  .s-item-list-name{
+    font-size: 14px !important;
+  }
+  .s-item-list-size{
+    span{
+      font-size: 10px !important;
+    }
+  }
+  .s-item-list-brand{
+    
+  }
+  .s-item-list-price{
+    span{ 
+      font-size: 18px !important;
+    }
+  }
+  .s-item-list-icons{
+    img{
+      width: 1.4em !important;
+    }
+  }
+}
+@media screen and (max-width: 668px) {
+  
+}
+
 </style>

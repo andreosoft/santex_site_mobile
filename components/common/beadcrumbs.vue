@@ -18,6 +18,6 @@ export default {
 <style lang="scss">
     .s-beadcrumbs a, .s-beadcrumbs span {
         color: #848484!important;
-        font-size: 14px!important;
+        font-size: 13px!important;
     }
 </style>

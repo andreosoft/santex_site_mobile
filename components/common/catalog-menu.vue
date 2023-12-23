@@ -223,6 +223,21 @@ export default {
 </script>
 
 <style lang="scss">
+.cartIcon{
+  background-color: black;
+  border-radius: 50px;
+  color: white;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  vertical-align: bottom;
+  font-size: 13px;
+  padding-top: 1px;
+  display: inline-block;
+  position: absolute;
+  right: 100px;
+  top: 85px;
+}
   @media screen and (min-width: 425px) and (max-width: 600px) {
     #numb-head{
       justify-content: flex-start !important;
@@ -233,6 +248,9 @@ export default {
     }
   }
   @media screen and (max-width: 600px) {
+    .cartIcon{
+      right: 27px !important;
+    }
     .right-up-menu{
       border-left: unset !important;
     }
