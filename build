@@ -13,7 +13,7 @@ ssh -p 22 andrey@92.63.192.228 tar -xvzf /srv/santex/site_mobile/build.tar.gz -C
 scp -i ~/.ssh/id_rsa -r -P 22 nuxt.config.js andrey@92.63.192.228:/srv/santex/site_mobile
 scp -i ~/.ssh/id_rsa -r -P 22 package.json andrey@92.63.192.228:/srv/santex/site_mobile
 
-# ssh andrey@92.63.192.228 pm2 restart 1
+ssh andrey@92.63.192.228 pm2 restart 7
 
 git add .
 git commit -m 'commit'
