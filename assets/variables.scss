@@ -34,7 +34,18 @@
   font-weight: lighter;
   font-style: italic;
 }
-
+.w-100{
+  width: 100% !important;
+}
+.w-75{
+  width: 75% !important;
+}
+.w-50{
+  width: 50% !important;
+}
+.w-25{
+  width: 25% !important;
+}
 .v-application {
   font-family: 'helveticaneuecyr', serif !important;
 }
@@ -474,8 +485,8 @@ tbody tr:nth-of-type(odd) {
   margin-top: -10px;
 }
 .s-pagination{
-  padding-left: 0;
-  align-items: center;
+    padding-left: 0 !important;
+    align-items: center;
     display: inline-flex;
     list-style-type: none;
     justify-content: center;

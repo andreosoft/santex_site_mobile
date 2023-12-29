@@ -53,7 +53,7 @@
           <span v-else style="font-size: 20px">
             Цена не указана
           </span>
-          <span class="ml-2" v-if="el.price_old"
+          <span class="ml-0" v-if="el.price_old"
             style="font-size: 13px; text-decoration: line-through; color: #949494">
             <number :value="el.price_old" /> ₽
           </span>
@@ -111,7 +111,7 @@
           <span v-else style="font-size: 20px">
             Цена не указана
           </span>
-          <span class="ml-2" v-if="el.price_old"
+          <span class="ml-0" v-if="el.price_old"
             style="font-size: 13px; text-decoration: line-through; color: #949494">
             <number :value="el.price_old" /> ₽
           </span>
@@ -349,9 +349,6 @@ export default {
     span{
       font-size: 10px !important;
     }
-  }
-  .s-item-list-brand{
-    
   }
   .s-item-list-price{
     span{ 

@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="s-card-perpage">
     <NuxtLink v-if="el.isparent == 0" :to="'/catalog/' + el.id">
       <img v-if="el.images" :src="$config.baseImageURL + el.images[0]" style="width: 100%;"/>
       <v-img v-else src="/black-square.jpg" style="width: 100%;" />

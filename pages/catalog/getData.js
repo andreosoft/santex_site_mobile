@@ -199,16 +199,25 @@ export async function getData({ route, $axios, $config }) {
     let breadcrumbsData;
     if (category_id !== undefined) {
       if(resCat){
-        breadcrumbsData = [
-          {
-            url: "/catalog/" + resCat.data.data.parent_id,
-            title: resCat.data.data.parent_name,
-          },
-          {
-            url: "/catalog/" + category_id,
-            title: title,
-          },
-        ];
+        if (resCat.data.data.parent_id){
+          breadcrumbsData = [
+            {
+              url: "/catalog/" + resCat.data.data.parent_id,
+              title: resCat.data.data.parent_name,
+            },
+            {
+              url: "/catalog/" + category_id,
+              title: title,
+            },
+          ];
+        } else {
+          breadcrumbsData = [
+            {
+              url: "/catalog/" + category_id,
+              title: title,
+            },
+          ];
+        }
       } else {
         breadcrumbsData = [
           {

@@ -1,15 +1,12 @@
 <template>
   <div>
     <v-row v-if="data[0].isparent == 0" class="s-row d-flex justify-center mb-5 mt-5">
-      <!-- {{data}} -->
-      <div>
         <!-- <img v-if="categoriesData.images" :src="$config.baseImageURL + categoriesData.images[0]" alt="banner"> -->
-        <img src="/banners/banner1.png" alt="banner">
-      </div>
-
-
-
+        <v-img style="width: 100%" src="/banners/banner1.png" alt="banner"/>
     </v-row>
+
+
+
     <!-- Избранное -->
     <v-snackbar v-model="snackbarFav">{{ dataResultFav }} <template v-slot:action="{ attrs }">
         <v-btn color="pink" text v-bind="attrs" @click="snackbarFav = false">
@@ -31,7 +28,7 @@
         </v-btn>
       </template>
     </v-snackbar>
-
+ <v-overlay :value="filterSmall"></v-overlay>
 
 
     <v-row class="s-row">
@@ -40,8 +37,15 @@
           <catalog-filter :value="valueFilters" :filters="dataFilters" @input="$emit('update-data', $event);" />
         </div>
       </v-col>
+      <v-col v-if="data[0].isparent !== 0" :class="{ 'd-block': filterSmall }" class="s-filter-col s-filter-small d-none d-md-none">
+          <transition name="fade">
+          <div>
+            <catalog-filter @filter-small="filterSmall = !filterSmall" :value="valueFilters" :filters="dataFilters" @input="emitFilters" />
+          </div>
+        </transition>
+        </v-col>
       <v-col v-if="data[0].isparent !== 0" class="col-12 pa-0 col-md-9">
-        <catalog-top-bar :count="pager.count" :sort="sort" />
+        <catalog-top-bar :count="pager.count" :sort="sort" @filter-small="filterSmall = !filterSmall" />
         <v-row v-if="loading" class="s-row">
           <v-col cols="4" v-for="(el, i) in pager.limit" :key="i">
             <v-skeleton-loader class="mx-auto" max-width="300" type="card"></v-skeleton-loader>
@@ -75,8 +79,8 @@
             <catalog-item-list :el="el" @addItemFav="addItemFav" @addItemCom="addItemCom" @addItemCart="addItemCart" />
           </v-col>
         </v-row>
-        <v-row v-else class="s-row" :class="{ close: !toggleOpen, 'catalog-items': pager.limit == 0 }">
-          <v-col cols="4" v-for="(el, i) in data" :key="i">
+        <v-row v-else class="s-row s-perpage" :class="{ close: !toggleOpen, 'catalog-items': pager.limit == 0 }">
+          <v-col class="col-md-4 col-sm-6 col-12" v-for="(el, i) in data" :key="i">
             <s-guide-style-items-el :el="el" />
           </v-col>
         </v-row>
@@ -113,7 +117,8 @@ export default {
       toggleOpen: false,
       snackbarFav: false,
       snackbarCom: false,
-      snackbarCart: false
+      snackbarCart: false,
+      filterSmall: false,
     }
   },
   computed: {
@@ -124,7 +129,16 @@ export default {
       dataResultCart: 'cart/dataResult',
     })
   },
+  watch: {
+    filterSmall: function(){
+      this.filterSmall ? document.body.querySelector('.v-application').classList.add('off_scroll') : document.body.querySelector('.v-application').classList.remove('off_scroll')
+    }
+  },
   methods: {
+    emitFilters(event) {
+      this.$emit('update-data', event);
+      this.filterSmall = false;
+    },
     addItemFav(el) {
       this.snackbarCom = false
       this.snackbarCart = false
@@ -139,7 +153,7 @@ export default {
       this.snackbarCom = false
       this.snackbarFav = false
       this.snackbarCart = el;
-    }
+    },
   }
 }
 </script>
@@ -151,12 +165,41 @@ export default {
     max-height: 550px;
   }
 }
-
-@media screen and (max-width: 768px) {
-  .s-filter-col{
-    display: none !important;
+.s-row-catalog{
+  >div.row{
+    >div:first-child{
+      padding-left: 0 !important;
+    }
+    
   }
 }
+.s-filter-small{
+  background-color: white;
+  position: fixed;
+  overflow-y:scroll;
+  width: 50%;
+  height: 100%;
+  z-index: 1000000;
+  top: 0;
+  left: 0;
+  .v-input__control{
+    height: auto !important;
+  }
+  .s-btn-cart:last-child{
+      span{
+        text-transform: none !important;
+        letter-spacing: normal;
+      } 
+  }
+}
+.off_scroll{
+  overflow: hidden !important;
+  height: 100vh;
+}
+.s-row-catalog>.row > :nth-child(3n):not(:first-child){
+      padding-right: 0 !important;
+    }
+
 @media screen and (max-width: 668px) {
   .s-row-catalog-small{
     div:first-child{
@@ -176,5 +219,22 @@ export default {
     }
   }
 }
-
+@media screen and (max-width: 600px) {
+  .s-filter-small{
+    width: 100%;
+  }
+  .s-perpage{
+    .s-btn-text{
+      font-size: 14px !important;
+      span{
+        font-size: 11px !important;
+      }
+    }
+    .s-card-perpage{
+      max-width: 350px;
+      max-height: 350px;
+      margin: 0 auto !important;
+    }
+  }
+}
 </style>

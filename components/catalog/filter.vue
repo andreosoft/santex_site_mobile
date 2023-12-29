@@ -4,7 +4,13 @@
     <!-- <div>
       <v-btn @click="onUpdateData()">Показать</v-btn>
     </div> -->
-    <catalog-filterResult @filterResult="onUpdateData" :locationRes="dy" :resultData="resultData"/>
+    <v-row class="d-flex flex-row align-center justify-end">
+      <div @click="$emit('filter-small', $event)" class="d-flex align-center justify-center">
+        <i style="width: 100%" class="fa fa-times"></i>
+      </div>
+    </v-row>
+    <h3 class="pa-0 ma-0 mb-8 "><b>Фильтр</b></h3>
+    <catalog-filterResult class="d-none d-md-block" @filterResult="onUpdateData" :locationRes="dy" :resultData="resultData"/>
     <div class="space-check">
       <catalog-price @location="locationResult" title="Цена, руб." v-model="dataPrice" :max="filters.price.max_price" :min="filters.price.min_price" />
         <catalog-brands
@@ -26,6 +32,14 @@
         </div>
       </div>
     </div>
+    <v-btn @click="onUpdateData" dark class="s-btn-cart s-btn-text w-100 d-flex d-md-none">       
+     Показать
+     <number v-if="resultData > 0" class="ml-2" :value="resultData" />
+  </v-btn>
+    <v-btn @click="clearFilters" class="s-btn-cart s-btn-text s-clear-filter w-100 mt-3 d-flex d-md-none">       
+     Сбросить фильтр
+     <img class="ml-2" src="/icons/Close catalog.svg" alt="">
+  </v-btn>
   </div>
 </template>
 
@@ -50,19 +64,6 @@ export default {
     this.initValueFilters();
   },
   watch:{
-  //   dataF: async function(){
-  //     try{
-  //       let r = {};
-  //       for (const i in this.dataF) {
-  //         if (this.dataF[i].length > 0) {
-  //           r[i] = this.dataF[i];
-  //         }
-  //       }
-  //     }
-  //     catch (error){
-  //       console.error(error)
-  //     }
-  //   },
     filters: function(){
         //  try {
            this.initValueFilters();
@@ -114,6 +115,7 @@ export default {
         // console.log(this.filters.filters[key]["filters_id"], f);
         this.$set(this.dataF, this.filters.filters[key]["filters_id"], f);
       }
+      this.resultData = 0;
         // for (const key in this.filters.brands) {
         //   if(this.filters.brands[key].brand){
         //     let f = [];
@@ -121,6 +123,20 @@ export default {
         //     this.$set(this.dataF["brands"], this.filters.brands[key].brand, f);
         //   }
         // }
+    },
+    clearFilters(){
+      this.dataF = {
+        brand: [],
+      };
+      for (const key in this.filters.filters) {
+        // let f = [];
+        // if (this.value?.f[this.filters.filters[key]["filters_id"]]){
+        //   f = this.value.f[this.filters.filters[key]["filters_id"]];
+        // } 
+        // console.log(this.filters.filters[key]["filters_id"], f);
+        this.$set(this.dataF, this.filters.filters[key]["filters_id"], []);
+      }
+      this.resultData = 0;
     },
     onUpdateData() {
       let r = {};
@@ -139,6 +155,10 @@ export default {
     },
     locationResult: debounce(async function(v){
       try {
+        let w = Object.values(this.dataF).find(item => {return item.length>0});
+        if(!w){
+          this.resultData = 0;
+        } else {
         // console.log(v);
         let rect = v.getBoundingClientRect();
         // console.log(rect);
@@ -212,10 +232,18 @@ export default {
           });
         }
         this.resultData = res ? res.data.data : resPromote.data.data
-      } catch (error) {
+      }} catch (error) {
         console.error(error)
       }
     }, 1000)
   }
 };
 </script>
+
+<style lang="scss">
+  .s-clear-filter{
+    background-color: #e0e0e0 !important;
+    border: unset !important;
+  }
+
+</style>

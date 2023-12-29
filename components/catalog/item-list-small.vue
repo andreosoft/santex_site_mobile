@@ -60,16 +60,18 @@
               </div>
             </div>
             <div class="wrapper"></div>
-            <div class="my-2 d-flex flex-row justify-space-between align-center s-item-list-price" style=" font-weight: bold;">
-              <span v-if="el.price" style="font-size: 20px">
-                <number :value="el.price" /> ₽
-              </span>
-              <span v-else style="font-size: 20px">
-                Цена не указана
-              </span>
-              <span class="ml-2" v-if="el.price_old" style="font-size: 13px; text-decoration: line-through; color: #949494">
-                <number :value="el.price_old" /> ₽
-              </span>
+            <div class="my-2 my-sm-0 d-flex flex-row justify-space-between align-center s-item-list-price" style=" font-weight: bold;">
+              <div class="d-flex flex-column align-end">
+                <span v-if="el.price" class="s-item-list-price-main" style="font-size: 20px">
+                  <number :value="el.price" /> ₽
+                </span>
+                <span v-else class="s-item-list-price-second" style="font-size: 20px">
+                  Цена не указана
+                </span>
+                <span class="mx-2" v-if="el.price_old" style="font-size: 13px; text-decoration: line-through; color: #949494">
+                  <number :value="el.price_old" /> ₽
+                </span>
+              </div>
               <v-btn @click="toCart(el)" dark class="s-btn-cart s-btn-text">В корзину</v-btn>
             </div>
           </nuxt-link>
@@ -267,37 +269,22 @@ export default {
 }
 .s-item-list-icons {
   p{
-    font-size: 10px !important;
+    font-size: 12px !important;
     color: rgb(129, 129, 129);
-    text-transform: unset !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
   }
   button{
     border: unset !important;
     background-color: unset !important;
   }
 }
-.s-item-list-available{
-  span{
-    
-  }
-}
 .s-item-list-id{
   font-size: 14px !important;
-}
-.s-item-list-name{
-  
 }
 .s-item-list-size{
   span{
     font-size: 12px !important;
-  }
-}
-.s-item-list-brand{
-  
-}
-.s-item-list-price{
-  span{ 
-    
   }
 }
 .s-item-list-icons{
@@ -307,9 +294,10 @@ export default {
 }
 
 .s-item-list-price{
-  >span:first-child{
+  >.s-item-list-price-main{
     font-size: 25px !important;
   }
+
 }
 .hidden-text{
   height: 48px;
@@ -345,12 +333,43 @@ export default {
     width: 120px !important;
     height: 120px !important;
   }
+  .s-item-list-price{
+    .s-item-list-price-second{
+      font-size: 17px !important;
+    }
+    >.s-btn-cart{
+      span{
+        font-size: 12px !important;
+      }
+    }
+  }
 }
 @media screen and (max-width: 466px) {
   .s-item-list-img{
     width: 100px !important;
     height: 140px !important;
     max-height: 100% !important;
+  }
+  .s-item-list-price{
+    .s-item-list-price-second{
+      font-size: 15px !important;
+    }
+    >.s-btn-cart{
+      span{
+        font-size: 10px !important;
+      }
+    }
+  }
+}
+@media screen and (max-width: 456px) {
+  .s-item-list-price{
+    >.s-item-list-price-main{
+      font-size: 19px !important;
+    }
+    .s-btn-cart{
+      font-size: 10px !important;
+      max-width: 110px !important;
+    }
   }
 }
 @media screen and (max-width: 425px) {
@@ -362,9 +381,6 @@ export default {
   .s-item-list-id{
     font-size: 12px !important;
   }
-  .s-item-list-name{
-    
-  }
   .s-item-list-size{
     span{
       font-size: 12px !important;
@@ -372,21 +388,20 @@ export default {
   }
   
   .s-item-list-price{
-    >span:first-child{
+    >.s-item-list-price-main{
       font-size: 23px !important;
     }
-    .s-btn-cart{
-      font-size: 12px !important;
+    >.s-btn-cart{
+      span{
+        font-size: 9px !important;
+      }
     }
   }
 }
-@media screen and (max-width: 456px) {
+@media screen and (max-width: 404px) {
   .s-item-list-price{
-    >span:first-child{
-      font-size: 19px !important;
-    }
-    .s-btn-cart{
-      font-size: 10px !important;
+    .s-item-list-price-second{
+      font-size: 12px !important;
     }
   }
 }
