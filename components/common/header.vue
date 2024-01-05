@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="s-header-parent-main">
     <common-top class="d-none d-sm-block" />
     <v-container>
       <!-- <div class="py-4 mb-6 d">
@@ -133,15 +133,15 @@ export default {
 
 
 <style lang="scss">
-.v-input__control{
+.s-header-parent-main > .v-input__control{
   background-color: #FFF;
   margin: 0 !important;
   height: 40px;
 }
-.v-text-field__details{
+.s-header-parent-main > .v-text-field__details{
   display: none;
 }
-.wrapper{
+.s-header-parent-main > .wrapper{ 
   flex-grow: 1;
 }
 @media screen and (max-width: 425px) {

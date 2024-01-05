@@ -7,7 +7,7 @@
                         <v-btn icon @click="$emit('closePopUp')"><img src="/icons/close_menu.svg" /></v-btn>
                     </div>
                 </div>
-                <div style="margin: 10px 64px 10px 64px;">
+                <div class="s-popup-main" style="margin: 10px 64px 10px 64px;">
                     <h2>Запись на консультацию онлайн</h2>
                     <v-divider class="mb-8" />
                     <div v-if="view == 1">
@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                             <v-row>
-                                <v-col cols="6">
+                                <v-col class="col-12 col-sm-6 px-0 pr-sm-3 py-0 pb-sm-3">
                                     <div>
                                         <div class="mb-2"><b>Ваш e-mail</b></div>
                                         <div>
@@ -79,6 +79,7 @@
                                                     </v-text-field>
                                                 </template>
                                                 <v-date-picker
+                                                class="s-date-picker"
                                                 v-model="data.date_request"
                                                 locale="ru"
                                                 no-title
@@ -96,8 +97,8 @@
                                         </div>
                                     </div>
                                 </v-col>
-                                <v-col cols="6">
-                                    <div>
+                                <v-col class="col-12 col-sm-6 px-0 pl-sm-3 pt-0 pb-sm-3">
+                                    <div class="">
                                         <div class="mb-2"><b>Контактный телефон</b></div>
                                         <div>
                                             <ValidationProvider name="phone" rules="length:18" v-slot="{ errors }">
@@ -135,12 +136,12 @@
                                                     >
                                                     </v-text-field>
                                                 </template>
-                                                <s-time-picker v-model="data.time_request" @input="menuTime = false">
+                                                <s-time-picker class="s-time-picker" v-model="data.time_request" @input="menuTime = false">
                                                 </s-time-picker>
                                             </v-menu>
                                         </div>
                                     </div>
-                                    <div style="padding-top: 32px;">
+                                    <div class="mt-sm-8">
                                         <v-btn class="s-btn-text" dark style="width:100%; height: 56px;" large @click="handleSubmit(orderСonsult)">Заказать
                                             консультацию
                                         </v-btn>
@@ -261,3 +262,20 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+@media screen and (max-width: 700px) {
+    .s-popup {
+        .v-messages__message{
+            font-size: 9px !important;
+        }
+    }
+}
+@media screen and (max-width: 600px) {
+    .s-popup {
+        .v-messages__message{
+            font-size: 12px !important;
+        }
+    }
+}
+</style>

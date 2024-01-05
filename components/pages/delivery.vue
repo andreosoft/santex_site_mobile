@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div class="s-pages-main">
         <h1>Доставка</h1>
         <div>
-            <v-row>
-                <v-col cols="6">
+            <v-row class="s-pages-row">
+                <v-col class="pl-0 col-sm-6 col-12">
                     <div>
-                        <h3 class="mb-4">Варианты доставки в г. Москва</h3>
+                        <h4 class="mb-4">Варианты доставки в <span style="text-decoration: underline">г. Москва</span></h4>
                         <div class="d-flex">
                             <div class="mr-8"><i class="fas fa-check-circle"></i></div>
                             <div>
@@ -24,16 +24,16 @@
                         </div>
                     </div>
                 </v-col>
-                <v-col cols="6">
-                    <div>
-                        <v-img src="/img/about/4.png" />
+                <v-col class="col-sm-6 col-12">
+                    <div class="w-120 h-100">
+                        <v-img class="w-100 h-100 s-delivery-img" src="/img/about/4.png" />
                     </div>
                 </v-col>
             </v-row>
         </div>
         <common-divider1 />
         <div>
-            <h3 class="mb-4">Правила предоставления услуг в москве</h3>
+            <h4 class="mb-4">Правила предоставления услуг в Москве</h4>
             <div class="d-flex mb-4">
                 <v-btn dark class="s-btn-text">Доставка</v-btn>
                 <v-btn class="s-btn-text ml-4">Правила приема товаров</v-btn>

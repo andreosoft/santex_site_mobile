@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="s-pages-main">
         <h1>Оплата</h1>
         <div>
-            <v-row>
-                <v-col cols="6">
+            <v-row class="s-pages-row">
+                <v-col class="pl-0 col-sm-7 col-12">
                     <div>
                         <p>Заказывайте товары из нашего онлайн-каталога и оплачивайте
                             их любым удобным способом – наличными, картой, безналичным
@@ -11,7 +11,7 @@
                             документы.</p>
                     </div>
                 </v-col>
-                <v-col cols="6">
+                <v-col class="pl-0 col-sm-5 col-12">
                     <div>
                         <v-img style="max-width: 300px" src="/img/about/5.png" />
                     </div>

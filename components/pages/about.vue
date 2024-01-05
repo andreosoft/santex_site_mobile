@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="s-pages-main">
         <h1>О компании</h1>
         <div>
             <common-video fullWidth :item="videoItem" />
@@ -19,7 +19,7 @@
 
         <div>
             <v-row>
-                <v-col cols="6">
+                <v-col class="col-12 col-md-6">
                     <div class="s-timeline-wrapper">
                         <div class="s-timeline-line"></div>
                         <div class="s-timeline">
@@ -78,9 +78,9 @@
                         </div>
                     </div>
                 </v-col>
-                <v-col cols="6">
+                <v-col class="col-12 col-md-6">
                     <v-img src="/img/main-block1.png" />
-                    <div class="mt-16 text-center">
+                    <div class="mt-16 text-center s-about-img">
                         <v-btn dark class="s-btn-main s-btn-text" @click="showPopupConsult = true">Заказать консультацию</v-btn>
                     </div>
                 </v-col>
@@ -91,10 +91,10 @@
         <div>
             <div v-for="(el, i) in aboutCommand" :key="i">
                 <v-row>
-                    <v-col cols="4" class="mb-16">
-                        <v-img :src="$config.baseImageURL + el.images[0]" />
+                    <v-col class="mb-16 col-12 col-sm-4 ">
+                        <v-img class="s-about-images" :src="$config.baseImageURL + el.images[0]" />
                     </v-col>
-                    <v-col cols="8" class="mb-16">
+                    <v-col class="mb-16 col-12 col-sm-8">
                         <h3><b>{{ el.name }}</b></h3>
                         <div v-html="el.content" />
                         <p class="mt-3"><b>E-mail:</b> {{ el.params.email }} </p>

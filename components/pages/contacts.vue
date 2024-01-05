@@ -1,45 +1,45 @@
 <template>
-    <div>
+    <div class="s-pages-main">
         <h1>Контакты</h1>
         <v-row>
-            <v-col cols="8">
+            <v-col class="col-12 col-sm-8 px-0">
                 <p class="grey--text"><b>АДРЕС</b></p>
-                <p style="font-size: 22px; ">г. Москва, Волгоградский проспект, д. 32, корпус 25,<br/>
+                <p style="font-size: 18px;">г. Москва, Волгоградский проспект, д. 32, корпус 25,<br/>
                     ТЦ «Метр квадратный», 2 этаж, пав. № 66-67-96</p>
             </v-col>
-            <v-col cols="4">
+            <v-col class="col-12 col-sm-4 px-0 pl-sm-3">
                 <p class="grey--text">
                     <b>Режим работы</b>
                 </p>
-                <p style="font-size: 22px;">
+                <p style="font-size: 18px;">
                     Ежедневно с 10:00 до 20:00
                 </p>
             </v-col>
         </v-row>
         <v-row>
-            <v-col cols="8">
+            <v-col class="col-12 col-sm-8 px-0 s-contacts-phones">
                 <p class="grey--text"><b>ТЕЛЕФОНЫ</b></p>
                 <v-row>
-                    <v-col cols="6">
-                        <h4 class="pb-2"><a href="tel://88007759985">8 (800) 775-99-85</a></h4>
+                    <v-col cols="6" class="pl-0">
+                        <h4 class="pb-2" style="font-size: 18px;"><a href="tel://88007759985">8 (800) 775-99-85</a></h4>
                         <p>Звонок по России бесплатный</p>
                     </v-col>
-                    <v-col cols="6">
-                        <h4 class="pb-2"><a href="tel://88007759985">8 (495) 225 62 85</a></h4>
+                    <v-col cols="6" class="pr-0">
+                        <h4 class="pb-2" style="font-size: 18px;"><a href="tel://88007759985">8 (495) 225 62 85</a></h4>
                         <p>Ежедневно с 10:00 до 20:00</p>
                     </v-col>
                 </v-row>
             </v-col>
-            <v-col cols="4">
+            <v-col class="col-12 col-sm-4 px-0 pl-sm-3">
                 <p class="grey--text">
                     <b>E-mail</b>
                 </p>
-                <h4><a href="mailto:info@santax.ru">info@santax.ru</a></h4>
+                <h4 style="font-size: 18px;"><a href="mailto:info@santax.ru">info@santax.ru</a></h4>
             </v-col>
         </v-row>
-        <v-row class="mb-4">
-            <v-col cols="4">
-                <a class="d-flex align-center mb-6 ">
+        <v-row class="mb-4 s-contacts-col">
+            <v-col class="col-12 col-sm-4 pl-0 d-flex d-sm-block s-contacts-col">
+                <a class="d-flex align-center mb-sm-6 mr-10 mr-sm-0">
                     <div class="pa-1 pr-4"><img src="/icons/contact/inst.png" /></div>
                     <div>
                         <div class="grey--text"><b>Instagram</b></div>
@@ -47,15 +47,15 @@
                     </div>
                 </a>
                 <a class="d-flex align-center">
-                    <div class="pa-1 pr-4"><img src="/icons/contact/inst.png" /></div>
+                    <div class="pa-1 pr-4 d-sm-block d-none"><img src="/icons/contact/inst.png" /></div>
                     <div>
                         <div class="grey--text"><b>Instagram</b></div>
                         <div><b>tanya_prodesign</b></div>
                     </div>
                 </a>
             </v-col>
-            <v-col cols="4">
-                <a class="d-flex align-center mb-6 ">
+            <v-col class="col-12 pl-0 pl-sm-3 col-md-4 col-sm-8 d-flex d-sm-block s-contacts-col">
+                <a class="d-flex align-center mb-sm-6 mr-10 mr-sm-0">
                     <div class="pa-1 pr-4"><img src="/icons/contact/whatsapp.png" /></div>
                     <div>
                         <div class="grey--text"><b>WhatsApp</b></div>
@@ -63,15 +63,15 @@
                     </div>
                 </a>
                 <a class="d-flex align-center">
-                    <div class="pa-1 pr-4"><img src="/icons/contact/whatsapp.png" /></div>
+                    <div class="pa-1 pr-4 d-sm-block d-none"><img src="/icons/contact/whatsapp.png" /></div>
                     <div>
                         <div class="grey--text"><b>WhatsApp</b></div>
                         <div><b>8 (495) 225-62-85</b></div>
                     </div>
                 </a>
             </v-col>
-            <v-col cols="4">
-                <a class="d-flex align-center mb-6 ">
+            <v-col class="col-md-4 col-12 px-0" >
+                <a class="d-flex align-center mb-6">
                     <div class="pa-1 pr-4"><img src="/icons/contact/youtube.png" /></div>
                     <div>
                         <div class="grey--text"><b>Youtube</b></div>
@@ -118,12 +118,12 @@
         </div>
         <common-divider1 />
         <div class="mb-8">
-            <h2 class="text-center">Фотографии салона</h2>
+            <h2 class="text-center s-contacts-photo_title">Фотографии салона</h2>
             <div>
                 <div class="mb-4">
                     <v-img src="/img/contact/2.png" />
                 </div>
-                <div class="d-flex justify-center">
+                <div class="d-flex justify-center s-contacts-photos">
                     <div class="d-flex">
                         <div class="ma-4" style="max-width: 200px">
                             <v-img src="/img/contact/3.png" />

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="s-static-main">
         <v-container>
             <s-header title="Правила приемки" :breadcrumbsData="breadcrumbsData" />
                 <div class="parentBlock">

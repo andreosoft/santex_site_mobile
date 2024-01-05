@@ -205,6 +205,10 @@ export default {
           to: "/pages/contacts",
           title: "Контакты",
         },
+        {
+          to: "/pages/garanty",
+          title: "Гарантия и возвраты",
+        }
       ],
     };
   },
