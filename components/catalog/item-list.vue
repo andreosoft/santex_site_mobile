@@ -43,7 +43,7 @@
               
           </div>
           <div class="s-item-list-brand">
-            <span  style="color: #949494">Бренд: </span><span>{{ el.brand }}</span>
+            <span style="color: #949494">Бренд: </span><span>{{ el.brand }}</span>
           </div>
         </div>
         <div class="my-2 s-item-list-price" style=" font-weight: bold;">
@@ -168,7 +168,7 @@ export default {
     checkAvailable(){
       const sim = this.dataFav.find((item) => {if(item.id === this.el.id){ return item }});
         if (sim) {return true;} else {return false;}
-    }
+    },
   },
   methods: {
     async toCompare(el){
@@ -178,6 +178,7 @@ export default {
         // console.log(dataCom);
         let item = {
           id: el.id,
+          category_id: el.category_id,
           name: el.name,
           image: el.images ? el.images[0] : '',
           price: el.price,

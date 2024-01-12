@@ -3,20 +3,20 @@
     <div class="mb-10">
       <div style="position: relative;">
         <nuxt-link :to="'/catalog/view/' + el.id">
-          <v-img style="width: 400px; height: 250px" :src="$config.baseImageURL+el.image+'?width=270&height=270'" />
+          <v-img class="s-compare-img" style="width: 400px; height: 250px" :src="$config.baseImageURL+el.image+'?width=270&height=270'" />
         </nuxt-link>
         <div style="position: absolute; right: 0px; top: -10px">
           <v-btn @click="removeItem(el)" icon style="padding-bottom: 4px;"><i style="font-size: 20px;" class="grey--text fas fa-times-circle"></i></v-btn>
         </div>
       </div>
-      <div class="d-flex justify-space-between mb-4">
-        <div style="margin: 3px 0; font-size: 13px">
+      <div class="d-flex justify-space-between my-4">
+        <div class="d-none d-sm-block" style="margin: 3px 0; font-size: 13px">
           <catalog-available :value="el.store" />
         </div>
         <div style="margin: 3px 0; font-size: 13px; color: #949494">
             Код товара: {{ el.id }}
           </div>
-        </div>
+      </div>
         <!-- <div> -->
           
           <div :class="{'mb-4': true, 'titleItem': true}">{{ el.name }} </div>
@@ -34,16 +34,24 @@
             <span style="color: #949494">Бренд: </span><span>{{ el.brand }}</span>
           </div>
         </div> -->
-        <div class="my-2" style=" font-weight: bold;">
+        <div class="my-2 d-flex flex-row justify-space-between" style=" font-weight: bold;">
           <span style="font-size: 20px; font-weight: bold;">
             <number :value="el.price" /> ₽
-          </span><span class="ml-2" v-if="el.old_price"
+          </span>
+          <span
+          class="ml-2"
+          v-if="el.old_price"
           style="font-size: 13px; text-decoration: line-through; color: #949494">
-          <number :value="el.old_price" /> ₽
-        </span>
+            <number :value="el.old_price" /> ₽
+          </span>
+          <div class="d-sm-none">
+            <v-btn @click="toCart(el)" dark class="s-btn-text">
+              <i class="fas fa-shopping-cart"></i>
+            </v-btn>
+          </div>
       </div>
     </div>
-    <div class="d-flex justify-space-between align-center">
+    <div class="d-none d-sm-flex justify-space-between align-center">
       <div><v-btn @click="toCart(el)" dark class="s-btn-cart s-btn-text">В корзину</v-btn></div>
       <div>
         <v-btn @click="toFavorite(el)" plain small>
@@ -190,6 +198,20 @@ export default {
 </script>
 
 <style lang="scss">
+@media screen and (max-width: 600px) {
+  .s-compare-img{
+    width: 100% !important;
+    height: 200px !important;
+  }
+  .s-card-campare{
+    height: 400px !important;
+  }
+}
+.s-compare-items{
+  >div:first-child>div>.s-card-campare{
+    border-left: 1px solid #DBDBDB!important;
+  }
+}
 .s-card-campare {
   display: flex !important;
   flex-direction: column !important;

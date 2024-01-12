@@ -26,14 +26,14 @@
 
         <v-divider class="mb-8" />
         <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
-        <div class="d-flex justify-space-between">
+        <div class="d-flex justify-space-between s-static-main">
             <h1>{{ title }}</h1>
-            <div>
+            <div class="s-clear-btn">
                 <v-btn v-show="dataFav.length !== 0" @click="removeAll" outlined class="mb-5 pt-2 pb-2 clearBtn">Очистить список <img src="/icons/del_card.svg" class="del_card ms-2" /></v-btn>
             </div>
         </div>
-        <v-divider class="mb-10" />
-        <div v-if="dataFav.length == 0" style="padding: 120px 0;" class="text-center">
+        <v-divider class="mb-10 s-fav-divider" :class="{ 'd-block': dataFav.length == 0 }" />
+        <div v-if="dataFav.length == 0" style="padding: 120px 0;" class="text-center s-fav-empty">
             <div style="font-weight: bold; font-size: 46px;">В избранном пусто</div>
             <div style="font-size: 20px; margin: 5px 0 30px 0;">Перейдите в каталог</div>
             <div>
@@ -41,10 +41,17 @@
             </div>
           </div>
         <div v-show="dataFav.length !== 0">
-            <v-row class="s-row">
-                <v-col cols="3" v-for="(el, i) in dataFav" :key="i">
-                    <favorite-item-list :el="el" @removeItemFav="removeItem" @addItemCart="addItemCart" @addItemCom="addItemCom" />
-                </v-col>
+            <v-row class="s-row s-row-catalog px-0">
+                <v-row>
+                    <v-col class="col-4 px-2" v-for="(el, i) in dataFav" :key="i">
+                        <favorite-item-list :el="el" @removeItemFav="removeItem" @addItemCart="addItemCart" @addItemCom="addItemCom" />
+                    </v-col>
+                </v-row>
+                <v-row class="d-none s-row-catalog-small">
+                    <v-col class="pa-0" cols="12" v-for="(el, i) in dataFav" :key="i">
+                      <favorite-item-list-small :el="el" @removeItemFav="removeItem" @addItemCart="addItemCart" @addItemCom="addItemCom" />
+                    </v-col>
+                  </v-row>
             </v-row>
         </div>
     </v-container>
@@ -171,3 +178,28 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+@media screen and (max-width: 600px) {
+    .s-fav-empty{
+        >div:first-child{
+            font-size: 40px !important;
+        }
+        >div:nth-child(2){
+            font-size: 18px !important;
+        }
+    }
+    
+}
+@media screen and (max-width: 425px) {
+    .s-fav-empty{
+        >div:first-child{
+            font-size: 30px !important;
+        }
+        >div:nth-child(2){
+            font-size: 15px !important;
+        }
+    }
+    
+}
+</style>

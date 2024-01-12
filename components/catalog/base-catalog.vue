@@ -28,7 +28,7 @@
         </v-btn>
       </template>
     </v-snackbar>
- <v-overlay :value="filterSmall"></v-overlay>
+  <v-overlay :value="filterSmall"></v-overlay>
 
 
     <v-row class="s-row">
@@ -207,6 +207,12 @@ export default {
         border-top: 1px solid #c0c0c0 !important;
       }
     }
+  }
+  .s-fav-divider{
+    display: none;
+  }
+  .s-clear-btn{
+    display: none;
   }
   .s-row-catalog{
     display: flex;

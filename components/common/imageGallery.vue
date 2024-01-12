@@ -19,14 +19,25 @@
       margin-bottom: 3px;" class="fa fa-play"></i></v-btn>
                 </div>
               </v-card> -->
-                <v-card v-for="(el, i) in images" :key="i" class="ma-2 s-catalog-gallery d-sm-block d-none"
-                    :class="{ active: galleryModel == i }" @click="galleryModel = i">
-                    <v-img width="100" height="100" :src="$config.baseImageURL + el + '?height=100'" :contain="true"/>
-                </v-card>
-                <v-card v-for="(el, i) in images" :key="i" style="border-radius: 50px; height: 15px; width: 15px" class="ma-2 s-catalog-gallery-small d-block d-sm-none"
-                    :class="{ active: galleryModel == i }" @click="galleryModel = i">
-                    <!-- <v-img width="100" height="100" :src="$config.baseImageURL + el + '?height=100'" :contain="true"/> -->
-                </v-card>
+              <div class="d-sm-flex flex-row d-none">
+                  <v-card 
+                  v-for="(el, ind) in images" 
+                  :key="ind" 
+                  class="ma-2 s-catalog-gallery "
+                  :class="{ active: galleryModel == ind }" @click="galleryModel = ind">
+                      <v-img width="100" height="100" :src="$config.baseImageURL + el + '?height=100'" :contain="true"/>
+                  </v-card>
+              </div>
+<div class="d-flex flex-row d-sm-none ">
+    <v-card 
+    v-for="(el, i) in images" 
+    :key="i" 
+    style="border-radius: 50px; height: 15px; width: 15px" 
+    class="ma-2 s-catalog-gallery-small "
+    :class="{ active: galleryModel == i }" @click="galleryModel = i">
+
+    </v-card>
+</div>
             </div>
         </div>
     </div>

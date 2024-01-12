@@ -3,36 +3,41 @@
         <v-divider class="mb-8" />
 
         <!-- Сравнение -->
-        <v-snackbar v-model="snackbarCom">{{ dataResultCom }} <template v-slot:action="{ attrs }">
+        <v-snackbar v-model="snackbarCom">
+            {{ dataResultCom }} 
+            <template v-slot:action="{ attrs }">
             <v-btn color="pink" text v-bind="attrs" @click="snackbarCom = false">
               Закрыть
             </v-btn>
           </template>
           </v-snackbar>
 <!-- Избранное -->
-<v-snackbar v-model="snackbarFav">{{ dataResultFav }} <template v-slot:action="{ attrs }">
+<v-snackbar v-model="snackbarFav">
+    {{ dataResultFav }} 
+    <template v-slot:action="{ attrs }">
     <v-btn color="pink" text v-bind="attrs" @click="snackbarFav = false">
       Закрыть
     </v-btn>
   </template>
   </v-snackbar>
   <!-- Корзина -->
-          <v-snackbar v-model="snackbarCart">{{ dataResultCart }} <template v-slot:action="{ attrs }">
+          <v-snackbar v-model="snackbarCart">
+            {{ dataResultCart }}
+            <template v-slot:action="{ attrs }">
     <v-btn color="pink" text v-bind="attrs" @click="snackbarCart = false">
       Закрыть
     </v-btn>
   </template>
   </v-snackbar>
-  
 
         <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
-        <div class="d-flex justify-space-between">
+        <div class="d-flex justify-space-between s-static-main">
             <h1>{{ title }}</h1>
-            <div>
+            <div class="d-none d-sm-block">
                 <v-btn v-show="dataCom.length !== 0" @click="removeAll" outlined class="mb-5 pt-2 pb-2 clearBtn">Очистить список <img src="/icons/del_card.svg" class="del_card ms-2" /></v-btn>
             </div>
         </div>
-        <v-divider class="mb-10" />
+        <v-divider class="mb-10 d-none d-md-block" />
         <div v-show="dataCom.length == 0" style="padding: 120px 0;" class="text-center">
             <div style="font-weight: bold; font-size: 46px;">В сравнении товаров пусто</div>
             <div style="font-size: 20px; margin: 5px 0 30px 0;">Перейдите в каталог</div>
@@ -41,8 +46,8 @@
             </div>
         </div>
         <div v-show="dataCom.length !== 0">
-            <div class="d-flex">
-                <div>
+            <div class="d-flex flex-column flex-md-row">
+                <div class="d-none d-md-block">
                     <div class="mb-10" style="height: 547.5px; border: 1px solid #DBDBDB; padding: 60px 20px 30px 20px;">
                         <div class="mb-8" style="font-size: 20px; font-weight: bold;">
                             Добавлено: {{ countCom }} шт.
@@ -83,24 +88,64 @@
                         </div>
                     </div>
                 </div>
+                <v-col style="overflow: auto;" cols="12" class="w-100 flex-column px-0 d-flex mb-8 s-catalog-links-compare">
+                    <div class="d-flex w-100 s-catalog-links-common">
+                        <v-col
+                        cols="auto"
+                        v-for="(el, i) in paramsCom" 
+                        :key="i" 
+                        class="s-catalog-links-el pb-0 mr-8 d-flex flex-row"
+                        @click="valueList = el"
+                        :class="{active: el == valueList}"
+                        >
+                        <p>{{ el }}</p>
+                        <span v-if="el == 'Все товары'" class="grey--text ml-3">{{ dataCom.length }}</span>
+                        <span v-else class="grey--text ml-3">{{ otherLength(el) }}</span>
+                        </v-col>
+                    </div>
+                <!-- <div class="s-catalog-hr w-100 ma-0 pa-0"></div> -->
+                </v-col>
+                    <div class="d-md-none d-flex flex-row">
+                        <div :class="noDifference" class="mr-4">
+                            <p @click="activeDifference">
+                                <i class="fa-regular mr-2" :class="hasDistinction"></i>
+                                Только отличия
+                            </p>
+                        </div>
+                        <div class="triggerInput">
+                            <p @click="activeAllParams">
+                                <i 
+                                class="fa-regular mr-2" 
+                                :class="{'fa-circle-check': (!differenceInput) || (dataDifFilters.length == 0), 'fa-circle': (differenceInput) && (dataDifFilters.length > 0)}">
+                                </i> 
+                                Все параметры
+                            </p>
+                        </div>
+                    </div>
                 <div style="overflow: auto">
                     <div>
-                        <div class="d-flex">
+                        <div class="d-flex s-compare-items">
                             <div style="width: 300px" v-for="(item, ind) in visibleItems" :key="ind">
                                 <div class="mb-10">
                                 <catalog-item-list-compare :el="item" @removeItemCom="removeItem" @addItemFav="addItemFav" @addItemCart="addItemCart" />
                                 </div>
-                                <div v-if="differenceInput" class="s-comapre-table">
-                                    <div v-for="(param, index, i) in differenceItems" class="s-comapre-table-row">
-                                    <div>
-                                        {{ item.dataParams[param] ? item.dataParams[param] : '–' }}
+                                <div v-if="differenceInput" class="s-comapre-table" :class="{'mb40': ind > 0}">
+                                    <div v-for="(param, index, i) in differenceItems">
+                                    <p v-if="ind == 0" class="mt-8 mb-1 grey--text">{{ param }}</p>
+                                    <div class="s-comapre-table-row">
+                                        <div>
+                                            {{ item.dataParams[param] ? item.dataParams[param] : '–' }}
+                                        </div>
                                     </div>
                                     </div>
                                 </div>
-                                <div v-else class="s-comapre-table">
-                                    <div v-for="(param, index, i) in dataParameters" class="s-comapre-table-row">
-                                    <div>
-                                        {{ item.dataParams[param] ? item.dataParams[param] : '–' }}
+                                <div v-else-if="!differenceInput" class="s-comapre-table" :class="{'mb40': ind > 0}">
+                                    <div v-for="(param, index, i) in dataParameters" >
+                                    <p v-if="ind == 0" class="mt-8 mb-1 grey--text">{{ param }}</p>
+                                    <div class="s-comapre-table-row">
+                                        <div>
+                                            {{ item.dataParams[param] ? item.dataParams[param] : '–' }}
+                                        </div>
                                     </div>
                                     </div>
                                 </div>
@@ -116,6 +161,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { uniq } from 'lodash';
 export default {
     data() {
         return {
@@ -130,29 +176,77 @@ export default {
             snackbarCart: false
         }
     },
+    watch: {
+        differenceInput(){
+         this.allParamInput = !this.differenceInput
+        },
+        allParamInput(){
+        // this.differenceItems?.length == 0
+         this.differenceInput = !this.allParamInput
+        },
+        dataDifFilters(){
+        if(this.dataDifFilters?.length == 0){
+            this.allParamInput = true
+            this.differenceInput = false
+        }
+        }
+    },
     computed: {
         ...mapGetters({
             dataCom: 'compare/compareData',
             countCom: 'compare/countItems',
             dataResultCom: 'compare/dataResult',
             dataResultCart: 'cart/dataResult',
-            dataResultFav: 'favorite/dataResult'
+            dataResultFav: 'favorite/dataResult',
+            categoriesParent: 'getCategories'
         }),
+        hasDifference() {
+            if(this.dataDifFilters?.length == 0){
+                return false
+            } else {
+                return true
+            }
+        },
         hasDistinction: function(){
             return {
-                'fa-circle-check': this.differenceInput,
-                'fa-circle': (!this.differenceInput) || (this.dataDifFilters.length == 0) || (this.valueList !== "Все товары")
+                'fa-circle-check': (this.differenceInput) && (this.dataDifFilters.length > 0),
+                'fa-circle': (!this.differenceInput) || (this.dataDifFilters.length == 0)
             }
         },
         paramsCom(){
-            let arr = [];
-            arr[0] = "Все товары";
-            this.dataCom?.map((obj) => {arr.push(obj.name);})
-            return arr;
+            const arr = ["Все товары"];
+            this.dataCom?.map((obj) => {arr.push(obj.category_id);})
+            arr.forEach((item, i) => {
+                if(i>0){
+                    this.categoriesParent.forEach(el => {
+                        el.content.forEach(el_sub => {
+                            if(el_sub.id == item){
+                                    arr[i] = el_sub.name
+                            }
+                        })
+                    })
+                }
+            })
+            return uniq(arr);
         },
         visibleItems(){
             this.visibleArrItems = [];
-            this.valueList !== "Все товары" ? this.visibleArrItems.push(this.dataCom.find(el => el.name == this.valueList)) : this.visibleArrItems = this.dataCom;
+            if(this.valueList !== "Все товары"){
+                this.categoriesParent.forEach(el => {
+                        el.content.forEach(el_sub => {
+                            if(el_sub.name == this.valueList){
+                                this.dataCom.forEach(el => {
+                                    if(el.category_id == el_sub.id){
+                                        this.visibleArrItems.push(el);
+                                    }
+                                })
+                            }
+                        })
+                    })
+            } 
+            else{
+                this.visibleArrItems = this.dataCom;
+            }
             // let arr = [val];
             return this.visibleArrItems;
         },
@@ -189,17 +283,41 @@ export default {
                     return this.dataDifFilters;
                 };
             },
-            noDifference: function () {
+        noDifference: function () {
                 return{
                     // true: this.dataDifFilters?.length !== 0 && this.valueList == "Все товары",
                     // false: this.dataDifFilters?.length === 0 && this.valueList !== "Все товары",
-                    'grey--text': (this.differenceItems?.length == 0) || (this.valueList !== "Все товары"),
+                    'grey--text': (this.differenceItems?.length == 0),
                     'mb-4': true,
                     'triggerInput': true
                 }
             }
     },
     methods: {
+        otherLength(param){
+            return this.dataCom.filter(el => el.category_id == this.subCategory(param)).length
+        },
+        subCategory(param){
+            let ret;
+            if(typeof param == 'number'){
+                this.categoriesParent.forEach(el => {
+                            el.content.forEach(el_sub => {
+                                if(el_sub.id == param){
+                                        ret = el_sub.name
+                                }
+                            })
+                        })
+            } else{
+                this.categoriesParent.forEach(el => {
+                            el.content.forEach(el_sub => {
+                                if(el_sub.name == param){
+                                        ret = el_sub.id
+                                }
+                            })
+                        })
+            }
+            return ret
+        },
         removeItem(val){
             this.snackbarCart = false;
             this.snackbarFav = false;
@@ -219,12 +337,10 @@ export default {
             if(!this.allParamInput) {
                 this.allParamInput = true;
                 this.differenceInput = false;
-            } else{
-                this.allParamInput = false;
             }
         },
         activeDifference(){
-            if((!this.differenceInput) && (this.differenceItems.length !== 0) && (this.valueList == "Все товары")){
+            if((!this.differenceInput) && (this.differenceItems.length !== 0)){
                 this.differenceInput = true;
                 this.allParamInput = false;
             } else {
@@ -391,6 +507,24 @@ export default {
 </script>
 
 <style lang="scss">
+.s-catalog-links-common{
+    border-bottom: 1px solid #dbdbdb;
+}
+@media screen and (max-width: 600px) {
+    .s-catalog-links-compare{
+        .s-catalog-links-el{
+            width: unset !important;
+        }
+    }
+}
+.mb40{
+    >div:first-child>.s-comapre-table-row{
+        margin-top: 68px;
+    }
+    >div:not(:first-child)>.s-comapre-table-row{
+        margin-top: 60px;
+    }
+}
 .s-comapre-table {
     .s-comapre-table-row {
         display: flex;

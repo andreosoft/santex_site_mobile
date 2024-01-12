@@ -61,20 +61,24 @@
             <nuxt-link to="/"><img src="/icons/logo.svg" /></nuxt-link>
           </div>
           <!-- <div class="wrapper"></div> -->
-          <div class="s-header-actions-block me-3 d-flex align-center">
+          <div class="s-header-actions-block d-flex align-center">
             <!-- <nuxt-link to="/" style="display: none;"><img src="/icons/profile.svg" alt="" /></nuxt-link> -->
             <nuxt-link to="/favorite">
               <img src="/icons/like.svg" alt="" />
-              <div v-show="countItemsFav !== 0" class="cartIcon">{{ countItemsFav }}</div>
+              <div v-show="countItemsFav !== 0" style="position: relative;">
+                <div class="cartIcon">{{ countItemsFav }}</div>
+              </div>
             </nuxt-link>
             <nuxt-link to="/compare" style="display: none;">
               <img src="/icons/compare.svg" alt="" />
               <div v-show="countItemsCom !== 0" class="cartIcon">{{ countItemsCom }}</div>
             </nuxt-link>
             <!-- <div style="width: 70px;" class="ml-6 d-inline-block"> -->
-              <nuxt-link to="/cart" class="ms-5">
+              <nuxt-link to="/cart" class="ms-7 me-3">
                   <img src="/icons/basket.svg" alt="compare" />
-                  <div v-show="countItems !== 0" class="cartIcon">{{ countItems }}</div>
+                  <div v-show="countItems !== 0" style="position: relative;">
+                    <div class="cartIcon">{{ countItems }}</div>
+                  </div>
               </nuxt-link>
             <!-- </div> -->
           </div>
@@ -133,6 +137,22 @@ export default {
 
 
 <style lang="scss">
+.s-header-parent-main .cartIcon{
+  background-color: black;
+  border-radius: 50px;
+  color: white;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  padding-top: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -20px;
+  right: -20px;
+}
+
 .s-header-parent-main > .v-input__control{
   background-color: #FFF;
   margin: 0 !important;
@@ -144,13 +164,7 @@ export default {
 .s-header-parent-main > .wrapper{ 
   flex-grow: 1;
 }
-@media screen and (max-width: 425px) {
-  .s-header-main-logo{
-    img{
-      width: 70% !important;
-    }
-  }
-}
+
 .s-header-main-logo {
   img{
     width: 80%;
@@ -191,18 +205,7 @@ export default {
     width: 20px;
   }
 }
-.cartIcon{
-  background-color: black;
-  border-radius: 50px;
-  color: white;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  vertical-align: bottom;
-  font-size: 13px;
-  padding-top: 1px;
-  display: inline-block;
-}
+
 @media screen and (max-width: 700px) {
   .form-search{
     top: 100px !important;
@@ -211,6 +214,18 @@ export default {
 @media screen and (max-width: 600px) {
   .form-search{
     top: 50px !important;
+  }
+}
+@media screen and (min-width: 600px) {
+  .s-header-parent-main .cartIcon{
+  right: -13px !important;  
+  }
+}
+@media screen and (max-width: 425px) {
+  .s-header-main-logo{
+    img{
+      width: 70% !important;
+    }
   }
 }
 </style>

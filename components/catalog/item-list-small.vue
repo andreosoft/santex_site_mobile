@@ -76,7 +76,7 @@
             </div>
           </nuxt-link>
           </v-col>
-        </v-col>
+      </v-col>
     </div>
   </v-card>
 </template>
@@ -128,6 +128,7 @@ export default {
         // console.log(dataCom);
         let item = {
           id: el.id,
+          category_id: el.category_id,
           name: el.name,
           image: el.images ? el.images[0] : '',
           price: el.price,

@@ -54,7 +54,7 @@
             <v-col id="numb-head" class="col-12 col-sm-6 d-flex align-center justify-space-between">
                 <a @click="$emit('input')" class="s-header-phones" href="tel://88007759985">8 800 775 99 85</a>
                 <a @click="$emit('input')" class="s-header-phones" href="tel://84952256285">8 495 225 62 85</a>
-              <a @click="$emit('input')" class="s-header-phones me-5" target="_blank" href="https://api.whatsapp.com/send/?phone=89672823107"><span><img src="/icons/whats_small.svg" alt="" /></span></a>
+              <a @click="$emit('input')" class="s-header-phones me-5" target="_blank" href="https://api.whatsapp.com/send/?phone=89672823107"><span><img class="icons-head" src="/icons/whats_small.svg" alt="" /></span></a>
             </v-col>
             <v-col class="col-12 col-sm-6 d-flex align-end align-sm-center justify-space-between right-up-menu" style="border-left: 1px solid #e5e5e5">
               <div class="d-block d-sm-none">
@@ -71,17 +71,19 @@
                   <s-select-city v-model="currentCity" />
                 </div>
               </div> -->
-              <div @click="$emit('input')" class="ms-sm-5">
-                <nuxt-link to="/" class="d-flex flex-column flex-sm-row align-center">
-                  <img class="mb-2 mb-sm-0 icons-head" src="/icons/profile.svg" alt="" />
-                  <span class="ms-sm-4">Личный кабинет</span>
-                </nuxt-link>
-              </div>
               <div @click="$emit('input')">
                 <nuxt-link class="d-flex flex-column flex-sm-row align-center" to="/compare">
                   <img class="mb-2 mb-sm-0 icons-head" src="/icons/compare.svg" alt="" />
-                  <div v-show="countItemsCom !== 0" class="cartIcon">{{ countItemsCom }}</div>
+                  <div v-show="countItemsCom !== 0" style="position: relative;">
+                    <div class="cartIcon">{{ countItemsCom }}</div>
+                  </div>
                   <span class="ms-sm-4">Сравнение</span>
+                </nuxt-link>
+              </div>
+              <div @click="$emit('input')" class="order-sm-first ms-sm-5">
+                <nuxt-link to="/" class="d-flex flex-column flex-sm-row align-center">
+                  <img class="mb-2 mb-sm-0 icons-head" src="/icons/profile.svg" alt="" />
+                  <span class="ms-sm-4">Личный кабинет</span>
                 </nuxt-link>
               </div>
             </v-col>
@@ -227,21 +229,29 @@ export default {
 </script>
 
 <style lang="scss">
-.cartIcon{
-  background-color: black;
-  border-radius: 50px;
-  color: white;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  vertical-align: bottom;
-  font-size: 13px;
-  padding-top: 1px;
-  display: inline-block;
-  position: absolute;
-  right: 100px;
-  top: 85px;
-}
+  .right-up-menu{
+    .cartIcon{
+      right: -18px;
+    }
+  }
+  @media screen and (max-width: 740px) {
+    .right-up-menu{
+      .icons-head{
+        width: 1.2em;
+      }
+      span {
+        font-size: 14px !important;
+      }
+    }
+    #numb-head{
+      .icons-head{
+        width: 1.2em;
+      }
+      .s-header-phones{
+        font-size: 14px !important;
+      }
+    }
+  }
   @media screen and (min-width: 425px) and (max-width: 600px) {
     #numb-head{
       justify-content: flex-start !important;
@@ -251,12 +261,50 @@ export default {
       }
     }
   }
-  @media screen and (max-width: 600px) {
-    .cartIcon{
-      right: 27px !important;
+  @media screen and (max-width: 634px) {
+    .right-up-menu{
+      .icons-head{
+        width: 1.1em;
+      }
+      span {
+        font-size: 12px !important;
+      }
     }
+    #numb-head{
+      .icons-head{
+        width: 1.1em;
+      }
+      .s-header-phones{
+        font-size: 12px !important;
+      }
+    }
+  }
+  @media screen and (max-width: 600px) {
+    
     .right-up-menu{
       border-left: unset !important;
+    }
+  }
+  @media screen and (max-width: 599px) {
+    .right-up-menu{
+      .cartIcon{
+        right: -35px !important;
+        top: -25px;
+      }
+      .icons-head{
+        width: 1.3em;
+      }
+      span {
+        font-size: 16px !important;
+      }
+    }
+    #numb-head{
+      .icons-head{
+        width: 1.3em;
+      }
+      .s-header-phones{
+        font-size: 16px !important;
+      }
     }
   }
 @media screen and (max-width: 505px){
@@ -269,6 +317,28 @@ export default {
       }
     }
   }
+  .right-up-menu{
+    .icons-head{
+      width: 1.2em;
+    }
+    span {
+      font-size: 14px !important;
+    }
+  }
+  #numb-head{
+    .icons-head{
+      width: 1.2em;
+    }
+    .s-header-phones{
+      font-size: 14px !important;
+    }
+  }
+  .right-up-menu{
+    border-left: unset !important;
+  }
+}
+@media screen and (max-width: 425px) {
+  
 }
 @media screen and (max-width: 375px){
   .s-catalog-links{

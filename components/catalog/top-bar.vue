@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex justify-space-between top-bar">
         <v-row class="d-flex align-center justify-space-between w-100">
-            <v-col class="pr-2 pl-0 py-0 col-5 col-sm-4">
+            <v-col class="pr-2 pl-0 py-0 col-5 col-sm-4 h-100">
                 <v-btn @click="$emit('filter-small', $event)" dark class="s-btn-cart s-btn-text w-100">
                     <i class="fa-solid fa-filter mr-1"></i>
                     Фильтр товаров

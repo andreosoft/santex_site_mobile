@@ -8,16 +8,16 @@
         </div>
       </div>
       <nuxt-link :to="'/catalog/view/' + el.id">
-        <div class="d-flex justify-space-between mb-2">
-          <div style="margin: 3px 0; font-size: 13px">
+        <div class="d-flex flex-column flex-md-row justify-space-between mb-2">
+          <div class="s-item-list-available" style="margin: 3px 0; font-size: 13px">
             <catalog-available :value="el.store" />
           </div>
-          <div style="margin: 3px 0; font-size: 13px; color: #949494">
+          <div class="s-item-list-id" style="margin: 3px 0; font-size: 13px; color: #949494">
             Код товара: {{ el.id }}
           </div>
         </div>
-        <div class="mb-4" style="margin: 3px 0; font-size: 16px; font-weight: bold;">{{ el.name }}</div>
-        <div class="my-1" style="font-size: 11px">
+        <div class="mb-4 s-item-list-name" style="margin: 3px 0; font-size: 16px; font-weight: bold;">{{ el.name }}</div>
+        <div class="my-1 s-item-list-size" style="font-size: 11px">
           <div>
             <div v-if="el.height && el.width && el.length"><span style="color: #949494">Габариты (Д.Ш.В): </span>
               <span>{{`${el.length} x ${el.width} x ${el.height}` }}</span>
@@ -35,24 +35,29 @@
               <span>Не указаны</span>
             </div>
           </div>
-          <div>
+
+          <div class="s-item-list-brand">
             <span style="color: #949494">Бренд: </span><span>{{ el.brand }}</span>
           </div>
         </div>
-        <div class="my-2" style=" font-weight: bold;">
-          <span style="font-size: 20px">
+        <div class="my-2 s-item-list-price" style=" font-weight: bold;">
+          <span v-if="el.price" style="font-size: 20px">
             <number :value="el.price" /> ₽
-          </span><span class="ml-2" v-if="el.old_price"
+          </span>
+          <span v-else style="font-size: 20px">
+            Цена не указана
+          </span>
+          <span class="ml-0" v-if="el.price_old"
             style="font-size: 13px; text-decoration: line-through; color: #949494">
-            <number :value="el.old_price" /> ₽
+            <number :value="el.price_old" /> ₽
           </span>
         </div>
       </nuxt-link>
     </div>
-    <div class="d-flex justify-space-between">
-      <div><v-btn @click="toCart(el)" dark class="s-btn-cart s-btn-text">В корзину</v-btn></div>
-      <div>
-        <v-btn @click="toCompare(el)" icon><img src="/icon-similar.png" alt="compare" /></v-btn>
+    <div class="d-flex justify-space-between s-item-list-btn">
+      <v-btn @click="toCart(el)" dark class="s-btn-cart s-btn-text">В корзину</v-btn>
+      <div class="d-flex flex-row ms-5 s-item-list-icons">
+        <v-btn @click="toCompare(el)" icon><img src="/icon-similar.png" alt="" /></v-btn>
       </div>
     </div>
   </v-card>
@@ -79,6 +84,7 @@ export default {
         // console.log(dataCom);
         let item = {
                   id: el.id,
+                  category_id: respCom.data.data.category_id,
                   name: el.name,
                   image: el.images,
                   price: el.price,
@@ -148,3 +154,67 @@ export default {
   }
 };
 </script>
+
+
+<style lang="scss" scoped>
+.hidden-text{
+  height: 48px;
+  position: relative;
+  hyphens: auto;
+  overflow: hidden !important;
+}
+.hidden-text:after{
+  content: "";
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 70%;
+  height: 1.2em;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), white 100%);
+  pointer-events: none;
+}
+
+
+@media screen and (max-width: 960px) {
+  .s-item-list-btn{
+    .s-btn-cart{
+      width: 50%;
+      font-size: 10px !important;
+      min-width: unset !important;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .s-item-list-available{
+    span{
+      font-size: 12px !important;
+    }
+  }
+  .s-item-list-id{
+    font-size: 12px !important;
+  }
+  .s-item-list-name{
+    font-size: 14px !important;
+  }
+  .s-item-list-size{
+    span{
+      font-size: 10px !important;
+    }
+  }
+  .s-item-list-price{
+    span{ 
+      font-size: 18px !important;
+    }
+  }
+  .s-item-list-icons{
+    img{
+      width: 1.4em !important;
+    }
+  }
+}
+@media screen and (max-width: 668px) {
+  
+}
+
+</style>

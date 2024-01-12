@@ -1,6 +1,5 @@
 <template>
   <v-container class="mb-14">
-
               <!-- Избранное -->
               <v-snackbar v-model="snackbarFav">{{ dataResultFav }} <template v-slot:action="{ attrs }">
                 <v-btn color="pink" text v-bind="attrs" @click="snackbarFav = false">
@@ -334,6 +333,7 @@ export default {
     toCompare(){
                 let item = {
                   id: this.data.id,
+                  category_id: this.data.category_id,
                   name: this.data.name,
                   image: this.data.images ? this.data.images[0] : '',
                   price: this.data.price,
