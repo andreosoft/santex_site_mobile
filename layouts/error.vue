@@ -4,9 +4,9 @@
     <v-main>
       <v-container class="mb-10">
         <v-divider class="mb-8" />
-        <div style="padding: 120px 0;" class="text-center">
+        <div style="padding: 120px 0;" class="text-center s-fav-empty">
           <div style="font-weight: bold; font-size: 46px;">Страница не найдена</div>
-          <div style="font-size: 20px; margin: 36px 0;">К сожалению данная страница не найдена или была удалена</br>
+          <div style="font-size: 20px; margin: 36px 0;">К сожалению данная страница не найдена или была удалена<br>
             перейдите на главную страницу сайта</div>
           <div>
             <v-btn dark to="/">На главную</v-btn>

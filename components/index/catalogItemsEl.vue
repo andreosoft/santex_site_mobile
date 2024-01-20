@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <NuxtLink :to="'/catalog/sections/' + el.id">
+    <NuxtLink :to="'/catalog/' + el.id">
       <v-img v-if="el.images" :src="$config.baseImageURL + el.images[0]"/>
         <v-img v-else src="/black-square.jpg" />
       <div style="position: absolute; bottom: 30px; left: 0; right: 0;">

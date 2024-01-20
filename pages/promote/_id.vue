@@ -1,11 +1,13 @@
 <template>
-    <v-container class="mb-10">
+    <v-container class="mb-10 s-promote-main">
         <v-divider class="mb-8" />
         <common-beadcrumbs class="mb-4" :value="breadcrumbsDataPromote" />
-        <h1>Акции</h1>
+        <div class="w-100 s-static-main">
+          <h1>Акции</h1>
+        </div>
         <v-divider class="mb-8" />
         <div>
-          <img :src="$config.baseImageURL + carouselItems[carouselItems.length - 1]" alt="banner">
+          <v-img class="w-100" :src="$config.baseImageURL + carouselItems[carouselItems.length - 1]" alt="banner"/>
           <!-- <index-mainCarusel :items="carouselItems"/> -->
         </div>
         <v-divider class="mb-8" />
@@ -69,3 +71,23 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+@media screen and (max-width: 600px) {
+  .s-promote-main{
+    h2{
+      font-size: 22px;
+    }
+    p{
+      font-size: 16px;
+    }
+  }
+}
+@media screen and (max-width: 425px) {
+  .s-promote-main{
+    p{
+      font-size: 14px;
+    }
+  }
+}
+</style>

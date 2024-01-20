@@ -10,12 +10,12 @@
           </v-snackbar>
 
         <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
-        <div class="d-flex flex-row justify-space-between align-center">
+        <div class="d-flex flex-row justify-space-between align-center s-static-main">
             <h1>{{ title }}</h1>
             <v-btn v-show="cart.length !== 0" @click="removeAll" outlined class="mb-5 pt-2 pb-2 clearBtn d-none d-sm-block">Очистить корзину <img src="/icons/del_card.svg" class="del_card ms-2" /></v-btn>
         </div>
         <v-divider class="mb-8" />
-        <div v-if="cart.length == 0" style="padding: 120px 0;" class="text-center">
+        <div v-if="cart.length == 0" style="padding: 120px 0;" class="text-center s-fav-empty">
             <div style="font-weight: bold; font-size: 46px;">Ваша корзина пуста</div>
             <div style="font-size: 20px; margin: 5px 0 30px 0;">Перейдите в каталог</div>
             <div>

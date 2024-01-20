@@ -2,7 +2,9 @@
   <v-container class="mb-10">
     <v-divider class="mb-8" />
     <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
-    <h1>Поиск</h1>
+    <div class="w-100 s-static-main">
+      <h1>Поиск</h1>
+    </div>
     <div class="mb-10">
       <p><b>Вы искали: </b><span class="underlined">{{ searchInput }}</span>, найдено {{ pager.count }} шт.</p>
     </div>

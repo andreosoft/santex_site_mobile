@@ -29,7 +29,7 @@
     </v-btn>
   </template>
   </v-snackbar>
-
+  
         <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
         <div class="d-flex justify-space-between s-static-main">
             <h1>{{ title }}</h1>
@@ -38,7 +38,7 @@
             </div>
         </div>
         <v-divider class="mb-10 d-none d-md-block" />
-        <div v-show="dataCom.length == 0" style="padding: 120px 0;" class="text-center">
+        <div v-show="dataCom.length == 0" style="padding: 120px 0;" class="text-center s-fav-empty">
             <div style="font-weight: bold; font-size: 46px;">В сравнении товаров пусто</div>
             <div style="font-size: 20px; margin: 5px 0 30px 0;">Перейдите в каталог</div>
             <div>

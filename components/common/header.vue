@@ -137,6 +137,11 @@ export default {
 
 
 <style lang="scss">
+.s-header-menu-search{
+  .v-input__slot{
+    background-color: white !important;
+   }
+}
 .s-header-parent-main .cartIcon{
   background-color: black;
   border-radius: 50px;
