@@ -1,6 +1,5 @@
 <template>
     <div class="s-common-video" :class="{'s-common-video-width': !fullWidth}">
-
         <iframe v-if="!item.video" :src="item.name" frameborder="0" allowfullscreen class="video"></iframe>
         <iframe v-else :src="item.video" frameborder="0" allowfullscreen class="video"></iframe>
     </div>

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <common-carusel :items="items" :type="type">
-      <template v-slot:default="{ els }">
+    <common-carusel :items="items" :blog="true" :slides="slides" :breakpointsNumbs="breakpointsNumbs" />
+      <!-- <template v-slot:default="{ els }">
         <v-row>
           <v-col :cols="12 / type" v-for="(el, k) in els" :key="k">
             <v-card>
               <common-video :item="el" />
-              <!-- <NuxtLink :to="el.url">
+              <NuxtLink :to="el.url">
                 <div style="position: relative">
                   <img :src="el.img" width="100%" />
                   <div style="position: absolute; right: 20px; bottom: 20px" class="d-flex justify-center">
@@ -15,12 +15,12 @@
                 </div>
                 <div class="underlined mt-4">{{ el.title }}</div>
                 <div style="color: #767676">Длительность: {{ el.time }}</div>
-              </NuxtLink> -->
+              </NuxtLink>
             </v-card>
           </v-col>
         </v-row>
       </template>
-    </common-carusel>
+    </common-carusel> -->
     <!-- <v-dialog v-model="dialog" scrollable persistent :overlay="false" max-width="730px" transition="dialog-transition">
       <div class="s-popup">
         <div>
@@ -47,11 +47,17 @@ export default {
       type: Number,
       default: 2,
     },
+    slides: Number
   },
   data() {
     return {
       dialog: false,
-      activeItem: null
+      activeItem: null,
+      breakpointsNumbs: {
+        600: {
+          perPage: 1,
+        },
+      }
     }
   }
 };

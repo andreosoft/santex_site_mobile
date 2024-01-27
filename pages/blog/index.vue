@@ -1,22 +1,21 @@
 <template>
-  <v-container class="mb-10">
+  <v-container class="mb-10 s-static-main s-blog-main">
     <v-divider class="mb-8" />
     <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
     <h1>Блог</h1>
     <h2>Полезные советы в ремонте</h2>
     <div>
-      <blog-carusel :items="blogData1" :type="2" />
+      <blog-carusel :items="blogData1" :type="2" :slides="2" />
     </div>
-
     <v-divider class="my-10 pa-0" />
     <h2>Обзор квартир и домов</h2>
-    <blog-carusel :items="blogData2" :type="3" />
+    <blog-carusel :items="blogData2" :type="3" :slides="2" />
     <v-divider class="my-10 pa-0" />
     <h2>Новинки в сфере дизайна интерьера</h2>
-    <blog-carusel :items="blogData3" :type="3" />
+    <blog-carusel :items="blogData3" :type="3" :slides="2" />
     <v-divider class="my-10 pa-0" />
     <h2>Прогуляемся по европейским производствам</h2>
-    <blog-carusel :items="blogData4" :type="3" />
+    <blog-carusel :items="blogData4" :type="3" :slides="2" />
   </v-container>
 </template>
 
@@ -84,3 +83,20 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@media screen and (max-width: 600px) {
+  .s-blog-main{
+    h2{
+      font-size: 28px;
+    }
+  }
+}
+@media screen and (max-width: 460px) {
+  .s-blog-main{
+    h2{
+      font-size: 20px;
+    }
+  }
+}
+</style>

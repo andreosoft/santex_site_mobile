@@ -3,7 +3,7 @@
         <v-divider class="mb-4" />
         <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
         <h1>{{title}}</h1>
-        <v-divider class="mb-4" />
+        <v-divider class="mb-4 s-header-divider" />
     </div>
 </template>
 

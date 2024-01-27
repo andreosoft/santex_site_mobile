@@ -34,6 +34,7 @@
   font-weight: lighter;
   font-style: italic;
 }
+
 .w-120{
   width: 120% !important;
 }
@@ -101,10 +102,10 @@
     }
   }
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .s-popup{
     .s-popup-main{
-      margin: 10px 47px !important;
+      margin: 10px 28px !important;
     }
   }
 }

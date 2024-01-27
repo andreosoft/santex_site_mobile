@@ -32,16 +32,16 @@
                             </v-col>
                         </v-row>
                         <v-row class="mt-8 dialog-cities-small d-sm-none">
-                            <v-col cols="6">
-                                <v-col class="pa-0 pb-4" cols="12" v-for="(el, i) in Object.values(citys).slice(0, Object.values(citys).length/2)" :key="i">
+                            <v-col cols="12" class="d-flex flex-wrap flex-row">
+                                <v-col class="pa-0 pb-4" cols="6" v-for="(el, i) in citys" :key="i">
                                     <a @click="dialog = false; $emit('input', i)" class="underlined-onhover">{{ el }}</a>
                                 </v-col>
                             </v-col>
-                            <v-col cols="6" >
+                            <!-- <v-col cols="6" >
                                 <v-col class="pa-0 pb-4" cols="12" v-for="(el, i) in Object.values(citys).slice(Object.values(citys).length/2)" :key="i">
                                     <a @click="dialog = false; $emit('input', i)" class="underlined-onhover">{{ el }}</a>
                                 </v-col>
-                            </v-col>
+                            </v-col> -->
                         </v-row>
                     </div>
                 </div>

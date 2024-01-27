@@ -1,13 +1,20 @@
 <template>
     <div>
-        <v-dialog v-model="value" persistent :overlay="false" max-width="810px" transition="dialog-transition">
+        <v-dialog 
+        v-model="value" 
+        persistent 
+        :overlay="false" 
+        max-width="810px" 
+        :fullscreen="$vuetify.breakpoint.xs"
+        transition="dialog-transition"
+        >
             <div class="s-popup">
                 <div>
                     <div class="text-right">
                         <v-btn icon @click="$emit('closePopUp')"><img src="/icons/close_menu.svg" /></v-btn>
                     </div>
                 </div>
-                <div style="margin: 10px 64px 10px 64px;">
+                <div class="s-popup-main" style="margin: 10px 64px 10px 64px;">
                     <h2>Запись на консультацию в салоне</h2>
                     <v-divider class="mb-8" />
                     <div v-if="view == 1">
@@ -36,7 +43,7 @@
                                 </div>
                             </div>
                             <v-row>
-                                <v-col cols="6">
+                                <v-col class="col-12 col-sm-6 px-0 pr-sm-3 py-0 pb-sm-3">
                                     <div>
                                         <div class="mb-2"><b>Ваш e-mail</b></div>
                                         <div>
@@ -89,7 +96,7 @@
                                         </div>
                                     </div>
                                 </v-col>
-                                <v-col cols="6">
+                                <v-col class="col-12 col-sm-6 px-0 pl-sm-3 pt-0 pb-sm-3">
                                     <div>
                                         <div class="mb-2"><b>Контактный телефон</b></div>
                                         <div>
@@ -128,12 +135,12 @@
                                                     >
                                                     </v-text-field>
                                                 </template>
-                                                <s-time-picker v-model="data.time_request" @input="menuTime = false">
+                                                <s-time-picker class="s-time-picker" v-model="data.time_request" @input="menuTime = false">
                                                 </s-time-picker>
                                             </v-menu>
                                         </div>
                                     </div>
-                                    <div style="padding-top: 32px;">
+                                    <div class="mt-sm-8">
                                         <v-btn class="s-btn-text" dark style="width:100%; height: 56px;" large @click="handleSubmit(orderСonsult)">Заказать
                                             консультацию
                                         </v-btn>
@@ -148,14 +155,14 @@
                         </div>
                         </ValidationObserver>
                     </div>
-                    <div v-else-if="view == 2">
+                    <div v-else-if="view == 2" class="s-popup-end">
                         <p>Благодарим за обращение, ждем Вас.</p>
                         <p>Приготовьте ваши вопросы и проект.</p>
                         <div class="mt-8 mb-8">
                             <div class="d-flex justify-space-between">
                                 <v-btn class="s-btn-text" dark style="padding: 0 40px; height: 56px;" large @click="$emit('closePopUp'); view = 1">Закрыть окно</v-btn>
-                                <div>
-                                    <img src="/logo2.png" />
+                                <div class="d-flex align-center justify-end">
+                                    <img style="width: 160px;" src="/logo2.png" />
                                 </div>
                             </div>
                         </div>
@@ -248,3 +255,20 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+@media screen and (max-width: 530px) {
+    .s-popup-end{
+        .s-btn-text{
+            height: 50px !important;
+            width: 50% !important;
+        }
+        >div>div>div{
+            width: 50% !important;
+        }
+        img{ 
+            width: 120px !important;
+        }
+    }
+}
+</style>
