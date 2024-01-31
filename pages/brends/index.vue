@@ -4,13 +4,17 @@
     <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
     <h1>Бренды</h1>
     <v-divider class="mb-8" />
-    <div class="d-flex justify-space-between align-center">
-      <div>
-        <div v-for="(el, i) in brendLetters" :key="i" class="s-btn-brend-letter"
-          :class="{ black: i == activeBrend, 'white--text': i == activeBrend }" @click="activeBrend = i">{{ el
-          }}</div>
-      </div>
-      <div>
+    <div class="d-flex flex-column ">
+      <v-row class="s-btn-brend-parent d-flex flex-nowrap flex-sm-wrap">
+        <div
+        v-for="(el, i) in brendLetters" :key="i" 
+        class="s-btn-brend-letter d-flex justify-center align-center"
+        :class="{ black: i == activeBrend, 'white--text': i == activeBrend }" 
+        @click="activeBrend = i">
+        {{ el }}
+        </div>
+      </v-row>
+      <div style="padding-left: 8px;" class="mt-4"> 
         <span class="text-uppercase s-btn" :class="{ active: view == 0 }" @click="view = 0">
         <img style="margin: 0 4px 4px 0;" src="/icons/catalog_card.svg" alt="" />
           Плитка</span>
@@ -23,27 +27,27 @@
     <v-divider class="mt-8 mb-16" />
     <div>
       <div v-if="view == 0">
-        <div class="d-flex flex-wrap">
-          <div class="d-flex justify-center align-center pa-4 s-plate-brend" style="" v-for="(el, i) in data" :key="i">
+        <v-row>
+          <v-col class="col-6 col-sm-4 d-flex justify-center align-center pa-4 s-plate-brend" style="" v-for="(el, i) in data" :key="i">
             <nuxt-link style="max-width: 100%;" to="/">
               <v-img contain :src="el.image[0]" />
               <div class="s-plate-brend-btn" style="">
                 <v-btn fab class="black" dark><i class="fas fa-long-arrow-right"></i></v-btn>
               </div>
             </nuxt-link>
-          </div>
-        </div>
+          </v-col>
+        </v-row>
       </div>
       <div v-else>
-        <div class="d-flex flex-wrap">
-          <div class="mb-4" style="width: 250px;" v-for="(el, i) in data" :key="i">
+        <v-row>
+          <v-col class="mb-4 pa-0 col-6 col-sm-4" v-for="(el, i) in data" :key="i">
             <nuxt-link to="/">{{ el.name }}</nuxt-link>
-          </div>
-        </div>
+          </v-col>
+        </v-row>
       </div>
     </div>
     <div class="">
-      <div class="mt-16 text-center">
+      <div v-if="view == 0" class="mt-16 text-center">
         <a class="s-btn-else"><i class="fas fa-redo"></i> Показать еще</a>
       </div>
     </div>
@@ -141,6 +145,11 @@ export default {
 </script>
 
 <style lang="scss">
+@media screen and (max-width: 600px) {
+  .s-btn-brend-parent{
+    overflow: auto !important;
+  }
+}
 .s-plate-brend {
   margin: 0 -1px -1px 0;
   width: 335px;
@@ -161,16 +170,15 @@ export default {
 }
 
 .s-btn-brend-letter {
-  width: 36px;
-  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
   border-radius: 50%;
   color: #0000008a;
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  display: inline-block;
-  text-align: center;
   padding: 8px;
+
   &:hover {
     background: #00000018;
   }

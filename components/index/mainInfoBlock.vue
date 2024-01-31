@@ -1,15 +1,15 @@
 <template>
   <v-container>
     <v-row class="my-3" align="center">
-      <v-col cols="12" lg="7">
+      <v-col cols="12" lg="7" class="px-0">
         <img class="s-title-img s-title-img1" style="width: 800px" src="/img/main-block1.png" />
         <img class="s-title-img s-title-img2" src="/img/main-block1-small.png" />
       </v-col>
-      <v-col cols="12" lg="5" class="">
-        <div class="s-title-header text-center">
+      <v-col cols="12" lg="5" class="s-index-text">
+        <h1 class="s-title-header text-center pb-0">
           ТОЛЬКО<br />
           В SANTEHKOMFORT Elite:
-        </div>
+        </h1>
         <hr class="style-1 pb-4" />
         <p class="s-title-text text-center mb-4">
           Комплектация санузла от грамотных специалистов с опытом работы от
@@ -27,13 +27,16 @@
 </template>
 
 <style lang="scss">
+.s-index-text hr.style-1{
+  margin: 10 auto !important;
+}
 .s-title-header {
-  font-size: 43px;
+  font-size: 40px;
   font-weight: bold;
 }
 
 .s-title-text {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 @media (min-width: 1264px) {

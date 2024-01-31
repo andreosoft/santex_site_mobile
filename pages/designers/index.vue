@@ -1,6 +1,6 @@
 <template>
-    <v-container class="mb-10 s-designers-main">
-        <s-header class="s-static-main" title="Наши дизайнеры" :breadcrumbsData="breadcrumbsData" />
+    <v-container class="mb-10 s-designers-main s-static-main">
+        <s-header title="Наши дизайнеры" :breadcrumbsData="breadcrumbsData" />
         <h3>Здесь представлены наши дизайнеры и архитекторы, с которыми
             мы реализовали много проектов. </h3>
         <h4 class="mb-16">Вы можете с ними познакомиться и заказать дизайн проект.</h4>

@@ -5,7 +5,15 @@
             <img src="/icons/arrow_down_city.svg" />
         </span>
 
-        <v-dialog v-model="dialog" scrollable persistent :overlay="false" max-width="730px" transition="dialog-transition">
+        <v-dialog 
+        v-model="dialog" 
+        scrollable 
+        persistent 
+        :overlay="false" 
+        max-width="730px" 
+        transition="dialog-transition"
+        :fullscreen="$vuetify.breakpoint.xs"
+        >
             <div class="s-popup">
                 <div>
                     <div class="text-right">

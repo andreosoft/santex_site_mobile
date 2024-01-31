@@ -670,12 +670,24 @@ tbody tr:nth-of-type(odd) {
     h1{
       font-size: 37px !important;
     }
+    h2{
+      font-size: 28px !important;
+    }
+    h3{
+      font-size: 25px !important;
+    }
   }
 }
 @media screen and (max-width: 425px) {
   .s-static-main{
     h1{
       font-size: 30px !important;
+    }
+    h2{
+      font-size: 25px !important;
+    }
+    h3{
+      font-size: 20px !important;
     }
     .publicOffer{
       font-size: 17px !important;

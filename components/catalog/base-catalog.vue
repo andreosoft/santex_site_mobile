@@ -164,7 +164,7 @@ export default {
 .catalog-items {
   overflow: hidden;
   &.close {
-    max-height: 600px;
+    max-height: 590px;
   }
 }
 .s-row-catalog{

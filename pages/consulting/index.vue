@@ -1,7 +1,7 @@
 <template>
     <div class="s-consulting-main">
-        <v-container class="mb-10">
-            <s-header class="s-static-main" title="Запись на консультацию" :breadcrumbsData="breadcrumbsData" />
+        <v-container class="mb-10 s-static-main">
+            <s-header title="Запись на консультацию" :breadcrumbsData="breadcrumbsData" />
             <div>
                 <div class="my-8">
                     <div>

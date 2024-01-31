@@ -12,7 +12,7 @@
         <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
         <div class="d-flex flex-row justify-space-between align-center s-static-main">
             <h1>{{ title }}</h1>
-            <v-btn v-show="cart.length !== 0" @click="removeAll" outlined class="mb-5 pt-2 pb-2 clearBtn d-none d-sm-block">Очистить корзину <img src="/icons/del_card.svg" class="del_card ms-2" /></v-btn>
+            <v-btn v-if="cart.length > 0" @click="removeAll" outlined class="mb-5 pt-2 pb-2 clearBtn d-none d-sm-block">Очистить корзину <img src="/icons/del_card.svg" class="del_card ms-2" /></v-btn>
         </div>
         <v-divider class="mb-8" />
         <div v-if="cart.length == 0" style="padding: 120px 0;" class="text-center s-fav-empty">
@@ -148,7 +148,10 @@
                     <v-col class="col-3 d-none d-sm-block justify-end pr-0">
                             <v-col class="col-sm-12 d-flex d-md-block justify-space-between align-center pr-0">
                                 <div class="d-flex flex-column align-start">
-                                    <b style="font-size: 18px"><number :value="el.price" /> ₽</b>
+                                    <b style="font-size: 18px">
+                                        <number :value="el.price" />
+                                         ₽
+                                    </b>
                                     <div v-if="el.count>1">
                                         <div style="font-size: 12px; color: #949494">
                                             <b> {{ el.count }} x <number :value="el.count * el.price" /> ₽</b>
