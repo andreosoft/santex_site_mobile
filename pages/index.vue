@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="s-static-main">
     <index-mainCarusel :items="carouselItems" class="mb-10" />
     <index-mainInfoBlock />
     <common-divider1 />

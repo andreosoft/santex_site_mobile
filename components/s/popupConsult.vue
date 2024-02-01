@@ -1,7 +1,14 @@
 <template>
     <div>
-        <v-dialog v-model="value" persistent :overlay="false" max-width="810px" transition="dialog-transition">
-            <div class="s-popup">
+        <v-dialog
+        v-model="value"
+        persistent
+        :overlay="false" 
+        max-width="810px"
+        :fullscreen="$vuetify.breakpoint.xs"
+        transition="dialog-transition"
+        >
+        <div class="s-popup">
                 <div>
                     <div class="text-right">
                         <v-btn icon @click="$emit('closePopUp')"><img src="/icons/close_menu.svg" /></v-btn>
@@ -156,20 +163,28 @@
                         </div>
                         </ValidationObserver>
                     </div>
-                    <div v-else-if="view == 2">
+                    <div v-else-if="view == 2" class="s-popup-end">
                         <p>Благодарим за обращение, менеджер свяжется с вами в указанное время</p>
                         <p>Приготовьте ваши вопросы и проект.</p>
                         <div class="mt-8 mb-8">
                             <div class="d-flex justify-space-between">
-                                <v-btn class="s-btn-text" dark style="padding: 0 40px; height: 56px;" large @click="$emit('closePopUp'); view = 1">Закрыть окно</v-btn>
-                                <div>
-                                    <img src="/logo2.png" />
+                                <v-btn 
+                                class="s-btn-text" 
+                                dark 
+                                style="padding: 0 40px; height: 56px;" 
+                                large 
+                                @click="$emit('closePopUp'); view = 1"
+                                >
+                                Закрыть окно
+                                </v-btn>
+                                <div class="d-flex align-center justify-end">
+                                    <img style="width: 160px;" src="/logo2.png" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+        </div>
         </v-dialog>
     </div>
 </template>

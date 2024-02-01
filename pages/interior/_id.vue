@@ -1,24 +1,57 @@
 <template>
-    <v-container class="mb-10">
+    <v-container class="mb-10 s-static-main">
+
+
+
+    <!-- Избранное -->
+    <v-snackbar v-model="snackbarFav">{{ dataResultFav }} <template v-slot:action="{ attrs }">
+        <v-btn color="pink" text v-bind="attrs" @click="snackbarFav = false">
+          Закрыть
+        </v-btn>
+      </template>
+    </v-snackbar>
+    <!-- Сравнение -->
+    <v-snackbar v-model="snackbarCom">{{ dataResultCom }} <template v-slot:action="{ attrs }">
+        <v-btn color="pink" text v-bind="attrs" @click="snackbarCom = false">
+          Закрыть
+        </v-btn>
+      </template>
+    </v-snackbar>
+    <!-- Корзина -->
+    <v-snackbar v-model="snackbarCart">{{ dataResultCart }} <template v-slot:action="{ attrs }">
+        <v-btn color="pink" text v-bind="attrs" @click="snackbarCart = false">
+          Закрыть
+        </v-btn>
+      </template>
+    </v-snackbar>
+
+
+
+
         <v-divider class="mb-8" />
         <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
-        <h1>{{ title }}</h1>
+            <h1>{{ title }}</h1>
         <div v-show="dataInterior?.data?.introtext" class="my-3">{{ dataInterior?.data?.introtext }}</div>
         <div class="mb-14">
             <v-row class="s-row">
-                <v-col cols="6" v-for="(el, i) in dataInterior?.data?.images" :key="i">
+                <v-col cols="12" sm="6" v-for="(el, i) in dataInterior?.data?.images" :key="i">
                     <img :src="$config.baseImageURL + el" style="width: 100%;" />
                 </v-col>
             </v-row>
         </div>
         <div>
-            <h2 class="mb-8">Товары присутсвующие на фото</h2>
-            <div class="mb-14 interior-items" :class="{ close: !toggleOpen }">
+            <h2 class="mb-4">Товары присутсвующие на фото</h2>
+            <div class="mb-14 catalog-items s-row-catalog" :class="{ close: !toggleOpen }">
                 <v-row class="s-row">
-                    <v-col cols="3" v-for="(el, i) in products.data" :key="i">
-                        <catalog-item-list :el="el" :hiddentext="true" />
+                    <v-col class="px-2" cols="4" v-for="(el, i) in products.data" :key="i">
+                        <catalog-item-list @addItemFav="addItemFav" @addItemCom="addItemCom" @addItemCart="addItemCart" :el="el" :hiddentext="true" />
                     </v-col>
                 </v-row>
+                <v-row class="d-none s-row-catalog-small">
+                    <v-col class="pa-0" cols="12" v-for="(el, i) in products.data" :key="i">
+                      <catalog-item-list-small :el="el" @addItemFav="addItemFav" @addItemCom="addItemCom" @addItemCart="addItemCart" />
+                    </v-col>
+                 </v-row>
             </div>
             <v-divider class="mb-8" />
             <div class="mt-14 mb-14 text-center">
@@ -60,11 +93,40 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
     data() {
         return {
-            toggleOpen: false
+            toggleOpen: false,
+            snackbarFav: false,
+            snackbarCom: false,
+            snackbarCart: false,
         }
+    },
+    computed: {
+    ...mapGetters({
+      dataFav: 'favorite/favItems',
+      dataResultFav: 'favorite/dataResult',
+      dataResultCom: 'compare/dataResult',
+      dataResultCart: 'cart/dataResult',
+    })
+    },
+    methods: {
+    addItemFav(el) {
+      this.snackbarCom = false
+      this.snackbarCart = false
+      this.snackbarFav = el;
+    },
+    addItemCom(el) {
+      this.snackbarFav = false
+      this.snackbarCart = false
+      this.snackbarCom = el;
+    },
+    addItemCart(el) {
+      this.snackbarCom = false
+      this.snackbarFav = false
+      this.snackbarCart = el;
+    },
     },
     async asyncData({ $axios, $config, route }) {
         let dataInterior = [];
@@ -223,7 +285,7 @@ export default {
     overflow: hidden;
   
     &.close {
-      max-height: 550px;
+      max-height: 600px;
     }
   }
 

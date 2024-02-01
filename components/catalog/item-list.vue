@@ -307,7 +307,7 @@ export default {
 
 <style lang="scss" scoped>
 .hidden-text{
-  height: 48px;
+  height: 45px;
   position: relative;
   hyphens: auto;
   overflow: hidden !important;
@@ -319,7 +319,7 @@ export default {
   bottom: 0;
   right: 0;
   width: 70%;
-  height: 1.2em;
+  height: 2em;
   background: linear-gradient(to right, rgba(255, 255, 255, 0), white 100%);
   pointer-events: none;
 }

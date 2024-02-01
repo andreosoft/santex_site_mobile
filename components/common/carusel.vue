@@ -4,9 +4,10 @@
       <section ref="splideEl" class="splide">
         <div class="splide__track">
           <ul class="splide__list">
-            <li v-for="(els, i) in items" :key="i" class="splide__slide">
-              <index-new-items-el-carusel v-if="items[0].titleCollection || sales" :el="els" />
-              <s-guide-style-items-el v-else :el="els" />
+            <li v-for="(el, i) in items" :key="i" class="splide__slide">
+              <common-video v-if="blog" :item="el"/>
+              <index-new-items-el-carusel v-else-if="items[0].titleCollection || sales" :el="el" />
+              <s-guide-style-items-el v-else :el="el" />
             </li>
           </ul>
         </div>
@@ -56,6 +57,10 @@ export default {
       default: false
     },
     sales: {
+      type: Boolean,
+      default: false
+    },
+    blog: {
       type: Boolean,
       default: false
     }

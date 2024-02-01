@@ -17,7 +17,9 @@
           </div>
         </v-col>
         <v-col class="pa-0">
-            <nuxt-link :to="'/catalog/view/' + el.id" class="d-flex flex-column" style="height: 100%;">
+        
+        <div class="d-flex flex-column" style="height: 100%;">
+                <nuxt-link :to="'/catalog/view/' + el.id" class="d-flex flex-column" style="height: 100%;">
             <div class="d-flex flex-row justify-space-between mb-2">
               <div class="s-item-list-available" style="margin: 3px 0; font-size: 13px">
                 <catalog-available :value="el.store" />
@@ -60,6 +62,7 @@
               </div>
             </div>
             <div class="wrapper"></div>
+          </nuxt-link>
             <div class="my-2 my-sm-0 d-flex flex-row justify-space-between align-center s-item-list-price" style=" font-weight: bold;">
               <div class="d-flex flex-column align-end">
                 <span v-if="el.price" class="s-item-list-price-main" style="font-size: 20px">
@@ -74,7 +77,7 @@
               </div>
               <v-btn @click="toCart(el)" dark class="s-btn-cart s-btn-text">В корзину</v-btn>
             </div>
-          </nuxt-link>
+          </div>
           </v-col>
       </v-col>
     </div>
@@ -257,6 +260,7 @@ export default {
 
 <style lang="scss">
 #s-card-good-small{
+  width: 100% !important;
   border-top: unset !important;
   border-left: unset !important;
   border-right: unset !important;

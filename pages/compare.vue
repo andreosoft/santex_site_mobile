@@ -37,7 +37,7 @@
                 <v-btn v-show="dataCom.length !== 0" @click="removeAll" outlined class="mb-5 pt-2 pb-2 clearBtn">Очистить список <img src="/icons/del_card.svg" class="del_card ms-2" /></v-btn>
             </div>
         </div>
-        <v-divider class="mb-10 d-none d-md-block" />
+        <v-divider v-show="dataCom.length == 0" class="mb-10 d-md-block" />
         <div v-show="dataCom.length == 0" style="padding: 120px 0;" class="text-center s-fav-empty">
             <div style="font-weight: bold; font-size: 46px;">В сравнении товаров пусто</div>
             <div style="font-size: 20px; margin: 5px 0 30px 0;">Перейдите в каталог</div>

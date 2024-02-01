@@ -61,7 +61,7 @@ export default {
 .s-top-link:not(:first-child){
   padding-left: 20px;
 }
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 650px) {
   .s-top-link{
     font-size: 12px;
   }

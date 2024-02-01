@@ -8,8 +8,11 @@
         </div>
         <v-divider class="mb-10" />
         <div>
-            <div class="mb-10" style="font-weight: bold;">К сожалению по вашему запросу ничего не найдено.<br>
-                Попробуйте изменить ключевые слова поиска.</div>
+            <div class="mb-10" style="font-weight: bold;">
+                К сожалению по вашему запросу ничего не найдено.
+                <br>
+                Попробуйте изменить ключевые слова поиска.
+            </div>
             <div style="width: 724px;">
                 <v-text-field single-line outlined dense label="Я хочу найти">
                     <template v-slot:append>
