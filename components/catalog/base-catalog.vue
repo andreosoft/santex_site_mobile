@@ -56,7 +56,7 @@
               <catalog-item-list :el="el" @addItemFav="addItemFav" @addItemCom="addItemCom" @addItemCart="addItemCart" />
             </v-col>
           </v-row>
-          <v-row class="d-none s-row-catalog-small">
+          <v-row class="d-none s-row-catalog-small mt-0">
             <v-col class="pa-0" cols="12" v-for="(el, i) in data" :key="i">
               <catalog-item-list-small :el="el" @addItemFav="addItemFav" @addItemCom="addItemCom" @addItemCart="addItemCart" />
             </v-col>

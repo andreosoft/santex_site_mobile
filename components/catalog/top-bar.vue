@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-space-between top-bar">
+    <div class="d-flex justify-space-between top-bar mb-3">
         <v-row class="d-flex align-center justify-space-between w-100">
             <v-col class="pr-2 pl-0 py-0 col-5 col-sm-4 h-100">
                 <v-btn @click="$emit('filter-small', $event)" dark class="s-btn-cart s-btn-text w-100">
@@ -108,6 +108,9 @@ export default {
                 text-transform: none !important;
                 letter-spacing: normal;
             }
+        }
+        .v-text-field__details{
+            display: none !important;
         }
     }
     .s-small-select{

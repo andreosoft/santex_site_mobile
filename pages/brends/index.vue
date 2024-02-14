@@ -46,7 +46,7 @@
         </v-row>
       </div>
     </div>
-    <div class="">
+    <div>
       <div v-if="view == 0" class="mt-16 text-center">
         <a class="s-btn-else"><i class="fas fa-redo"></i> Показать еще</a>
       </div>
@@ -172,12 +172,11 @@ export default {
 .s-btn-brend-letter {
   min-width: 36px;
   min-height: 36px;
-  border-radius: 50%;
+  border-radius: 100px;
   color: #0000008a;
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  padding: 8px;
 
   &:hover {
     background: #00000018;

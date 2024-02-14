@@ -109,12 +109,12 @@
             <div class="mt-5 mt-sm-0 s-item-id-icons">
               <v-btn @click="toCompare" plain small>
                 <img src="/icon-similar.png" alt="compare" />
-                <p class="ma-0 pa-0 ms-2 d-sm-none">Сравнить</p>
+                <p class="ma-0 pa-0 ms-2 d-sm-none" style="text-transform: none !important;">Сравнить</p>
               </v-btn>
               <v-btn class="ms-2" @click="toFavorite" plain small>
                 <img :class="{'favorite': !checkAvailable}" src="/icons/like-black.svg" alt="favorite-black">
                 <img :class="{'favorite': checkAvailable}" src="/icons/like.svg" alt="favorite">
-                <p class="ma-0 pa-0 ms-2 d-sm-none">В избранное</p>
+                <p class="ma-0 pa-0 ms-2 d-sm-none" style="text-transform: none !important;">В избранное</p>
               </v-btn>
             </div>
           </div>
@@ -236,6 +236,17 @@
                     <v-col :cols="12">
                       <v-simple-table dense>
                         <tbody>
+                          <tr>
+                            <td>
+                              <b>Артикул</b>
+                            </td>
+                            <td v-if="data.inner_article">
+                              {{ data.inner_article}}
+                            </td>
+                            <td v-else>
+                              {{ data.factory_article}}
+                            </td>
+                          </tr>
                           <tr v-for="(el, i) in data.filters" :key="i">
                             <td>
                               <b>{{ el.name }}</b>
@@ -258,10 +269,11 @@
         </v-expansion-panels>
       </v-row>
     </div>
-    <v-divider class="mb-10" />
+    <v-divider class="mb-5" />
     <div>
       <a @click="redirect_back"><i class="fas fa-long-arrow-alt-left mr-4"></i>Вернуться назад</a>
     </div>
+    <v-divider class="my-5" />
   </v-container>
 </template>
 
@@ -725,7 +737,7 @@ export default {
 }
 @media screen and (max-width: 600px) {
   .s-item-btns{
-    span{
+    span:not(.v-ripple__container){
       width: 50%;
       button{
         width: 100% !important; 

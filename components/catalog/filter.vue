@@ -128,6 +128,7 @@ export default {
       this.dataF = {
         brand: [],
       };
+      this.dataPrice = [];
       for (const key in this.filters.filters) {
         // let f = [];
         // if (this.value?.f[this.filters.filters[key]["filters_id"]]){
@@ -245,5 +246,9 @@ export default {
     background-color: #e0e0e0 !important;
     border: unset !important;
   }
-
+  .a-catalog-check1{
+    .v-input--selection-controls__ripple{
+      display: none !important;
+    }
+  }
 </style>

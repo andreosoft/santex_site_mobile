@@ -46,7 +46,7 @@
                     <v-col class="col-12 d-none d-sm-block col-sm-9 pl-0">
                         <div class="d-flex">
                             <div class="mr-4 pa-2" style="border: 0.5px solid black">
-                                <v-img style="width: 100px; height: 100px;" :src="$config.baseImageURL+el.img+'?width=250&height=250'" />
+                                <v-img style="width: 100px; height: 100px;" contain :src="$config.baseImageURL+el.img+'?width=250&height=250'" />
                             </div>
                             <div>
                                 <div style="font-size: 13px" class="mb-2 grey--text">Код товара: {{ el.code }}</div>
@@ -203,7 +203,7 @@
                           <v-col class="pa-0 col-12 d-flex flex-row justify-space-between">
                             <v-col class="mb-2 pa-0 pr-4 d-flex flex-column align-start col-4" style="position: relative;">
                               <div class="mr-4 pa-1" style="border: 0.5px solid black">
-                                <v-img class="s-item-list-img" style="width: 100px; height: 100px;" :src="$config.baseImageURL+el.img+'?width=250&height=250'" />
+                                <v-img class="s-item-list-img" contain style="width: 100px; height: 100px;" :src="$config.baseImageURL+el.img+'?width=250&height=250'" />
                             </div>
                               <!-- <div class="d-flex flex-column align-start mt-1 s-item-list-icons">
                                 <v-btn @click="toFavorite(el)" class="pa-0">
@@ -260,7 +260,7 @@
                                       
                                   </div>
                                   <div class="s-item-list-brand">
-                                    <span  style="color: #949494">Бренд: </span><span>{{ el.brand }}</span>
+                                    <span style="color: #949494">Бренд: </span><span>{{ el.brand }}</span>
                                   </div>
                                 </div>
                                 <!-- <div class="wrapper"></div> -->
@@ -275,7 +275,7 @@
                                     <span class="mx-2" v-if="el.price_old" style="font-size: 13px; text-decoration: line-through; color: #949494">
                                         <number :value="el.price_old" /> ₽
                                       </span>
-                                        <div v-if="el.count>1">
+                                        <div v-if="el.count>1 && el.price>0">
                                             <div style="font-size: 12px; color: #949494">
                                                 <b> {{ el.count }} x <number :value="el.count * el.price" /> ₽</b>
                                             </div>

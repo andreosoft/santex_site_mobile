@@ -2,7 +2,7 @@
     <v-container class="mb-10 s-static-main">
         <v-divider class="mb-8" />
         <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
-        <div class="d-flex justify-space-between align-center">
+        <div id="order" class="d-flex justify-space-between align-center">
             <h1>{{ title }}</h1>
             <div class="d-none d-sm-block pb-5">
                 <v-btn class="s-btn-text clearBtn" outlined @click="toCatalog">Вернуться к покупкам</v-btn>
@@ -675,6 +675,7 @@ export default {
                                     this.send = true;
                                     this.cartData = this.$store.getters['cart/cart']
                                     this.$store.commit('cart/removeAll');
+                                    document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
                                 } catch (error) {
                                         console.error(error);
                                     }

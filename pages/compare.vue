@@ -125,8 +125,8 @@
                 <div style="overflow: auto">
                     <div>
                         <div class="d-flex s-compare-items">
-                            <div style="width: 300px" v-for="(item, ind) in visibleItems" :key="ind">
-                                <div class="mb-10">
+                            <div style="min-width: 220px !important; max-width: 220px !important" v-for="(item, ind) in visibleItems" :key="ind">
+                                <div class="mb-10 w-100">
                                 <catalog-item-list-compare :el="item" @removeItemCom="removeItem" @addItemFav="addItemFav" @addItemCart="addItemCart" />
                                 </div>
                                 <div v-if="differenceInput" class="s-comapre-table" :class="{'mb40': ind > 0}">

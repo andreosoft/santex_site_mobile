@@ -4,13 +4,13 @@
       <v-col class="pa-0 col-12 d-flex flex-row justify-space-between">
         <v-col class="mb-2 pa-0 pr-4 d-flex flex-column align-start col-4" style="position: relative;">
           <v-img class="s-item-list-img" v-if="el.images && el.images[0]" :contain="true" style="width: 150px; height: 150px; border: 1px solid rgb(192, 192, 192)" :src="$config.baseImageURL+el.images[0]+'?height=250'" />
-          <div class="d-flex flex-column align-start mt-1 s-item-list-icons">
-            <v-btn @click="toFavorite(el)" class="pa-0">
+          <div class="d-flex flex-column align-start mt-1 s-item-list-icons" style="width: 150px;">
+            <v-btn @click="toFavorite(el)" class="pa-0 w-100 d-flex justify-start">
               <img v-show="checkAvailable" src="/icons/like-black.svg" alt="favorite-black">
               <img v-show="!checkAvailable" src="/icons/like.svg" alt="favorite">
               <p class="ma-0 pa-0 ms-2">В избранное</p>
             </v-btn>
-            <v-btn @click="toCompare(el)" class="pa-0">
+            <v-btn @click="toCompare(el)" class="pa-0 w-100 d-flex justify-start">
               <img src="/icon-similar.png" alt="" />
               <p class="ma-0 pa-0 ms-2">Сравнить</p>
             </v-btn>
@@ -338,6 +338,9 @@ export default {
     width: 120px !important;
     height: 120px !important;
   }
+  .s-item-list-icons{
+    width: 120px !important;
+  }
   .s-item-list-price{
     .s-item-list-price-second{
       font-size: 17px !important;
@@ -354,6 +357,9 @@ export default {
     width: 100px !important;
     height: 140px !important;
     max-height: 100% !important;
+  }
+  .s-item-list-icons{
+    width: 100px !important;
   }
   .s-item-list-price{
     .s-item-list-price-second{

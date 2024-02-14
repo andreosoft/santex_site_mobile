@@ -1,5 +1,5 @@
 <template>
-  <div class="s-top-bar mb-5">
+  <div class="s-top-bar mb-4">
     <v-container class="py-1">
       <div class="d-flex justify-space-between">
         <div>

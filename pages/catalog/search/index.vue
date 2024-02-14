@@ -6,7 +6,7 @@
     <div class="mb-10">
       <p><b>Вы искали: </b><span class="underlined">{{ searchInput }}</span>, найдено {{ pager.count }} шт.</p>
     </div>
-    <v-divider class="mb-10" />
+    <v-divider class="mb-4" />
     <base-catalog
     :loading="loading"
     :data="data"
@@ -16,7 +16,7 @@
     :sort="sort"
     @update-filters="dataFilters = $event" 
     @update-data="valueFiltersFinal" />
-    <div class="text-center mt-10 ">
+    <div class="text-center mt-10">
       <common-pagination :value="pager" />
     </div>
   </v-container>
