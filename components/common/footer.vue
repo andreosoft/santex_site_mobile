@@ -35,7 +35,13 @@
             </div>
           </v-col>
           <v-col class="col-6 col-sm-auto parent-btn-foot">
-            <v-btn style="text-transform: none; width: 80%;" rounded class="btn-foot black--text s-btn-main s-btn-text" to="/consulting">Запись на консультацию</v-btn>
+            <v-btn 
+            style="text-transform: none; width: 80%;" 
+            rounded 
+            class="btn-foot black--text s-btn-main s-btn-text" 
+            to="/consulting">
+            Запись <br class="d-none s-foot_br"> на консультацию
+            </v-btn>
           </v-col>
         </v-col>
       </v-row>
@@ -174,6 +180,10 @@ export default {
 @media screen and (max-width: 425px) {
   .btn-foot{
     width: 100% !important;
+    text-align: center;
+    .s-foot_br{
+      display: block !important;
+    }
   }
   .s-bottom{
     div{

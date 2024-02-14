@@ -3,7 +3,7 @@
     <div class="mb-10">
       <div style="position: relative;">
         <nuxt-link :to="'/catalog/view/' + el.id">
-          <v-img class="s-compare-img" style="width: 400px; height: 250px" :src="$config.baseImageURL+el.image+'?width=270&height=270'" />
+          <v-img contain class="s-compare-img" style="width: 400px; height: 250px" :src="$config.baseImageURL+el.image+'?width=270&height=270'" />
         </nuxt-link>
         <div style="position: absolute; right: 0px; top: -10px">
           <v-btn @click="removeItem(el)" icon style="padding-bottom: 4px;"><i style="font-size: 20px;" class="grey--text fas fa-times-circle"></i></v-btn>

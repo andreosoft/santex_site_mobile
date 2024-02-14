@@ -28,7 +28,7 @@
 
 <style lang="scss">
 .s-index-text hr.style-1{
-  margin: 10 auto !important;
+  margin: -5px auto 10px auto !important;
 }
 .s-title-header {
   font-size: 40px;

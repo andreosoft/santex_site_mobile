@@ -10,7 +10,7 @@
                 </div>
               </div>
             <div class="d-flex flex-column align-start mt-1 s-item-list-icons">
-              <v-btn @click="toCompare(el)" class="pa-0">
+              <v-btn @click="toCompare(el)" class="pa-0 w-100 d-flex justify-start">
                 <img src="/icon-similar.png" alt="" />
                 <p class="ma-0 pa-0 ms-2">Сравнить</p>
               </v-btn>

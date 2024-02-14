@@ -54,7 +54,7 @@
             <v-col id="numb-head" class="col-12 col-sm-6 d-flex align-center justify-space-between">
                 <a @click="$emit('input')" class="s-header-phones" href="tel://88007759985">8 800 775 99 85</a>
                 <a @click="$emit('input')" class="s-header-phones" href="tel://84952256285">8 495 225 62 85</a>
-              <a @click="$emit('input')" class="s-header-phones me-5" target="_blank" href="https://api.whatsapp.com/send/?phone=89672823107"><span><img class="icons-head" src="/icons/whats_small.svg" alt="" /></span></a>
+              <a @click="$emit('input')" class="s-header-phones me-5" target="_blank" href="https://api.whatsapp.com/send/?phone=79672823107"><span><img class="icons-head" src="/icons/whats_small.svg" alt="" /></span></a>
             </v-col>
             <v-col class="col-12 col-sm-6 d-flex align-end align-sm-center justify-space-between right-up-menu" style="border-left: 1px solid #e5e5e5">
               <div class="d-block d-sm-none">
@@ -72,7 +72,7 @@
                 </div>
               </div> -->
               <div @click="$emit('input')">
-                <nuxt-link class="d-flex flex-column flex-sm-row align-center" to="/compare">
+                <nuxt-link class="d-flex flex-column flex-sm-row align-center s-cat-compare" to="/compare">
                   <img class="mb-2 mb-sm-0 icons-head" src="/icons/compare.svg" alt="" />
                   <div v-show="countItemsCom !== 0" style="position: relative;">
                     <div class="cartIcon">{{ countItemsCom }}</div>
@@ -218,6 +218,7 @@ export default {
     submitSearch() {
       this.$router.push({ path: '/catalog/search', query: { q: this.search } })
       this.showSearch = false
+      this.$emit('input')
     },
   },
   computed: {
@@ -232,6 +233,11 @@ export default {
   .right-up-menu{
     .cartIcon{
       right: -18px;
+    }
+  }
+  .s-menu-catalog{
+    .s-common-divider1{
+      margin: 0 !important;
     }
   }
   @media screen and (max-width: 740px) {

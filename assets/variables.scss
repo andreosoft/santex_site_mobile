@@ -199,6 +199,25 @@ h4 {
   padding-top: 1px;
   display: inline-block;
 }
+.s-cat-compare{
+  .cartIcon{
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 11px;
+    top: -28px !important;
+    left: 15px;
+  }
+}
+@media screen and (min-width: 600px) {
+  .s-cat-compare{
+    .cartIcon{
+      width: 16px !important;
+      height: 16px !important;
+      top: -15px !important;
+      left: -5px;
+    }
+  }
+}
 .s-text-h2 {
   font-size: 25px;
   font-weight: bold;
@@ -316,7 +335,7 @@ tbody tr:nth-of-type(odd) {
   height: fit-content;
   z-index: 1000;
   position: relative;
-  top: -20px;
+  top: 0px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -340,7 +359,7 @@ tbody tr:nth-of-type(odd) {
 }
 @media screen and(max-width: 600px) {
   .s-menu-catalog{
-    top: -25px;
+    top: -3px;
   }
 }
 .s-catalog-links {
