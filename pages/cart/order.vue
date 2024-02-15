@@ -675,7 +675,7 @@ export default {
                                     this.send = true;
                                     this.cartData = this.$store.getters['cart/cart']
                                     this.$store.commit('cart/removeAll');
-                                    document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+                                    window.scrollTo({top: document.getElementById('order').getBoundingClientRect().top + window.scrollY});
                                 } catch (error) {
                                         console.error(error);
                                     }
