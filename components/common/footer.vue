@@ -40,7 +40,7 @@
             rounded 
             class="btn-foot black--text s-btn-main s-btn-text" 
             to="/consulting">
-            Запись <br class="d-none s-foot_br"> на консультацию
+            Запись <br class="d-none" id="s-foot_br"> на консультацию
             </v-btn>
           </v-col>
         </v-col>
@@ -165,6 +165,12 @@ export default {
   .parent-btn-foot{
     padding: 0 !important;
   }
+  .btn-foot span{
+    text-align: center;
+  }
+  #s-foot_br{
+    display: block !important;
+  }
 }
 @media screen and (max-width: 534px) {
   .name-num-foot{
@@ -181,9 +187,6 @@ export default {
   .btn-foot{
     width: 100% !important;
     text-align: center;
-    .s-foot_br{
-      display: block !important;
-    }
   }
   .s-bottom{
     div{
