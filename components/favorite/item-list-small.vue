@@ -4,7 +4,7 @@
         <v-col class="pa-0 col-12 d-flex flex-row justify-space-between">
           <v-col class="mb-2 pa-0 pr-4 d-flex flex-column align-start col-4" style="position: relative;">
             <div style="position: relative;" class="mb-2">
-                <v-img class="s-item-list-img" :contain="true" style="width: 150px; height: 150px; border: 1px solid rgb(192, 192, 192)" :src="$config.baseImageURL+el.images+'?height=250'" />
+                <v-img @click="$router.push(routeItem)" class="s-item-list-img" :contain="true" style="width: 150px; height: 150px; border: 1px solid rgb(192, 192, 192); cursor: pointer" :src="$config.baseImageURL+el.images+'?height=250'" />
                 <div style="position: absolute; right: 0px; top: 0px">
                   <v-btn @click="removeItem(el)" icon style="padding-bottom: 4px;"><i style="font-size: 20px;" class="grey--text fas fa-times-circle"></i></v-btn>
                 </div>
@@ -95,6 +95,7 @@
     },
     data()  {
       return {
+        routeItem: '/catalog/view/' + this.el.id,
       }
     },
     methods: {

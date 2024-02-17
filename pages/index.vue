@@ -1,5 +1,5 @@
 <template>
-  <div class="s-static-main">
+  <div class="s-static-main s-index-main">
     <index-mainCarusel :items="carouselItems" class="mb-10" />
     <index-mainInfoBlock />
     <common-divider1 />
@@ -140,3 +140,14 @@ let salesItems = [];
   },
 };
 </script>
+
+<style lang="scss">
+  .s-index-main{
+    .s-divider1-container{
+      padding-top: 0 !important;
+      .s-common-divider1{
+        margin-top: 0 !important;
+      }
+  }
+  }
+</style>

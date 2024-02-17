@@ -39,14 +39,14 @@
         </v-row>
         <v-row class="mb-4 s-contacts-col">
             <v-col class="col-12 col-sm-4 pl-0 d-flex d-sm-block s-contacts-col">
-                <a class="d-flex align-center mb-sm-6 mr-10 mr-sm-0">
+                <a href="https://instagram.com/tanya_prodesign" class="d-flex align-center mb-sm-6 mr-10 mr-sm-0">
                     <div class="pa-1 pr-4"><img src="/icons/contact/inst.png" /></div>
                     <div>
                         <div class="grey--text"><b>Instagram</b></div>
                         <div><b>tanya_prodesign</b></div>
                     </div>
                 </a>
-                <a class="d-flex align-center">
+                <a href="https://instagram.com/tanya_prodesign" class="d-flex align-center">
                     <div class="pa-1 pr-4 d-sm-block d-none"><img src="/icons/contact/inst.png" /></div>
                     <div>
                         <div class="grey--text"><b>Instagram</b></div>
@@ -55,14 +55,14 @@
                 </a>
             </v-col>
             <v-col class="col-12 pl-0 pl-sm-3 col-md-4 col-sm-8 d-flex d-sm-block s-contacts-col">
-                <a class="d-flex align-center mb-sm-6 mr-10 mr-sm-0">
+                <a href="https://api.whatsapp.com/send/?phone=74952256285" class="d-flex align-center mb-sm-6 mr-10 mr-sm-0">
                     <div class="pa-1 pr-4"><img src="/icons/contact/whatsapp.png" /></div>
                     <div>
                         <div class="grey--text"><b>WhatsApp</b></div>
                         <div><b>8 (495) 225-62-85</b></div>
                     </div>
                 </a>
-                <a class="d-flex align-center">
+                <a href="https://api.whatsapp.com/send/?phone=74952256285" class="d-flex align-center">
                     <div class="pa-1 pr-4 d-sm-block d-none"><img src="/icons/contact/whatsapp.png" /></div>
                     <div>
                         <div class="grey--text"><b>WhatsApp</b></div>
@@ -71,7 +71,7 @@
                 </a>
             </v-col>
             <v-col class="col-md-4 col-12 px-0" >
-                <a class="d-flex align-center mb-6">
+                <a href="https://youtube.com/@tanyaprodesign" class="d-flex align-center mb-6">
                     <div class="pa-1 pr-4"><img src="/icons/contact/youtube.png" /></div>
                     <div>
                         <div class="grey--text"><b>Youtube</b></div>
@@ -121,18 +121,18 @@
             <h2 class="text-center s-contacts-photo_title">Фотографии салона</h2>
             <div>
                 <div class="mb-4">
-                    <v-img src="/img/contact/2.png" />
+                    <v-img :src="'/img/contact/' + showImage + '.png'" />
                 </div>
                 <div class="d-flex justify-center s-contacts-photos">
                     <div class="d-flex">
                         <div class="ma-4" style="max-width: 200px">
-                            <v-img src="/img/contact/3.png" />
+                            <v-img @click="showImage = 2" src="/img/contact/3.png" />
                         </div>
                         <div class="ma-4" style="max-width: 200px">
-                            <v-img src="/img/contact/4.png" />
+                            <v-img @click="showImage = 4" src="/img/contact/4.png" />
                         </div>
                         <div class="ma-4" style="max-width: 200px">
-                            <v-img src="/img/contact/5.png" />
+                            <v-img @click="showImage = 5" src="/img/contact/5.png" />
                         </div>
                     </div>
                 </div>
@@ -145,6 +145,7 @@
 export default {
 data() {
     return {
+        showImage: 2,
         showPopupConsult: false,
         videoItem: {
                 video: "https://www.youtube.com/embed/nOKam63GgzQ"

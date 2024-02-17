@@ -36,7 +36,8 @@ export default {
       perPage: 1,
       fixedWidth: "1370px",
       rewind: true,
-      type: 'loop'
+      type: 'loop',
+      pagination: true
     });
     splide.mount();
   },
@@ -116,23 +117,9 @@ export default {
   .splide__pagination {
     height: 50px;
     bottom: -19px;
-    background: no-repeat center url(/img/carusel1.png);
 
     li {
       margin-bottom: 19px;
-
-      .splide__pagination__page {
-        height: 14px;
-        width: 14px;
-        background: #fff;
-        border: 1px solid #242424;
-        margin: 5px;
-
-        &.is-active {
-          background: #242424;
-          transform: none;
-        }
-      }
     }
   }
 }

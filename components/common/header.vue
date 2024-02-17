@@ -63,13 +63,13 @@
           <!-- <div class="wrapper"></div> -->
           <div class="s-header-actions-block d-flex align-center">
             <!-- <nuxt-link to="/" style="display: none;"><img src="/icons/profile.svg" alt="" /></nuxt-link> -->
-            <nuxt-link to="/favorite" class="me-4 me-sm-6">
+            <nuxt-link to="/favorite" class="me-6 me-sm-6" id="hrefs">
               <img src="/icons/like.svg" alt="" />
               <div v-show="countItemsFav !== 0" style="position: relative;">
                 <div class="cartIcon">{{ countItemsFav }}</div>
               </div>
             </nuxt-link>
-            <nuxt-link to="/compare" class="me-4 me-sm-6">
+            <nuxt-link to="/compare" class="me-6 me-sm-6" id="hrefs">
               <img src="/icons/compare.svg" alt="" />
               <div v-show="countItemsCom !== 0" style="position: relative;">
                <div class="cartIcon">{{ countItemsCom }}</div>
@@ -240,7 +240,7 @@ export default {
     }
   }
   .s-header-main-logo{
-    left: 10px !important;
+    left: 25px !important;
   }
   .s-header-search-icon{
     width: 1em !important;
@@ -275,6 +275,16 @@ export default {
     img{
       width: 75% !important;
     }
+  }
+}
+@media screen and (max-width: 390px) {
+  .s-header-actions-block{
+    >a#hrefs{
+      margin-right: 16px !important;
+    }
+  }
+  .s-header-main-logo{
+    left: 20px !important;
   }
 }
 </style>

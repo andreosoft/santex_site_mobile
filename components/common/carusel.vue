@@ -6,7 +6,7 @@
           <ul class="splide__list">
             <li v-for="(el, i) in items" :key="i" class="splide__slide">
               <common-video v-if="blog" :item="el"/>
-              <index-new-items-el-carusel v-else-if="items[0].titleCollection || sales" :el="el" />
+              <index-new-items-el-carusel v-else-if="items[0].titleCollection || sales" :el="el" :sales="sales" />
               <s-guide-style-items-el v-else :el="el" />
             </li>
           </ul>
