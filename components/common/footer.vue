@@ -166,6 +166,8 @@ export default {
     padding: 0 !important;
   }
   .btn-foot span{
+    font-size: 12px !important;
+    line-height: 15px;
     text-align: center;
   }
   #s-foot_br{

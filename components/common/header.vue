@@ -46,7 +46,7 @@
                     </div>
                   </form>
                 </transition>
-            <img @click="showSearch = !showSearch" class="ms-5 s-header-search-icon" style="cursor: pointer" src="/icons/Search.svg" />
+            <img @click="[showSearch = !showSearch, showCatalogMenu = false]" class="ms-5 s-header-search-icon" style="cursor: pointer" src="/icons/Search.svg" />
             </div>
             </div>
           <!-- <div class="s-header-menu-links pt-2">
@@ -57,26 +57,26 @@
             <nuxt-link to="/promote/1"><img src="/icon-discont.png" class="pr-1" />Распродажа</nuxt-link>
           </div> -->
           <!-- <div class="wrapper"></div> -->
-          <div class="s-header-main-logo d-flex align-center justify-center" style="position: relative; left: 25px">
+          <div class="s-header-main-logo d-flex align-center justify-center" style="position: relative; left: 25px" @click="showCatalogMenu = false">
             <nuxt-link to="/"><img src="/icons/logo.svg" /></nuxt-link>
           </div>
           <!-- <div class="wrapper"></div> -->
-          <div class="s-header-actions-block d-flex align-center">
+          <div class="s-header-actions-block d-flex align-center" @click="disableMenu($event)">
             <!-- <nuxt-link to="/" style="display: none;"><img src="/icons/profile.svg" alt="" /></nuxt-link> -->
-            <nuxt-link to="/favorite" class="me-6 me-sm-6" id="hrefs">
+            <nuxt-link to="/favorite" class="me-6 me-sm-6 s-main-link" id="hrefs" >
               <img src="/icons/like.svg" alt="" />
               <div v-show="countItemsFav !== 0" style="position: relative;">
                 <div class="cartIcon">{{ countItemsFav }}</div>
               </div>
             </nuxt-link>
-            <nuxt-link to="/compare" class="me-6 me-sm-6" id="hrefs">
+            <nuxt-link to="/compare" class="me-6 me-sm-6 s-main-link" id="hrefs">
               <img src="/icons/compare.svg" alt="" />
               <div v-show="countItemsCom !== 0" style="position: relative;">
                <div class="cartIcon">{{ countItemsCom }}</div>
               </div>
             </nuxt-link>
             <!-- <div style="width: 70px;" class="ml-6 d-inline-block"> -->
-              <nuxt-link to="/cart" class="me-3">
+              <nuxt-link to="/cart" class="me-3 s-main-link">
                   <img src="/icons/basket.svg" alt="compare" />
                   <div v-show="countItems !== 0" style="position: relative;">
                     <div class="cartIcon">{{ countItems }}</div>
@@ -121,6 +121,12 @@ export default {
     }
   },
   methods: {
+  disableMenu(e){
+    // console.log(e.target);
+    if(e.target.classList.contains('s-main-link') || e.target.closest('.s-main-link')){
+      this.showCatalogMenu = false;
+    }
+  },
     submitSearch() {
       this.$router.push({ path: '/catalog/search', query: { q: this.search } });
       this.showSearch = false;

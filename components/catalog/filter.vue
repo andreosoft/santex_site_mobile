@@ -5,7 +5,7 @@
       <v-btn @click="onUpdateData()">Показать</v-btn>
     </div> -->
     <v-row class="d-flex flex-row align-center justify-end">
-      <div @click="$emit('filter-small', $event)" class="d-flex align-center justify-center">
+      <div @click="$emit('filter-small', $event)" class="d-flex align-center justify-center" style="cursor: pointer">
         <i style="width: 100%" class="fa fa-times"></i>
       </div>
     </v-row>
@@ -105,8 +105,9 @@ export default {
   methods: {
     initValueFilters() {
       this.dataF = {
-        brand: [],
+        brand: this.value.brand ? this.value.brand : [],
       };
+      this.dataPrice = this.value.price ? this.value.price : [];
       for (const key in this.filters.filters) {
         let f = [];
         if (this.value?.f[this.filters.filters[key]["filters_id"]]){

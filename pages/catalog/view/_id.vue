@@ -260,12 +260,12 @@
                 </div>
             </v-expansion-panel-content>
           </v-expansion-panel>
-          <v-expansion-panel>
+          <!-- <v-expansion-panel>
             <v-expansion-panel-header class="s-expansion-panel-header py-8">Комплектующие</v-expansion-panel-header>
             <v-expansion-panel-content>
               <catalog-complect-block :data="data.complect_data" />
             </v-expansion-panel-content>
-          </v-expansion-panel>
+          </v-expansion-panel> -->
         </v-expansion-panels>
       </v-row>
     </div>
