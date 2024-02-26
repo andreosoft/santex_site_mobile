@@ -15,6 +15,7 @@ export const actions = {
     async nuxtServerInit({ state, getters }, { }) {
         const res = await this.$axios.get(this.$config.baseURL + '/api/site/categories/top-menu-list');
         state.categories = res.data.data;
+        // console.log(res.data.data);
         getters.cartData;
     },
 }

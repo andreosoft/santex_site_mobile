@@ -1,6 +1,6 @@
 <template>
   <v-card class="s-card-perpage">
-    <NuxtLink v-if="el.isparent == 0" :to="'/catalog/' + el.id">
+    <NuxtLink v-if="el.hasOwnProperty('isparent')" :to="'/catalog/' + el.id">
       <img v-if="el.images" :src="$config.baseImageURL + el.images[0]" style="width: 100%;"/>
       <v-img v-else src="/black-square.jpg" style="width: 100%;" />
       <div style="position: absolute; bottom: 20px; left: 0; right: 0">

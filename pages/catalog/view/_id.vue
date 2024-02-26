@@ -288,6 +288,10 @@ async function getData({ route, $axios, $config }) {
   const dataCat = resCat.data.data;
   // console.log(dataCat);
   const breadcrumbsData = [
+    // {
+    //   url: "/catalog/" + 'allcategories',
+    //   title: 'Каталог',
+    // },
     {
       url: "/catalog/" + dataCat.id,
       title: dataCat.name,

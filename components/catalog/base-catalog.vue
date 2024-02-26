@@ -1,6 +1,6 @@
 <template>
   <div v-if="data[0]">
-    <v-row v-if="data && data[0].isparent == 0" class="s-row d-flex justify-center mb-5 mt-5">
+    <v-row v-if="data && data[0].hasOwnProperty('isparent')" class="s-row d-flex justify-center mb-5 mt-5">
         <!-- <img v-if="categoriesData.images" :src="$config.baseImageURL + categoriesData.images[0]" alt="banner"> -->
         <v-img style="width: 100%" src="/banners/banner1.png" alt="banner"/>
     </v-row>
@@ -31,19 +31,19 @@
     
   <v-overlay :value="filterSmall"></v-overlay>
     <v-row class="s-row">
-      <v-col v-if="data && data[0].isparent !== 0" class="s-filter-col d-none d-md-block col-3">
+      <v-col v-if="data && !data[0].hasOwnProperty('isparent')" class="s-filter-col d-none d-md-block col-3">
         <div>
           <catalog-filter :value="valueFilters" :filters="dataFilters" @input="$emit('update-data', $event);" />
         </div>
       </v-col>
-      <v-col v-if="data && data[0].isparent !== 0" :class="{ 'd-block': filterSmall }" class="s-filter-col s-filter-small d-none d-md-none">
+      <v-col v-if="data && !data[0].hasOwnProperty('isparent')" :class="{ 'd-block': filterSmall }" class="s-filter-col s-filter-small d-none d-md-none">
           <transition name="fade">
           <div>
             <catalog-filter @filter-small="filterSmall = !filterSmall" :value="valueFilters" :filters="dataFilters" @input="emitFilters" />
           </div>
         </transition>
         </v-col>
-      <v-col v-if="data && data[0].isparent !== 0" class="col-12 pa-0 col-md-9">
+      <v-col v-if="data && !data[0].hasOwnProperty('isparent')" class="col-12 pa-0 col-md-9">
         <catalog-top-bar :count="pager.count" :sort="sort" @filter-small="filterSmall = !filterSmall" />
         <v-row v-if="loading" class="s-row">
           <v-col cols="4" v-for="(el, i) in pager.limit" :key="i">
@@ -76,7 +76,7 @@
             <v-skeleton-loader class="mx-auto" max-width="300" type="card"></v-skeleton-loader>
           </v-col>
         </v-row>
-        <v-row v-else-if="data && data[0].isparent !== 0" class="s-row" :class="{ close: !toggleOpen, 'catalog-items': pager.limit == 0 }">
+        <v-row v-else-if="data && !data[0].hasOwnProperty('isparent')" class="s-row" :class="{ close: !toggleOpen, 'catalog-items': pager.limit == 0 }">
           <v-col cols="4" v-for="(el, i) in data" :key="i">
             <catalog-item-list :el="el" @addItemFav="addItemFav" @addItemCom="addItemCom" @addItemCart="addItemCart" />
           </v-col>
