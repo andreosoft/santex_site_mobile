@@ -34,7 +34,8 @@ export default {
   mounted() {
     var splide = new Splide('#main-splide', {
       perPage: 1,
-      fixedWidth: "1370px",
+      // height: 200,
+      // fixedWidth: "1370px",
       rewind: true,
       type: 'loop',
       pagination: true

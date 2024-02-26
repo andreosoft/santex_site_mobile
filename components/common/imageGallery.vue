@@ -25,7 +25,11 @@
                   :key="ind" 
                   class="ma-2 s-catalog-gallery "
                   :class="{ active: galleryModel == ind }" @click="galleryModel = ind">
-                      <v-img width="100" height="100" :src="$config.baseImageURL + el + '?height=100'" :contain="true"/>
+                      <v-img
+                        style="width: 100px; height: 100px" 
+                        contain 
+                        :src="$config.baseImageURL + el + '?width=250&height=250'"
+                       />
                   </v-card>
               </div>
 <div class="d-flex flex-row d-sm-none ">
