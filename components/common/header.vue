@@ -1,6 +1,6 @@
 <template>
   <div class="s-header-parent-main">
-    <common-top class="d-none d-sm-block" />
+    <common-top class="d-none d-sm-block" @showCatalog="showCatalogMenu = false" />
     <v-container class="s-header-container" style="padding-top: 6px;">
       <!-- <div class="py-4 mb-6 d">
         <div class="d-flex justify-space-between">

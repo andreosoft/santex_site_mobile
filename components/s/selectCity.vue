@@ -13,6 +13,7 @@
         max-width="730px" 
         transition="dialog-transition"
         :fullscreen="$vuetify.breakpoint.xs"
+        style="z-index: 2000;"
         >
             <div class="s-popup">
                 <div>

@@ -11,7 +11,7 @@
           </div>
         </div>
         <div style="width: 50%" class="d-flex justify-end align-center me-3">
-          <span class="s-top-link" v-for="(el, i) in links" :key="i">
+          <span class="s-top-link" @click="$emit('showCatalog', true)" v-for="(el, i) in links" :key="i">
             <nuxt-link :to="el.to"> {{ el.title }} </nuxt-link>
           </span>
         </div>
