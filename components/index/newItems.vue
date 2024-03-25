@@ -16,7 +16,7 @@
     <v-container>
       <div class="text-center mt-sm-14">
         <v-btn class="s-btn-main s-btn-text">
-          <NuxtLink to="/">БОЛЬШЕ НОВИНОК</NuxtLink>
+          <NuxtLink to="/promote/2">БОЛЬШЕ НОВИНОК</NuxtLink>
         </v-btn>
       </div>
     </v-container>

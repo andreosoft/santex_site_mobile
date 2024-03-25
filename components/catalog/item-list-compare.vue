@@ -38,12 +38,9 @@
           <span style="font-size: 20px; font-weight: bold;">
             <number :value="el.price" /> ₽
           </span>
-          <span
-          class="ml-2"
-          v-if="el.old_price"
-          style="font-size: 13px; text-decoration: line-through; color: #949494">
+          <!-- <span class="ml-2" v-if="el.old_price" style="font-size: 13px; text-decoration: line-through; color: #949494">
             <number :value="el.old_price" /> ₽
-          </span>
+          </span> -->
           <div class="d-sm-none">
             <v-btn @click="toCart(el)" dark class="s-btn-text">
               <i class="fas fa-shopping-cart"></i>

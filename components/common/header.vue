@@ -38,7 +38,7 @@
                   <transition name="fade">
                   <form v-if="showSearch" @submit.prevent="submitSearch()" class="ma-0 ms-5 pa-0 form-search" style="width: 240px; position: absolute; top: 50px; z-index: 100; overflow: hidden">
                     <div class="s-header-menu-search">
-                      <v-text-field v-model="search" single-line outlined dense label="Я хочу найти">
+                      <v-text-field @keyup.enter="submitSearch()" v-model="search" single-line outlined dense label="Я хочу найти">
                         <template v-slot:append>
                           <img style="cursor: pointer" @click="submitSearch()" src="/icons/Search.svg" />
                         </template>

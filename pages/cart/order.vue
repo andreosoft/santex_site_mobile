@@ -5,7 +5,7 @@
         <div id="order" class="d-flex justify-space-between align-center">
             <h1>{{ title }}</h1>
             <div class="d-none d-sm-block pb-5">
-                <v-btn class="s-btn-text clearBtn" outlined @click="toCatalog">Вернуться к покупкам</v-btn>
+                <v-btn outlined class="mb-5 pt-2 pb-2 clearBtn" @click="toCatalog">Вернуться к покупкам</v-btn>
             </div>
         </div>
         <v-divider class="mb-8" />
@@ -645,7 +645,7 @@ export default {
     },
     methods: {
         toCatalog(){
-            this.$router.push({path: '/'})
+            this.$router.push({path: '/catalog/allcategories'})
         },
         updateDataClient(name1, value, name2){
             name2 ? this.$store.commit('cart/updateDataClient', {name1, value, name2}) : this.$store.commit('cart/updateDataClient', {name1, value});

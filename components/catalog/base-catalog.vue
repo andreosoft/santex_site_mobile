@@ -250,17 +250,18 @@ export default {
     }
   }
 }
-@media screen and (max-width: 540px) {
+
+@media screen and (max-width: 452px) {
   .catalog-items {
     &.close {
-      max-height: 520px !important;
+      max-height: 580px !important;
     }
   }
 }
-@media screen and (max-width: 466px) {
+@media screen and (max-width: 388px) {
   .catalog-items {
     &.close {
-      max-height: 550px !important;
+      max-height: 610px !important;
     }
   }
 }
