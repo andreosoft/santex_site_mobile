@@ -1,17 +1,17 @@
 <template>
   <v-card>
-    <NuxtLink :to="el.to ? el.to : '/promote/' + el.id">
-      <v-img style="width: 100% !important" :src="el.img ? el.img : $config.baseImageURL + el.images[el.images.length-1]" />
-      <div class="s-cart-tite-1" :class="{ 'text-info-sales': sales }">
-        <div class="pa-10">
+    <NuxtLink :to="newItems ? '/promote/2' : '/promote/1'">
+      <v-img class="w-100 h-100" v-if="el.images" :src="$config.baseImageURL + el.images[0]" />
+      <div class="s-cart-tite-1" :class="{ 'text-info-sales': newItems }">
+        <div class="pa-10 d-flex">
           <div class="d-inline-block mr-2 mr-sm-3" style="vertical-align: top">
             <v-btn fab><img src="/icons/basket.svg" alt="" /></v-btn>
           </div>
           <div class="d-inline-block white--text text-info">
             <div class="text-uppercase">
-              <b>{{ el.titleCollection ? el.titleCollection : el.introtext }}</b>
+              <b>{{ el.collection ? el.collection : el.introtext ? el.introtext : 'Не указано' }}</b>
             </div>
-            <div><b>{{ el.titleItem ? el.titleItem : el.name }}</b> <i class="fa fa-long-arrow-right"></i></div>
+            <div><b>{{ el.name ? el.name : 'Не указано' }}</b> <i class="fa fa-long-arrow-right"></i></div>
           </div>
         </div>
       </div>
@@ -26,6 +26,10 @@ export default {
     sales: {
       type: Boolean,
       default: false
+    },
+    newItems: {
+      type: Boolean,
+      default: false
     }
   },
 };
@@ -37,9 +41,12 @@ export default {
     background-color: unset;
   }
   @media screen and (max-width: 600px) {
+    .text-info-sales{
+      margin-bottom: -5px !important;
+    }
     .s-cart-tite-1{
       margin-left: -10px;
-      margin-bottom: -25px;
+      margin-bottom: -20px;
       div>div:first-child button{
         width: 45px;
         height: 45px;
@@ -74,9 +81,6 @@ export default {
         font-size: 10px !important;
       }
     }
-    .text-info-sales{
-      margin-left: -10px;
-      margin-bottom: -35px;
-    }
+    
   }
 </style>

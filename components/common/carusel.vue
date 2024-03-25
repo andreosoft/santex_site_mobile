@@ -6,26 +6,14 @@
           <ul class="splide__list">
             <li v-for="(el, i) in items" :key="i" class="splide__slide">
               <common-video v-if="blog" :item="el"/>
-              <index-new-items-el-carusel v-else-if="items[0].titleCollection || sales" :el="el" :sales="sales" />
+              <index-new-items-el-carusel style="height: 343px" v-else-if="sales" :el="el" :newItems="newItems" :sales="sales" />
               <s-guide-style-items-el v-else :el="el" />
             </li>
           </ul>
         </div>
       </section>
     </v-container>
-    <!-- <div style="position: relative">
-    <div class="s-carusel-contols left">
-      <v-btn fab @click="prev()"><i class="fa fa-chevron-left"></i></v-btn>
-    </div>
-    <v-window v-model="carouselModel">
-      <v-window-item v-for="(els, i) in data" :key="i">
-        <slot :els="els"></slot>
-      </v-window-item>
-    </v-window>
-    <div class="s-carusel-contols right">
-      <v-btn fab @click="next()"><i class="fa fa-chevron-right"></i></v-btn>
-    </div>
-  </div> -->
+    
   </div>
 
 </template>
@@ -60,6 +48,10 @@ export default {
       type: Boolean,
       default: false
     },
+    newItems: {
+      type: Boolean,
+      default: false
+    },
     blog: {
       type: Boolean,
       default: false
@@ -78,7 +70,8 @@ export default {
       rewind: true,
       type: 'loop',
       pagination: this.pager,
-      breakpoints: this.breakpointsNumbs
+      breakpoints: this.breakpointsNumbs,
+      height: this.sales ? 343 : 'auto',
     });
     splide.mount();
   },

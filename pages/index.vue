@@ -3,13 +3,13 @@
     <index-mainCarusel :items="carouselItems" class="mb-10" />
     <index-mainInfoBlock />
     <common-divider1 />
-    <index-new-items :items="collectionItems" class="mb-5" />
-    <common-divider1 />
+    <index-new-items v-if="itemsNewRes" :items="itemsNewRes" class="mb-5" />
+    <common-divider1 v-if="itemsNewRes" class="mb-10" />
     <index-guide-style-items :items="dataInterior" class="mb-5" />
     <common-divider1 />
     <index-catalog-items :items="catalogItems" class="mb-5" />
     <common-divider1 />
-    <index-salesItems :items="salesItems" class="mb-5" />
+    <index-salesItems :items="salesRes" class="mb-5" />
     <common-divider1 />
     <index-video :item="videoItem" />
   </div>
@@ -34,66 +34,57 @@ export default {
     }
 let salesItems = [];
     try {
-      salesItems = (await $axios.get($config.baseURL + '/api/site/promote', { params: { filters: { type: 1 } } })).data.data;
+      salesItems = (await $axios.get($config.baseURL + '/api/site/promote', { params: { filters: { type: 1, status: 1 } } })).data.data;
       // console.log('Товары со скидкой')
       // console.log(salesItems);
     } catch (error) {
       console.error(error);
     }
 
+    let salesRes;
+  try {
+      salesRes = (await $axios.get($config.baseURL + '/api/site/promote_catalog', {
+        params: {
+          f: {},
+          filters: {"status": 1, "ic.promote_id": salesItems[0].id},
+          sort: { key: "price", order: "ASC" },
+          pager: { page: 0, count: 0, limit: 0 }
+        }
+      })).data.data;
+  } catch (e) {
+    console.error(e);
+  }
+
+  let newItems = [];
+    try {
+      newItems = (await $axios.get($config.baseURL + '/api/site/promote', {
+        params: {
+          filters: { status: 1, type: 2},
+        },
+      })).data.data;
+    } catch (error) {
+      console.error(error);
+    }
+  let itemsNewRes;
+  try {
+      itemsNewRes = (await $axios.get($config.baseURL + '/api/site/promote_catalog', {
+        params: {
+          f: {},
+          filters: {"status": 1, "ic.promote_id": newItems[0].id},
+          sort: { key: "price", order: "ASC" },
+          pager: { page: 0, count: 0, limit: 0 }
+        }
+      })).data.data;
+  } catch (e) {
+    console.error(e);
+  }
+
+
     const videoItem = {
       img: "/img/coll1.png",
       video: "https://www.youtube.com/embed/nOKam63GgzQ"
     }
     
-    const styleItems = [
-      {
-        img: "/img/guide1.png",
-        to: "/interior/1"
-      },
-      {
-        img: "/img/guide2.png",
-        to: "/interior/1"
-      },
-      {
-        img: "/img/guide3.png",
-        to: "/interior/1"
-      },
-      {
-        img: "/img/guide4.png",
-        to: "/interior/1"
-      },
-      {
-        img: "/img/guide5.png",
-        to: "/interior/1"
-      }
-    ];
-    const collectionItems = [
-      {
-        img: "/img/coll1.png",
-        titleCollection: "ARTELINEA",
-        titleItem: "Раковина PORTOFINO",
-        to: "/",
-      },
-      {
-        img: "/img/coll2.png",
-        titleCollection: "ARTELINEA",
-        titleItem: "Раковина PORTOFINO",
-        to: "/",
-      },
-      {
-        img: "/img/coll3.png",
-        titleCollection: "ARTELINEA",
-        titleItem: "Раковина PORTOFINO",
-        to: "/",
-      },
-      {
-        img: "/img/coll4.png",
-        titleCollection: "ARTELINEA",
-        titleItem: "Раковина PORTOFINO",
-        to: "/",
-      },
-    ];
     // const carouselItems = [
     //   {
     //     to: "/",
@@ -136,7 +127,16 @@ let salesItems = [];
     }
     // console.log(catalogItems);
     // console.log(carouselItems);
-    return { carouselItems, collectionItems, styleItems, catalogItems, videoItem, dataInterior, salesItems };
+    return { 
+      carouselItems, 
+      catalogItems, 
+      videoItem, 
+      dataInterior, 
+      salesItems,
+      salesRes,
+      itemsNewRes,
+      newItems
+    };
   },
 };
 </script>

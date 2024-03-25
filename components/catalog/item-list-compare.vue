@@ -9,7 +9,7 @@
           <v-btn @click="removeItem(el)" icon style="padding-bottom: 4px;"><i style="font-size: 20px;" class="grey--text fas fa-times-circle"></i></v-btn>
         </div>
       </div>
-      <div class="d-flex justify-space-between my-4">
+      <div class="d-flex justify-space-between mt-2 mb-4">
         <div class="d-none d-sm-block" style="margin: 3px 0; font-size: 13px">
           <catalog-available :value="el.store" />
         </div>

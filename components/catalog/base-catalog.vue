@@ -53,7 +53,7 @@
         <v-row v-else class="s-row s-row-catalog" :class="{ close: !toggleOpen, 'catalog-items': pager.limit == 0 }">
           <v-row>
             <v-col class="pl-2 pr-2" cols="4" v-for="(el, i) in data" :key="i">
-              <catalog-item-list :el="el" @addItemFav="addItemFav" @addItemCom="addItemCom" @addItemCart="addItemCart" />
+              <catalog-item-list :hiddentext="true" :el="el" @addItemFav="addItemFav" @addItemCom="addItemCom" @addItemCart="addItemCart" />
             </v-col>
           </v-row>
           <v-row class="d-none s-row-catalog-small mt-0">
