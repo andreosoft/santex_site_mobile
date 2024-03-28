@@ -4,7 +4,7 @@
     <!-- <div>
       <v-btn @click="onUpdateData()">Показать</v-btn>
     </div> -->
-    <v-row class="d-flex flex-row align-center justify-end">
+    <v-row id="filter-head" class="d-flex flex-row align-center justify-end">
       <div @click="$emit('filter-small', $event)" class="d-flex align-center justify-center" style="cursor: pointer">
         <i style="width: 100%" class="fa fa-times"></i>
       </div>
@@ -18,6 +18,12 @@
         @location="locationResult"
         :params="filters.brands"
         v-model="dataF.brand"
+        />
+        <catalog-categories class="mt-4"
+        v-if="filters.categories"
+        @location="locationResult"
+        :params="filters.categories"
+        v-model="dataF.category_id"
         />
       <v-divider class="my-4" />
     </div>
@@ -49,21 +55,43 @@ export default {
   props: {
     value: Object,
     filters: Object,
+    filterSmall: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
       dataF: {
         brand: [],
+        category_id: [],
       },
       dataPrice: [],
       dy: 0,
       resultData: 0,
+      disTop: 0
     };
   },
   created() {
     this.initValueFilters();
   },
+  mounted() {
+    // console.log(this.value);
+    function getDistanceToDocumentTop(element) {
+          let distance = 0;
+          while (element) {
+            distance += element.offsetTop;
+            element = element.offsetParent;  // Переходим к родительскому элементу для следующей итерации
+          }
+          return distance;
+        }
+        this.disTop = getDistanceToDocumentTop(document.querySelector('.parent > .s-filterResult')) + 30;
+        // console.log(this.disTop);
+  },
   watch:{
+    filterSmall: function(){
+      this.filterSmall ? document.querySelector('.s-filter-small').scrollTo(0, 0) : ''
+    },
     filters: function(){
         //  try {
            this.initValueFilters();
@@ -78,6 +106,7 @@ export default {
         // console.log('value function')
         this.initValueFilters();
         this.value.brand ? this.dataF.brand = this.value.brand : this.dataF.brand = [];
+        this.value.category_id ? this.dataF.category_id = this.value.category_id : this.dataF.category_id = [];
         // console.log("Инициализировано")
       // }
       // catch (error){
@@ -106,6 +135,7 @@ export default {
     initValueFilters() {
       this.dataF = {
         brand: this.value.brand ? this.value.brand : [],
+        category_id: this.value.category_id ? this.value.category_id : [],
       };
       this.dataPrice = this.value.price ? this.value.price : [];
       for (const key in this.filters.filters) {
@@ -128,6 +158,7 @@ export default {
     clearFilters(){
       this.dataF = {
         brand: [],
+        category_id: [],
       };
       this.dataPrice = [];
       for (const key in this.filters.filters) {
@@ -143,14 +174,14 @@ export default {
     onUpdateData() {
       let r = {};
       for (const i in this.dataF) {
-        if (this.dataF[i].length > 0 && i !== "brand") {
+        if (this.dataF[i].length > 0 && i !== "brand" && i !== "category_id") {
           r[i] = this.dataF[i];
         }
       }
 
       // console.log(r);
       // console.log(this.dataF.brand);
-      this.$emit('input', { f: r, price: this.dataPrice, brand: this.dataF.brand.length !== 0 ? this.dataF.brand : []  });
+      this.$emit('input', { f: r, price: this.dataPrice, brand: this.dataF.brand.length !== 0 ? this.dataF.brand : [], category_id: this.dataF.category_id.length !== 0 ? this.dataF.category_id : []  });
 
       this.dy = 0;
       window.scrollTo(0, 0);
@@ -166,17 +197,13 @@ export default {
         // console.log(rect);
         // let scrolltop = document.body.querySelector('.parent').getBoundingClientRect().top + scrollY;
         // console.log(scrolltop);
-        let scrolltop = window.pageYOffset + rect.top;
-        // let elem = document.body.querySelector('.parent');
-        // let rectElem = elem.getBoundingClientRect();
-        // let scrollTopElem = window.pageYOffset || document.documentElement.scrollTop;
-        // let parentTop = rectElem.top + scrollTopElem;
-        // console.log(parentTop)
-        this.dy = scrolltop - 418;
+        let scrolltop = window.scrollY + rect.top;
+        const middleY = scrolltop + rect.height / 2;
+        this.dy = middleY - this.disTop;
 
         let r = {};
         for (const i in this.dataF) {
-          if (this.dataF[i].length > 0 && i !== "brand") {
+          if (this.dataF[i].length > 0 && i !== "brand" && i !== "category_id") {
             r[i] = this.dataF[i];
           }
         }
@@ -219,6 +246,7 @@ export default {
                 "ic.promote_id": this.$route.params.id,
                 brand: this.dataF.brand.length !== 0 ? this.dataF.brand : {},
                 price: this.dataPrice.length !== 0 ? this.dataPrice : {},
+                category_id: this.dataF.category_id.length !== 0 ? this.dataF.category_id : {},
                 status: 1
               },
               // sort: {

@@ -6,14 +6,15 @@
           <h1 v-if="infoPromote && infoPromote[0].name">{{ infoPromote[0].name }}</h1>
         </div>
         <v-divider class="mb-8" />
-        <div>
-          <img class="w-100" v-if="carouselItems" :src="$config.baseImageURL + carouselItems[carouselItems.length - 1]" alt="banner">
+        <div class="d-flex flex">
+          <img class="w-100" v-if="carouselItems && carouselItems.length" :src="$config.baseImageURL + carouselItems[carouselItems.length - 1]" alt="banner">
           <!-- <index-mainCarusel :items="carouselItems"/> -->
         </div>
-        <v-divider v-if="carouselItems"  class="mb-8" />
+        <v-divider v-if="carouselItems && carouselItems.length"  class="mb-8" />
+        <h4 v-if="infoPromote && infoPromote[0].introtext" v-html="infoPromote[0].introtext"></h4>
         <div v-if="infoPromote && infoPromote[0].content" v-html="infoPromote[0].content"></div>
         <v-divider class="mb-8" />
-        <catalog-base-catalog :data="dataPromote" :loading="loading" :dataFilters="dataFiltersPromote" :valueFilters="valueFilters" :pager="pagerPromote" :sort="sort" @update-data="valueFilters = $event"/>
+        <catalog-base-catalog :data="dataPromote" :loading="loading" :dataFilters="dataFiltersPromote" :valueFilters="valueFiltersPromote" :pager="pagerPromote" :sort="sort" @update-data="valueFilters = $event"/>
     <div class="text-center mt-10">
       <!-- <common-pagination :value="pager" /> -->
     </div>
@@ -47,6 +48,9 @@ export default {
       }
       if (v.brand && v.brand.length > 0) {
         filters.brand = v.brand;
+      }
+      if (v.category_id && v.category_id.length > 0) {
+        filters.category_id = v.category_id;
       }
       this.$router.push({ query: Object.assign({}, this.$route.query, { filters: JSON.stringify(filters), f: JSON.stringify(v.f), page: 0 }) });
     },

@@ -39,11 +39,11 @@
         </v-row>
         <v-row class="mb-4 s-contacts-col">
             <v-col class="col-12 col-sm-4 pl-0 d-flex d-sm-block s-contacts-col">
-                <a href="https://instagram.com/tanya_prodesign" class="d-flex align-center mb-sm-6 mr-10 mr-sm-0">
+                <a href="https://www.instagram.com/santehkomfort?igsh=MTN6OWVmaTNlcHMwcQ==" class="d-flex align-center mb-sm-6 mr-10 mr-sm-0">
                     <div class="pa-1 pr-4"><img src="/icons/contact/inst.png" /></div>
                     <div>
                         <div class="grey--text"><b>Instagram</b></div>
-                        <div><b>tanya_prodesign</b></div>
+                        <div><b>santehkomfort</b></div>
                     </div>
                 </a>
                 <a href="https://instagram.com/tanya_prodesign" class="d-flex align-center">
@@ -55,18 +55,22 @@
                 </a>
             </v-col>
             <v-col class="col-12 pl-0 pl-sm-3 col-md-4 col-sm-8 d-flex d-sm-block s-contacts-col">
-                <a href="https://api.whatsapp.com/send/?phone=74952256285" class="d-flex align-center mb-sm-6 mr-10 mr-sm-0">
+                <a href="https://api.whatsapp.com/send/?phone=79672823107" class="d-flex align-center mb-sm-6 mr-10 mr-sm-0">
                     <div class="pa-1 pr-4"><img src="/icons/contact/whatsapp.png" /></div>
                     <div>
-                        <div class="grey--text"><b>WhatsApp</b></div>
-                        <div><b>8 (495) 225-62-85</b></div>
+                        <div class="grey--text" >
+                            <b>Сантехника</b>
+                        </div>
+                        <div><b>+7 (967) 282-31-07</b></div>
                     </div>
                 </a>
-                <a href="https://api.whatsapp.com/send/?phone=74952256285" class="d-flex align-center">
+                <a href="https://api.whatsapp.com/send/?phone=79055368559" class="d-flex align-center">
                     <div class="pa-1 pr-4 d-sm-block d-none"><img src="/icons/contact/whatsapp.png" /></div>
                     <div>
-                        <div class="grey--text"><b>WhatsApp</b></div>
-                        <div><b>8 (495) 225-62-85</b></div>
+                        <div class="grey--text">
+                            <b>Плитка</b>
+                        </div>
+                        <div><b>+7 (905) 536-85-59</b></div>
                     </div>
                 </a>
             </v-col>

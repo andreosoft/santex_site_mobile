@@ -4,7 +4,7 @@
     <div class="mb-sm-14" style="width: 100%">
       <div class="d-none" id="new-items">
         <v-row>
-          <v-col class="pa-0" sm="6" v-for="(el, i) in activeData" :key="i">
+          <v-col class="pa-0" sm="6" v-for="(el, i) in items" :key="i">
             <index-new-items-el style="height: 488px" :el="el" />
           </v-col>
         </v-row>
@@ -15,8 +15,8 @@
     </div>
     <v-container>
       <div class="text-center mt-sm-14">
-        <v-btn @click="toggleTwo < items.length ? toggleTwo+=2 : toggleTwo=2" class="s-btn-main s-btn-text">
-          <NuxtLink :to="'/promote/2'">БОЛЬШЕ НОВИНОК</NuxtLink>
+        <v-btn class="s-btn-main s-btn-text">
+          <NuxtLink to='#'>БОЛЬШЕ НОВИНОК</NuxtLink>
         </v-btn>
       </div>
     </v-container>
@@ -50,12 +50,5 @@ export default {
 .v-btn > .v-btn__content .v-icon{
   color: black;
 }
-@media screen and (min-width: 769px) {
-  #new-items{
-    display: block !important;
-  }
-  #new-items-slider{
-    display: none !important;
-  }
-}
+
 </style>

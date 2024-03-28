@@ -3,14 +3,14 @@
     <index-mainCarusel :items="carouselItems" class="mb-10" />
     <index-mainInfoBlock />
     <common-divider1 />
-    <index-new-items v-if="itemsNewRes" :items="itemsNewRes" class="mb-5" />
+    <index-new-items v-if="itemsNewRes" :items="newItems" class="mb-5" />
     <common-divider1 v-if="itemsNewRes" class="mb-10" />
     <index-guide-style-items :items="dataInterior" class="mb-5" />
     <common-divider1 />
     <index-catalog-items :items="catalogItems" class="mb-5" />
     <common-divider1 />
-    <index-salesItems :items="salesRes" class="mb-5" />
-    <common-divider1 />
+    <index-salesItems v-if="salesRes" :items="salesItems" class="mb-5" />
+    <common-divider1 v-if="salesRes" />
     <index-video :item="videoItem" />
   </div>
 </template>
@@ -40,6 +40,7 @@ let salesItems = [];
     } catch (error) {
       console.error(error);
     }
+    // console.log(salesItems);
 
     let salesRes;
   try {
@@ -65,6 +66,7 @@ let salesItems = [];
     } catch (error) {
       console.error(error);
     }
+    // console.log(newItems);
   let itemsNewRes;
   try {
       itemsNewRes = (await $axios.get($config.baseURL + '/api/site/promote_catalog', {

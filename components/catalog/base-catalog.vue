@@ -39,7 +39,13 @@
       <v-col v-if="data && !data[0].hasOwnProperty('isparent')" :class="{ 'd-block': filterSmall }" class="s-filter-col s-filter-small d-none d-md-none">
           <transition name="fade">
           <div>
-            <catalog-filter @filter-small="filterSmall = !filterSmall" :value="valueFilters" :filters="dataFilters" @input="emitFilters" />
+            <catalog-filter 
+            @filter-small="filterSmall = !filterSmall" 
+            :filterSmall="filterSmall" 
+            :value="valueFilters" 
+            :filters="dataFilters" 
+            @input="emitFilters" 
+            />
           </div>
         </transition>
         </v-col>

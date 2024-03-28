@@ -1,7 +1,8 @@
 <template>
   <div class="s-header-parent-main">
+    <common-alert />
     <common-top class="d-none d-sm-block" @showCatalog="showCatalogMenu = false" />
-    <v-container class="s-header-container" style="padding-top: 6px;">
+    <v-container class="s-header-container" style="padding-top: 6px; position: relative">
       <!-- <div class="py-4 mb-6 d">
         <div class="d-flex justify-space-between">
           <div>
@@ -218,15 +219,9 @@ export default {
   display: flex;
 }
 
-@media screen and (max-width: 800px) {
-  .form-search{
-    top: 100px !important;
-  }
-}
+
 @media screen and (max-width: 599px) {
-  .form-search{
-    top: 50px !important;
-  }
+  
   .s-header-container{
     padding-bottom: 6px !important;
     >div{

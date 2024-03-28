@@ -67,8 +67,8 @@ export async function getData({ route, $axios, $config }) {
   let carouselItems = [];
   let infoPromote;
   try {
-    if (route.name.match('promote')) infoPromote = (await $axios.get($config.baseURL + '/api/site/promote/', {params: {filters: {type: category_id}}})).data.data;
-    carouselItems = infoPromote ? infoPromote[0].images : [];
+    if (route.name.match('promote')) infoPromote = (await $axios.get($config.baseURL + '/api/site/promote/', {params: {filters: {'id': category_id}}})).data.data;
+    carouselItems = infoPromote ? infoPromote[0].images_mobile ? infoPromote[0].images_mobile.splice(1, 1) : infoPromote[0].images.splice(1, 1) : [];
   } catch (error) {
     console.error(error);
   }
@@ -77,7 +77,7 @@ export async function getData({ route, $axios, $config }) {
   let filtersPromote = {"status": 1};
   Object.assign(filtersPromote, route.query.filters ? JSON.parse(route.query.filters) : {});
   // Object.assign(filtersPromote, { "ic.promote_id": 1 });
-  if (route.name.match('promote')) Object.assign(filtersPromote, { "ic.promote_id": infoPromote[0].id });
+  if (route.name.match('promote')) Object.assign(filtersPromote, { "ic.promote_id": category_id });
   let resPromote;
   try {
     if(route.name.match('promote')){
@@ -104,7 +104,7 @@ export async function getData({ route, $axios, $config }) {
   // });
   // const dataPromote = resPromote.data.data;
   let filtersPromoteOnly = {"status": 1};
-  if (route.name.match('promote')) Object.assign(filtersPromoteOnly, { "ic.promote_id": infoPromote[0].id });
+  if (route.name.match('promote')) Object.assign(filtersPromoteOnly, { "ic.promote_id": category_id });
 
   
   const FiltersPromote = resPromote ? await $axios.get($config.baseURL + '/api/site/promote_catalog/filters', {params: {filters: filtersPromoteOnly}}) : '';
@@ -136,6 +136,12 @@ export async function getData({ route, $axios, $config }) {
     f: f,
     price: filters.price,
     brand: filters.brand,
+  }
+  const valueFiltersPromote = {
+    f: f,
+    price: filtersPromote.price,
+    brand: filtersPromote.brand,
+    category_id: filtersPromote.category_id
   }
   let dataFilters = resFilters ? resFilters.data.data : '';
 
@@ -301,6 +307,7 @@ export async function getData({ route, $axios, $config }) {
     searchInput, 
     loading, 
     dataPromote, 
+    valueFiltersPromote,
     dataFiltersPromote, 
     pagerPromote, 
     carouselItems, 
