@@ -112,7 +112,7 @@ export default {
         const item = {
           code: el.id,
           name: el.name,
-          img: el.image[0],
+          img: el.image,
           price: el.price,
           old_price: el.price_old,
           brand: el.brand,
