@@ -13,13 +13,13 @@
         <common-carusel :newItems="true" :sales="true" :items="items" :slides="1" :pager="true"/>
       </div>
     </div>
-    <v-container>
+    <!-- <v-container>
       <div class="text-center mt-sm-14">
         <v-btn class="s-btn-main s-btn-text">
           <NuxtLink to='#'>БОЛЬШЕ НОВИНОК</NuxtLink>
         </v-btn>
       </div>
-    </v-container>
+    </v-container> -->
   </div>
 </template>
 

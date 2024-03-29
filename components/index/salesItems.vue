@@ -25,13 +25,13 @@
             </v-carousel>
           </div> -->
         </div>
-        <v-container>
+        <!-- <v-container>
           <div class="text-center mt-sm-14">
             <v-btn @click="toggleTwo < items.length ? toggleTwo+=2 : toggleTwo=2" class="s-btn-main s-btn-text">
               <NuxtLink to="#">БОЛЬШЕ ТОВАРОВ</NuxtLink>
             </v-btn>
           </div>
-        </v-container>
+        </v-container> -->
       </div>
 </template>
 
