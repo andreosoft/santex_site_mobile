@@ -121,7 +121,7 @@ let salesItems = [];
       carouselItems = (await $axios.get($config.baseURL + '/api/site/content', {
         params: {
           filters: { parent_id: 52 },
-          sort: { "key": "id", "order": "ASC" }
+          sort: { "key": "sort", "order": "ASC" }
         }
       })).data.data;
     } catch (error) {
