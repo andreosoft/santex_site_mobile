@@ -6,7 +6,7 @@
           <ul class="splide__list">
             <li v-for="(el, i) in items" :key="i" class="splide__slide">
               <common-video v-if="blog" :item="el"/>
-              <index-new-items-el-carusel style="height: 343px" v-else-if="sales" :el="el" :newItems="newItems" :sales="sales" />
+              <index-new-items-el-carusel v-else-if="sales" :el="el" :newItems="newItems" :sales="sales" />
               <s-guide-style-items-el v-else :el="el" />
             </li>
           </ul>
@@ -71,7 +71,8 @@ export default {
       type: 'loop',
       pagination: this.pager,
       breakpoints: this.breakpointsNumbs,
-      height: this.sales ? 343 : 'auto',
+      // height: this.sales ? 231 : 'auto',
+      // width: this.sales ? 351 : 'auto',
     });
     splide.mount();
   },

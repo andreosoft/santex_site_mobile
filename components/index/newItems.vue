@@ -4,8 +4,8 @@
     <div class="mb-sm-14" style="width: 100%">
       <div class="d-none" id="new-items">
         <v-row>
-          <v-col class="pa-0" sm="6" v-for="(el, i) in items" :key="i">
-            <index-new-items-el style="height: 488px" :el="el" />
+          <v-col class="pa-0 col-12" v-for="(el, i) in items" :key="i">
+            <index-new-items-el :el="el" />
           </v-col>
         </v-row>
       </div>
