@@ -218,6 +218,11 @@ export default {
                 }
             }
         }
+        .s-contacts-plitka{
+            p{
+                font-size: 14px !important;
+            }
+        }
     }
 
 </style>

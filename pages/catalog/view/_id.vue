@@ -25,7 +25,7 @@
 
     <v-divider class="mb-8" />
     <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
-    <h1 class="s-card-title">{{ data.name }}</h1>
+    <h1 class="s-card-title" style="word-break: break-word;">{{ data.name }}</h1>
     <v-row class="mt-4 s-parent-card">
       <v-col cols="12" class="d-flex align-end d-md-none px-0 mb-4">
       <div class="d-flex justify-space-between">

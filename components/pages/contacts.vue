@@ -17,24 +17,35 @@
             </v-col>
         </v-row>
         <v-row>
-            <v-col class="col-12 col-sm-8 px-0 s-contacts-phones">
-                <p class="grey--text"><b>ТЕЛЕФОНЫ</b></p>
+            <v-col class="col-12 px-0 s-contacts-phones">
                 <v-row>
-                    <v-col cols="6" class="pl-0">
+                    <v-col class="pl-0 col-6 col-sm-4">
+                        <p class="grey--text"><b>ТЕЛЕФОНЫ</b></p>
                         <h4 class="pb-2" style="font-size: 18px;"><a href="tel://88007759985">8 (800) 775-99-85</a></h4>
                         <p>Звонок по России бесплатный</p>
                     </v-col>
-                    <v-col cols="6" class="pr-0">
-                        <h4 class="pb-2" style="font-size: 18px;"><a href="tel://88007759985">8 (495) 225 62 85</a></h4>
+                    <v-col class="pr-0 col-6 col-sm-4 pr-sm-3">
+                        <p class="grey--text"><b>САНТЕХНИКА</b></p>
+                        <h4 class="pb-2" style="font-size: 18px;"><a href="tel://84952256285">8 (495) 225 62 85</a></h4>
+                        <p>Ежедневно с 10:00 до 20:00</p>
+                    </v-col>
+                    <v-col class="d-none d-sm-block col-4 pr-0">
+                        <p class="grey--text"><b>ПЛИТКА</b></p>
+                        <h4 class="pb-2" style="font-size: 18px;"><a href="tel://79055368559">+7 (905) 536-85-59</a></h4>
                         <p>Ежедневно с 10:00 до 20:00</p>
                     </v-col>
                 </v-row>
             </v-col>
-            <v-col class="col-12 col-sm-4 px-0 pl-sm-3">
+            <v-col class="col-6 col-sm-4 pl-0 s-contacts-plitka">
                 <p class="grey--text">
                     <b>E-mail</b>
                 </p>
                 <h4 style="font-size: 18px;"><a href="mailto:info@santax.ru">info@santax.ru</a></h4>
+            </v-col>
+            <v-col class="col-6 d-sm-none col-sm-4 pr-0 pl-sm-0 s-contacts-plitka">
+                <p class="grey--text"><b>ПЛИТКА</b></p>
+                <h4 class="pb-2" style="font-size: 18px;"><a href="tel://79055368559">+7 (905) 536-85-59</a></h4>
+                <p>Ежедневно с 10:00 до 20:00</p>
             </v-col>
         </v-row>
         <v-row class="mb-4 s-contacts-col">

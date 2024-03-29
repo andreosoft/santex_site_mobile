@@ -187,9 +187,6 @@ export default {
   }
   position: relative;
   text-align: center;
-  a {
-    // position: absolute;
-  }
 }
 
 .s-header-phones {

@@ -8,11 +8,15 @@
               <v-col cols="12">
                 <div class="s-catalog-links">
                   <v-row class="ma-0">
-                    <v-row class="d-flex flex-row align-center ma-0 mb-5 ">
-                      <img class="pointer" @click="activeEl = -1" src="/icons/arrow_left_black.svg" alt="">
-                      <h3 class="ms-5 pa-0">
-                        {{ items[activeEl].name }}
-                      </h3>
+                    <v-row class="d-flex flex-row align-center ma-0 mb-5">
+                      <v-col class="col-1 pa-0">
+                        <img class="pointer" @click="activeEl = -1" src="/icons/arrow_left_black.svg" alt="">
+                      </v-col>
+                      <v-col class="col-11 pa-0 d-flex flex-wrap">
+                        <h3 class="ms-2 pa-0">
+                          {{ items[activeEl].name }}
+                        </h3>
+                      </v-col>
                     </v-row>
                     <v-col class="pa-0 d-flex flex-row flex-wrap col-12">
                       <div class="s-catalog-links-el" v-for="(el, i) in items[activeEl].content" :key="i" @click="$emit('input')">

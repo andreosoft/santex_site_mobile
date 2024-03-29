@@ -89,7 +89,6 @@ export default {
       }
     ];
     const dataBrands = (await $axios.get($config.baseURL + '/api/site/brand', { params: { filters: { status: 1 } } })).data.data;
-
     let brendLetters = [];
     dataBrands.forEach(el => {
       brendLetters.push(el['name'].trim()[0]);
