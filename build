@@ -16,7 +16,7 @@ PACKNAME='santex'
 #ssh -p $PORT $SERVER tar -xvzf /srv/$PACKNAME/site_mobile/build.tar.gz -C /srv/$PACKNAME/site_mobile/.nuxt
 
 scp -i ~/.ssh/id_rsa -r -P $PORT nuxt.config.js $SERVER:/srv/$PACKNAME/site_mobile
-scp -i ~/.ssh/id_rsa -r -P PORT package.json $SERVER:/srv/$PACKNAME/site_mobile
+scp -i ~/.ssh/id_rsa -r -P $PORT package.json $SERVER:/srv/$PACKNAME/site_mobile
 
 ssh $SERVER pm2 restart 7
 
