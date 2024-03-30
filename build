@@ -4,21 +4,21 @@ PORT=22
 SERVER='content@212.109.195.201'
 PACKNAME='santex'
 
-#npm run build
+npm run build
 
 # scp -i ~/.ssh/id_rsa -r -P 22 .nuxt andrey@92.63.192.228:/srv/santex/site
 #scp -i ~/.ssh/id_rsa -r -P $PORT static $SERVER:/srv/$PACKNAME/site_mobile
 
-#tar -czvf build.tar.gz -C .nuxt .
-#ssh -p $PORT $SERVER rm -r /srv/$PACKNAME/site_mobile/.nuxt
-#scp -r -P $PORT build.tar.gz $SERVER:/srv/$PACKNAME/site_mobile/
-#ssh -p $PORT $SERVER mkdir /srv/$PACKNAME/site_mobile/.nuxt
-#ssh -p $PORT $SERVER tar -xvzf /srv/$PACKNAME/site_mobile/build.tar.gz -C /srv/$PACKNAME/site_mobile/.nuxt
+tar -czvf build.tar.gz -C .nuxt .
+ssh -p $PORT $SERVER rm -r /srv/$PACKNAME/site_mobile/.nuxt
+scp -r -P $PORT build.tar.gz $SERVER:/srv/$PACKNAME/site_mobile/
+ssh -p $PORT $SERVER mkdir /srv/$PACKNAME/site_mobile/.nuxt
+ssh -p $PORT $SERVER tar -xvzf /srv/$PACKNAME/site_mobile/build.tar.gz -C /srv/$PACKNAME/site_mobile/.nuxt
 
 scp -i ~/.ssh/id_rsa -r -P $PORT nuxt.config.js $SERVER:/srv/$PACKNAME/site_mobile
 scp -i ~/.ssh/id_rsa -r -P $PORT package.json $SERVER:/srv/$PACKNAME/site_mobile
 
-ssh $SERVER pm2 restart 7
+ssh $SERVER pm2 reload santex_site_mobile
 
 git add .
 git commit -m 'commit'
