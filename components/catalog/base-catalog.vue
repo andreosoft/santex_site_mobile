@@ -1,9 +1,5 @@
 <template>
   <div v-if="data[0]">
-    <v-row v-if="data && data[0].hasOwnProperty('isparent')" class="s-row d-flex justify-center mb-5 mt-5">
-        <!-- <img v-if="categoriesData.images" :src="$config.baseImageURL + categoriesData.images[0]" alt="banner"> -->
-        <v-img style="width: 100%" src="/banners/banner1.png" alt="banner"/>
-    </v-row>
 
     <!-- Избранное -->
     <v-snackbar v-model="snackbarFav">{{ dataResultFav }} <template v-slot:action="{ attrs }">
@@ -31,12 +27,12 @@
     
   <v-overlay :value="filterSmall"></v-overlay>
     <v-row class="s-row">
-      <v-col v-if="data && !data[0].hasOwnProperty('isparent')" class="s-filter-col d-none d-md-block col-3">
+      <v-col v-if="data" class="s-filter-col d-none d-md-block col-3">
         <div>
           <catalog-filter :value="valueFilters" :filters="dataFilters" @input="$emit('update-data', $event);" />
         </div>
       </v-col>
-      <v-col v-if="data && !data[0].hasOwnProperty('isparent')" :class="{ 'd-block': filterSmall }" class="s-filter-col s-filter-small d-none d-md-none">
+      <v-col v-if="data" :class="{ 'd-block': filterSmall }" class="s-filter-col s-filter-small d-none d-md-none">
           <transition name="fade">
           <div>
             <catalog-filter 
@@ -49,7 +45,7 @@
           </div>
         </transition>
         </v-col>
-      <v-col v-if="data && !data[0].hasOwnProperty('isparent')" class="col-12 pa-0 col-md-9">
+      <v-col v-if="data" class="col-12 pa-0 col-md-9">
         <catalog-top-bar :count="pager.count" :sort="sort" @filter-small="filterSmall = !filterSmall" />
         <v-row v-if="loading" class="s-row">
           <v-col cols="4" v-for="(el, i) in pager.limit" :key="i">
@@ -74,32 +70,6 @@
             {{ toggleOpen ? 'Скрыть': 'Показать еще' }}
           </a>
         </div>
-      </v-col>
-      <v-col v-else cols="12">
-        <!-- <catalog-top-bar :count="pager.count ? pager.count : data.length" /> -->
-        <v-row v-if="loading" class="s-row">
-          <v-col cols="4" v-for="(el, i) in pager.limit" :key="i">
-            <v-skeleton-loader class="mx-auto" max-width="300" type="card"></v-skeleton-loader>
-          </v-col>
-        </v-row>
-        <v-row v-else-if="data && !data[0].hasOwnProperty('isparent')" class="s-row" :class="{ close: !toggleOpen, 'catalog-items': pager.limit == 0 }">
-          <v-col cols="4" v-for="(el, i) in data" :key="i">
-            <catalog-item-list :el="el" @addItemFav="addItemFav" @addItemCom="addItemCom" @addItemCart="addItemCart" />
-          </v-col>
-        </v-row>
-        <v-row v-else class="s-row s-perpage" :class="{ close: !toggleOpen, 'catalog-items': pager.limit == 0 }">
-          <v-col class="col-md-4 col-sm-6 col-12" v-for="(el, i) in data" :key="i">
-            <s-guide-style-items-el :el="el" />
-          </v-col>
-        </v-row>
-        <v-row class="s-row">
-          <!-- <v-col cols="4" v-for="(el, i) in data" :key="i">
-            <s-guide-style-items-el :el="el" />
-          </v-col> -->
-        </v-row>
-        <!-- <div v-if="pager.limit == 0 && data.length > 3" class="mt-14 mb-14 text-center">
-          <a class="s-btn-else" @click="toggleOpen = !toggleOpen"><i class="fas fa-redo"></i>{{ toggleOpen ? 'Скрыть': 'Показать еще' }}</a>
-      </div> -->
       </v-col>
     </v-row>
   </div>

@@ -64,11 +64,11 @@
             <div class="wrapper"></div>
           </nuxt-link>
             <div class="my-2 my-sm-0 d-flex flex-row justify-space-between align-center s-item-list-price" style=" font-weight: bold;">
-              <div class="d-flex flex-column align-end">
+              <div class="d-flex flex-column align-end" :class="{'s-item-list-price-parent': !el.price}">
                 <span v-if="el.price" class="s-item-list-price-main" style="font-size: 20px">
                   <number :value="el.price" /> ₽
                 </span>
-                <span v-else class="s-item-list-price-second" style="font-size: 20px">
+                <span v-else class="s-item-list-price-second" style="font-size: 18px">
                   Цена не указана
                 </span>
                 <span class="mx-2" v-if="el.price_old" style="font-size: 13px; text-decoration: line-through; color: #949494">
@@ -260,6 +260,9 @@ export default {
 </script>
 
 <style lang="scss">
+.s-item-list-price-parent{
+  width: 40%;
+}
 #s-card-good-small{
   width: 100% !important;
   border-top: unset !important;
@@ -344,7 +347,7 @@ export default {
   }
   .s-item-list-price{
     .s-item-list-price-second{
-      font-size: 17px !important;
+
     }
     >.s-btn-cart{
       span{
@@ -364,7 +367,7 @@ export default {
   }
   .s-item-list-price{
     .s-item-list-price-second{
-      font-size: 15px !important;
+      
     }
     >.s-btn-cart{
       span{
@@ -413,7 +416,7 @@ export default {
 @media screen and (max-width: 404px) {
   .s-item-list-price{
     .s-item-list-price-second{
-      font-size: 12px !important;
+      
     }
   }
 }

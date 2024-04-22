@@ -280,12 +280,18 @@
 <script>
 import Number from "../../../components/number.vue";
 import { mapGetters } from 'vuex';
-async function getData({ route, $axios, $config }) {
+async function getData({ route, $axios, $config, error }) {
   let id = route.params.id;
-  const res = await $axios.get($config.baseURL + '/api/site/catalog/' + id);
-  const data = res.data.data;
-  const resCat = await $axios.get($config.baseURL + '/api/site/categories/' + data.category_id);
-  const dataCat = resCat.data.data;
+  let res, resCat, data, dataCat;
+  try {
+    res = await $axios.get($config.baseURL + '/api/site/catalog/' + id);
+    data = res.data.data;
+    resCat = await $axios.get($config.baseURL + '/api/site/categories/' + data.category_id);
+    dataCat = resCat.data.data;
+  } catch (err) {
+    // console.error(err);
+    return error({ statusCode: 404, message: "Страница не найдена" });
+  }
   // console.log(dataCat);
   const breadcrumbsData = [
     // {
@@ -501,8 +507,8 @@ export default {
       this.$router.push({ path: '/cart'});
     }
   },
-  async asyncData({ route, $axios, $config }) {
-    return await getData({ route, $axios, $config });
+  async asyncData({ route, $axios, $config, error }) {
+    return await getData({ route, $axios, $config, error });
     Number;
     console.log(params);
     const data = {

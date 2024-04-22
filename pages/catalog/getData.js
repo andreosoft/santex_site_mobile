@@ -1,4 +1,4 @@
-export async function getData({ route, $axios, $config }) {
+export async function getData({ route, $axios, $config, error }) {
   let pager = { page: 0, count: 0, limit: 30 };
   pager.page = route.query.page ?? 0;
   let pagerPromote = { page: 0, count: 0, limit: 0 };
@@ -22,7 +22,7 @@ export async function getData({ route, $axios, $config }) {
     
   let res;
     try {
-      if(route.name.match('catalog')){
+      if((route.name.match('catalog') && category_id>0) || (route.name.match('catalog-search'))){
         res = await $axios.get($config.baseURL + '/api/site/catalog', {
           params: {
             f: f,
@@ -36,7 +36,9 @@ export async function getData({ route, $axios, $config }) {
       console.error(e);
     }
 
-
+    if (route.name.match('catalog') && searchInput == null && (res?.data?.data?.length == 0 || !res?.data?.data)) {
+      return error({ statusCode: 404, message: "Страница не найдена"});
+    }
     // if (route.params.id) Object.assign(subcatfilters, { "parent_id": category_id });
   // let resCategories;
   //   try {
@@ -67,8 +69,8 @@ export async function getData({ route, $axios, $config }) {
   let carouselItems = [];
   let infoPromote;
   try {
-    if (route.name.match('promote')) infoPromote = (await $axios.get($config.baseURL + '/api/site/promote/', {params: {filters: {'id': category_id}}})).data.data;
-    carouselItems = infoPromote ? infoPromote[0].images_mobile ? infoPromote[0].images_mobile.splice(1, 1) : infoPromote[0].images.splice(1, 1) : [];
+    if (route.name.match('promote') && category_id>0) infoPromote = (await $axios.get($config.baseURL + '/api/site/promote/', {params: {filters: {'id': category_id}}})).data.data;
+    carouselItems = infoPromote?.length > 0 ? infoPromote[0].images.splice(1, 1) : [];
   } catch (error) {
     console.error(error);
   }
@@ -80,7 +82,7 @@ export async function getData({ route, $axios, $config }) {
   if (route.name.match('promote')) Object.assign(filtersPromote, { "ic.promote_id": category_id });
   let resPromote;
   try {
-    if(route.name.match('promote')){
+    if(route.name.match('promote') && category_id>0) {
       resPromote = await $axios.get($config.baseURL + '/api/site/promote_catalog', {
         params: {
           f: f,
@@ -92,6 +94,10 @@ export async function getData({ route, $axios, $config }) {
     }
   } catch (e) {
     console.error(e);
+  }
+
+  if (route.name.match('promote') && (resPromote?.data?.data?.length == 0 || !resPromote?.data?.data) || infoPromote?.length == 0) {
+    return error({ statusCode: 404, message: "Страница не найдена"});
   }
   const dataPromote = resPromote ? resPromote.data.data : '';
   // const resPromote = await $axios.get($config.baseURL + '/api/site/promote_catalog', {
@@ -227,22 +233,15 @@ export async function getData({ route, $axios, $config }) {
   function breadcrumbs(category_id, title, value) {
     let breadcrumbsData;
     if (category_id !== undefined) {
-      if(category_id == 'allcategories'){
-        breadcrumbsData = [
-          {
-            url: "/catalog/" + category_id,
-            title: 'Каталог',
-          },
-        ];
-      } else if(resCat){
+      if(resCat){
         if (resCat.data.data.parent_id){
           breadcrumbsData = [
             {
-              url: "/catalog/" + 'allcategories',
+              url: "/allcategories",
               title: 'Каталог',
             },
             {
-              url: "/catalog/" + resCat.data.data.parent_id,
+              url: "/allcategories/" + resCat.data.data.parent_id,
               title: resCat.data.data.parent_name,
             },
             {
@@ -253,7 +252,7 @@ export async function getData({ route, $axios, $config }) {
         } else {
           breadcrumbsData = [
             {
-              url: "/catalog/" + 'allcategories',
+              url: "/allcategories",
               title: 'Каталог',
             },
             {
@@ -287,7 +286,7 @@ export async function getData({ route, $axios, $config }) {
   const breadcrumbsData = breadcrumbs(category_id, title, searchInput);
 
   let breadcrumbsDataPromote;
-  if(route.name.match('promote')) breadcrumbsDataPromote = [{
+  if(route.name.match('promote') && infoPromote?.length > 0) breadcrumbsDataPromote = [{
     url: `/promote/${category_id}`,
     title: infoPromote[0].name,
   }]

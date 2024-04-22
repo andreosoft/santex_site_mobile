@@ -1,13 +1,13 @@
 <template>
   <div class="s-static-main s-index-main">
-    <index-mainCarusel :items="carouselItems" class="mb-10" />
+    <index-mainCarusel v-if="carouselItems" :items="carouselItems" class="mb-10" />
     <index-mainInfoBlock />
     <common-divider1 />
     <index-new-items v-if="itemsNewRes" :items="newItems" class="mb-5" />
     <common-divider1 v-if="itemsNewRes" class="mb-10" />
-    <index-guide-style-items :items="dataInterior" class="mb-5" />
+    <index-guide-style-items v-if="dataInterior" :items="dataInterior" class="mb-5" />
     <common-divider1 />
-    <index-catalog-items :items="catalogItems" class="mb-5" />
+    <index-catalog-items v-if="catalogItems" :items="catalogItems" class="mb-5" />
     <common-divider1 />
     <index-salesItems v-if="salesRes" :items="salesItems" class="mb-5" />
     <common-divider1 v-if="salesRes" />

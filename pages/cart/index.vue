@@ -35,25 +35,25 @@
                             </div>
                             <div>
                                 <div style="font-size: 13px" class="mb-2 grey--text">Код товара: {{ el.code }}</div>
-                                <div @click="toItem(el)" style="font-size: 16px" class="mb-2 toItemblock">{{ el.name }}</div>
+                                <div @click="toItem(el)" style="font-size: 16px; word-break: break-word" class="mb-2 toItemblock">{{ el.name }}</div>
                                 <div style="font-size: 13px">
                                     <span class="grey--text mr-2">Бренд:</span>
                                     <span>{{el.brand}}</span>
                                 </div>
 
-                                <div style="font-size: 13px" v-show="el.height && el.width && el.length"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
+                                <div style="font-size: 13px" v-if="el.height && el.width && el.length"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
                                     <span>{{`${el.length} x ${el.width} x ${el.height}` }}</span>
                                   </div>
-                                  <div style="font-size: 13px" v-show="!el.length && el.width && el.height"><span class="grey--text mr-2">Габариты (Ш.В): </span>
+                                  <div style="font-size: 13px" v-else-if="!el.length && el.width && el.height"><span class="grey--text mr-2">Габариты (Ш.В): </span>
                                     <span>{{`${el.width} ${' x ' + el.height}` }}</span>
                                   </div>
-                                  <div style="font-size: 13px" v-show="!el.width && el.length && el.height"><span class="grey--text mr-2">Габариты (Д.В): </span>
+                                  <div style="font-size: 13px" v-else-if="!el.width && el.length && el.height"><span class="grey--text mr-2">Габариты (Д.В): </span>
                                     <span>{{`${el.length}${' x ' + el.height}` }}</span>
                                   </div>
-                                  <div style="font-size: 13px" v-show="!el.height && el.length && el.width"><span class="grey--text mr-2">Габариты (Д.Ш): </span>
+                                  <div style="font-size: 13px" v-else-if="!el.height && el.length && el.width"><span class="grey--text mr-2">Габариты (Д.Ш): </span>
                                     <span>{{`${el.length} x ${el.width}` }}</span>
                                   </div>
-                                  <div style="font-size: 13px" v-show="!el.height && !el.width && !el.length"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
+                                  <div style="font-size: 13px" v-else-if="!el.height && !el.width && !el.length"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
                                     <span>Не указаны</span>
                                   </div>
 
@@ -92,9 +92,12 @@
                         </v-col> -->
                         <div class="wrapper"></div>
                         <div class="my-2 my-sm-0 d-flex flex-row justify-space-between align-center s-item-list-price" style=" font-weight: bold;">
-                        <div class="d-flex flex-column align-end">
-                            <div style="font-size: 20px">
+                        <div class="d-flex flex-column align-end" :class="{'s-item-list-price-parent': !el.price}"> 
+                            <div v-show="el.price" style="font-size: 20px">
                                 <b><number :value="el.price" /> ₽</b>
+                            </div>
+                            <div v-show="!el.price" style="font-size: 18px">
+                                <b>Цена не указана</b>
                             </div>
                         </div>
                         <v-col class="col-5 col-sm-12 pa-0">
@@ -123,7 +126,7 @@
                         <!-- Блок под вопросом -->
                         <v-col class="d-none d-md-block col-2">
                             <div>
-                                <div style="font-size: 22px">
+                                <div v-show="el.price" style="font-size: 22px">
                                     <b><number :value="el.count * el.price" /> ₽</b>
                                 </div>
                                 <div v-show="el.old_price" style="font-size: 16px; text-decoration: line-through;"
@@ -137,11 +140,9 @@
                     <v-col class="col-3 d-none d-sm-block justify-end pr-0">
                             <v-col class="col-sm-12 d-flex d-md-block justify-space-between align-center pr-0">
                                 <div class="d-flex flex-column align-start">
-                                    <b style="font-size: 18px">
-                                        <number :value="el.price" />
-                                         ₽
-                                    </b>
-                                    <div v-show="el.count>1">
+                                    <b v-show="el.price" style="font-size: 18px"><number :value="el.price" /> ₽</b>
+                                    <b v-show="!el.price" style="font-size: 18px">Цена не указана</b>
+                                    <div v-show="el.count>1 && el.price">
                                         <div style="font-size: 12px; color: #949494">
                                             <b> {{ el.count }} x <number :value="el.count * el.price" /> ₽</b>
                                         </div>
@@ -179,8 +180,11 @@
                             </v-col>
                         <v-col class="d-none d-md-block col-2">
                             <div>
-                                <div style="font-size: 22px">
+                                <div v-show="el.price" style="font-size: 22px">
                                     <b><number :value="el.count * el.price" /> ₽</b>
+                                </div>
+                                <div v-show="!el.price" style="font-size: 22px">
+                                    <b>Цена не указана</b>
                                 </div>
                                 <div v-show="el.old_price" style="font-size: 16px; text-decoration: line-through;"
                                     class="grey--text">
@@ -226,7 +230,7 @@
                                   </div>
                                 </div>
                                 <nuxt-link :to="'/catalog/view/' + el.code">
-                                    <div class="mb-4 s-item-list-name" style="margin: 3px 0; font-size: 16px; font-weight: bold">{{ el.name }}</div>
+                                    <div class="mb-4 s-item-list-name" style="margin: 3px 0; font-size: 16px; font-weight: bold; word-break: break-word">{{ el.name }}</div>
                                 </nuxt-link>
                                 <div class="my-1 s-item-list-size" style="font-size: 11px">
                                   <div>
@@ -237,19 +241,19 @@
                                     <div v-else-if="!itemList.height"><span style="color: #949494">Габариты (Г.Ш): </span>
                                       <span>{{`${itemList.depth + ' x '} ${itemList.width}`}}</span>
                                     </div> -->
-                                    <div style="font-size: 13px" v-show="el.height && el.width && el.length"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
+                                    <div style="font-size: 13px" v-if="el.height && el.width && el.length"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
                                         <span>{{`${el.length} x ${el.width} x ${el.height}` }}</span>
                                       </div>
-                                      <div style="font-size: 13px" v-show="!el.length && el.width && el.height"><span class="grey--text mr-2">Габариты (Ш.В): </span>
+                                      <div style="font-size: 13px" v-else-if="!el.length && el.width && el.height"><span class="grey--text mr-2">Габариты (Ш.В): </span>
                                         <span>{{`${el.width} ${' x ' + el.height}` }}</span>
                                       </div>
-                                      <div style="font-size: 13px" v-show="!el.width && el.length && el.height"><span class="grey--text mr-2">Габариты (Д.В): </span>
+                                      <div style="font-size: 13px" v-else-if="!el.width && el.length && el.height"><span class="grey--text mr-2">Габариты (Д.В): </span>
                                         <span>{{`${el.length}${' x ' + el.height}` }}</span>
                                       </div>
-                                      <div style="font-size: 13px" v-show="!el.height && el.length && el.width"><span class="grey--text mr-2">Габариты (Д.Ш): </span>
+                                      <div style="font-size: 13px" v-else-if="!el.height && el.length && el.width"><span class="grey--text mr-2">Габариты (Д.Ш): </span>
                                         <span>{{`${el.length} x ${el.width}` }}</span>
                                       </div>
-                                      <div style="font-size: 13px" v-show="!el.length && !el.width && !el.height"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
+                                      <div style="font-size: 13px" v-else-if="!el.length && !el.width && !el.height"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
                                         <span>Не указаны</span>
                                       </div>
                                       
@@ -262,7 +266,7 @@
                                 </div>
                                 <!-- <div class="wrapper"></div> -->
                                 <div class="my-2 my-sm-0 d-flex flex-row align-end justify-space-between s-item-list-price" style=" font-weight: bold;">
-                                  <div class="d-flex flex-column align-start">
+                                  <div class="d-flex flex-column align-start" :class="{'s-item-list-price-parent': !el.price}">
                                     <span v-show="el.price" class="s-item-list-price-main" style="font-size: 18px">
                                       <number :value="el.price" /> ₽
                                     </span>
@@ -494,6 +498,13 @@ export default {
 
 
 <style lang="scss">
+.s-cart-parent{
+    .s-item-list-price{
+        &>div:first-child{
+            width: 69px !important;
+        }
+    }
+}
 .cart-count{
     input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
          -webkit-appearance: none; 

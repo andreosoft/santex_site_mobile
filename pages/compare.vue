@@ -42,7 +42,7 @@
             <div style="font-weight: bold; font-size: 46px;">В сравнении товаров пусто</div>
             <div style="font-size: 20px; margin: 5px 0 30px 0;">Перейдите в каталог</div>
             <div>
-              <v-btn dark to="/catalog/allcategories">В каталог</v-btn>
+              <v-btn dark to="/allcategories">В каталог</v-btn>
             </div>
         </div>
         <div v-show="dataCom.length !== 0">
@@ -125,7 +125,7 @@
                 <div style="overflow: auto">
                     <div>
                         <div class="d-flex s-compare-items">
-                            <div style="min-width: 220px !important; max-width: 220px !important" v-for="(item, ind) in visibleItems" :key="ind">
+                            <div style="width: 220px" v-for="(item, ind) in visibleItems" :key="ind">
                                 <div class="mb-10 w-100">
                                 <catalog-item-list-compare :el="item" @removeItemCom="removeItem" @addItemFav="addItemFav" @addItemCart="addItemCart" />
                                 </div>
@@ -510,10 +510,18 @@ export default {
 .s-catalog-links-common{
     border-bottom: 1px solid #dbdbdb;
 }
+
 @media screen and (max-width: 600px) {
     .s-catalog-links-compare{
         .s-catalog-links-el{
             width: unset !important;
+        }
+    }
+}
+@media screen and (min-width: 600px) {
+    .s-compare-items{
+        &>div{
+            width: 250px !important;
         }
     }
 }

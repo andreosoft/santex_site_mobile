@@ -28,7 +28,7 @@
                   Код товара: {{ el.id }}
                 </div>
               </div>
-              <div class="mb-4 s-item-list-name" style="margin: 3px 0; font-size: 16px; font-weight: bold" :class="{ 'hidden-text': hiddentext }">{{ el.name }}</div>
+              <div class="mb-4 s-item-list-name" style="margin: 3px 0; font-size: 16px; font-weight: bold; word-break: break-word" :class="{ 'hidden-text': hiddentext }">{{ el.name }}</div>
               <div class="my-1 s-item-list-size" style="font-size: 11px">
                 <div>
                   <!-- <span style="color: #949494">Габариты (Д.Ш.В): </span><span>{{ el.width }}</span> -->

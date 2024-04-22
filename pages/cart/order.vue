@@ -133,7 +133,7 @@
                             </div>
                             <div>
                                 <div style="font-size: 13px" class="mb-2 grey--text">Код товара: {{ el.code }}</div>
-                                <div @click="toItem(el)" style="font-size: 16px" class="mb-2 toItemblock">{{ el.name }}</div>
+                                <div @click="toItem(el)" style="font-size: 16px; word-break: break-word" class="mb-2 toItemblock">{{ el.name }}</div>
                                 <!-- <div v-if="el.depth !== '' " style="font-size: 13px"><span class="grey--text mr-2">Габариты
                                         (Г.Ш.В):</span><span>{{`${el.depth} x ${el.width} x ${el.height}` }}</span></div>
                                 <div v-else style="font-size: 13px"><span class="grey--text mr-2">Габариты
@@ -302,7 +302,7 @@
                                   </div>
                                 </div>
                                 <nuxt-link :to="'/catalog/view/' + el.code">
-                                    <div class="mb-4 s-item-list-name" style="margin: 3px 0; font-size: 16px; font-weight: bold">{{ el.name }}</div>
+                                    <div class="mb-4 s-item-list-name" style="margin: 3px 0; font-size: 16px; font-weight: bold; word-break: break-word">{{ el.name }}</div>
                                 </nuxt-link>
                                 <div class="my-1 s-item-list-size" style="font-size: 11px">
                                   <div>
@@ -348,7 +348,7 @@
                                     <span class="mx-2" v-if="el.price_old" style="font-size: 13px; text-decoration: line-through; color: #949494">
                                         <number :value="el.price_old" /> ₽
                                       </span>
-                                        <div v-if="el.count>1">
+                                        <div v-if="el.count>1 && el.price">
                                             <div style="font-size: 12px; color: #949494">
                                                 <b> {{ el.count }} x <number :value="el.count * el.price" /> ₽</b>
                                             </div>

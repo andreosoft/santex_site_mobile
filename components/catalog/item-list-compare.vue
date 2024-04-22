@@ -9,7 +9,7 @@
           <v-btn @click="removeItem(el)" icon style="padding-bottom: 4px;"><i style="font-size: 20px;" class="grey--text fas fa-times-circle"></i></v-btn>
         </div>
       </div>
-      <div class="d-flex justify-space-between mt-2 mb-4">
+      <div class="d-flex flex-row flex-sm-column justify-space-between mt-2 mb-4">
         <div class="d-none d-sm-block" style="margin: 3px 0; font-size: 13px">
           <catalog-available :value="el.store" />
         </div>
@@ -35,8 +35,11 @@
           </div>
         </div> -->
         <div class="my-2 d-flex flex-row justify-space-between" style=" font-weight: bold;">
-          <span style="font-size: 20px; font-weight: bold;">
+          <span v-if="el.price" style="font-size: 20px; font-weight: bold;">
             <number :value="el.price" /> ₽
+          </span>
+          <span v-else style="font-size: 18px; font-weight: bold;">
+             Цена не указана
           </span>
           <!-- <span class="ml-2" v-if="el.old_price" style="font-size: 13px; text-decoration: line-through; color: #949494">
             <number :value="el.old_price" /> ₽

@@ -3,12 +3,10 @@
     <v-divider class="mb-8" />
     <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
     <div class="w-100 s-static-main">
-      <h1>{{ title ? title : subcat?.name }}</h1>
+      <h1>{{ title }}</h1>
     </div>
-    <!-- {{ subcat }} -->
     <base-catalog 
-      :data="subcat ? subcat?.content : data" 
-      :categoriesData="subcat ? subcat : {}" 
+      :data="data" 
       :loading="loading" 
       :dataFilters="dataFilters" 
       :valueFilters="valueFilters" 
@@ -24,7 +22,6 @@
 <script>
 import {getData} from "@/pages/catalog/getData";
 import BaseCatalog from "@/components/catalog/base-catalog.vue";
-import { mapGetters } from "vuex";
 
 export default {
   components: {BaseCatalog},
@@ -33,18 +30,8 @@ export default {
       loading: true
     }
   },
-  computed: {
-    ...mapGetters ({allCategories: 'getCategories'}),
-    categories(){
-      return [{id: 'allcategories', name: 'Каталог', isparent: 0,  parent_id: 0, content: this.allCategories}, ...this.allCategories]
-    },
-    subcat(){
-      return this.categories.find(item => item.id == this.category_id)
-    }
-  },
   watch: {
     valueFilters(v) {
-      // console.log(v)
       let filters = {};
       if (v.price && v.price.length > 0) {
         filters.price = v.price;
@@ -57,15 +44,15 @@ export default {
     "$route": {
       async handler() {
         this.loading = true;
-        let p = await getData({ route: this.$route, $axios: this.$axios, $config: this.$config });
+        let p = await getData({route: this.$route, $axios: this.$axios, $config: this.$config, error: this.$error});
         this.loading = false;
         this.data = p.data;
         this.pager = p.pager;
       },
     }
   },
-  async asyncData({ route, $axios, $config }) {
-    return await getData({ route, $axios, $config });
+  async asyncData({route, $axios, $config, error}) {
+    return await getData({route, $axios, $config, error});
   },
 };
 </script>

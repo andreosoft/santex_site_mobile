@@ -1,12 +1,12 @@
 <template>
   <v-card class="s-card-perpage">
-    <NuxtLink v-if="el.hasOwnProperty('isparent')" :to="'/catalog/' + el.id">
+    <NuxtLink v-if="el.hasOwnProperty('isparent')" :to="subcat ? '/catalog/' + el.id : '/allcategories/' + el.id">
       <img v-if="el.images" :src="$config.baseImageURL + el.images[0]" style="width: 100%;"/>
       <v-img v-else src="/black-square.jpg" style="width: 100%;" />
       <div style="position: absolute; bottom: 20px; left: 0; right: 0">
         <div class="pa-2 text-center">
-          <p style="color: white; font-weight: bold" class="s-btn-text">{{ el.name }}</p>
-          <v-btn class="s-btn-text">Перейти</v-btn>
+          <!-- <p style="color: white; font-weight: bold" class="s-btn-text">{{ el.name }}</p> -->
+          <v-btn class="s-btn-text">{{ el.name }}</v-btn>
         </div>
       </div>
     </NuxtLink>
@@ -25,6 +25,10 @@
 export default {
   props: {
     el: Object,
+    subcat: {
+      type: Boolean,
+      default: false
+    }
   },
 };
 </script>
