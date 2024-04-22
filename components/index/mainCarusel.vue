@@ -5,7 +5,7 @@
         <div class="splide__track">
           <ul class="splide__list">
             <li v-for="(el, i) in items" :key="i" class="splide__slide">
-              <nuxt-link :to="el.params?.url"><img :src="$config.baseImageURL + el.images[0]" alt=""></nuxt-link>
+              <nuxt-link v-if="el.images && el.images[0]" :to="el.params?.url ?? ''"><img :src="$config.baseImageURL + el.images[0]" alt=""></nuxt-link>
             </li>
           </ul>
         </div>
