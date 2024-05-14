@@ -3,7 +3,13 @@
     <div>
       <v-col class="pa-0 col-12 d-flex flex-row justify-space-between">
         <v-col class="mb-2 pa-0 pr-4 d-flex flex-column align-start col-4" style="position: relative;">
-          <v-img @click="$router.push(routeItem)" class="s-item-list-img" v-if="el.images && el.images[0]" :contain="true" style="width: 150px; height: 150px; border: 1px solid rgb(192, 192, 192); cursor: pointer" :src="$config.baseImageURL+el.images[0]+'?height=250'" />
+          <v-img 
+            @click="$router.push(routeItem)" 
+            class="s-item-list-img"  
+            :contain="true" 
+            style="width: 150px; height: 150px; border: 1px solid rgb(192, 192, 192); cursor: pointer" 
+            :src="el.images && el.images[0] ? $config.baseImageURL+el.images[0]+'?height=250' : $config.baseImageURL+'no_photo.jpg?height=250'" 
+          />
           <div class="d-flex flex-column align-start mt-1 s-item-list-icons" style="width: 150px;">
             <v-btn @click="toFavorite(el)" class="pa-0 w-100 d-flex justify-start">
               <img v-show="checkAvailable" src="/icons/like-black.svg" alt="favorite-black">
@@ -71,7 +77,10 @@
                 <span v-else class="s-item-list-price-second" style="font-size: 18px">
                   Цена не указана
                 </span>
-                <span class="mx-2" v-if="el.price_old" style="font-size: 13px; text-decoration: line-through; color: #949494">
+                <span 
+                class="mx-2" 
+                v-if="el.price_old"
+                style="font-size: 13px; text-decoration: line-through; color: #949494">
                   <number :value="el.price_old" /> ₽
                 </span>
               </div>
@@ -134,7 +143,7 @@ export default {
           id: el.id,
           category_id: el.category_id,
           name: el.name,
-          image: el.images ? el.images[0] : '',
+          image: el.images && el.images[0] ? el.images[0] : 'no_photo.jpg',
           price: el.price,
           old_price: el.price_old,
           brand: el.brand,
@@ -168,7 +177,7 @@ export default {
           const item = {
             id: el.id,
             name: el.name,
-            images: el.images[0],
+            images: el.images && el.images[0] ? el.images[0] : 'no_photo.jpg',
             price: el.price,
             old_price: el.price_old,
             brand: el.brand,
@@ -218,7 +227,7 @@ export default {
         const item = {
           code: el.id,
           name: el.name,
-          img: el.images[0],
+          img: el.images && el.images[0] ? el.images[0] : 'no_photo.jpg',
           price: el.price,
           old_price: el.price_old,
           brand: el.brand,

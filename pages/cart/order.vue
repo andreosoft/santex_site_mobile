@@ -217,8 +217,11 @@
                               <div class="wrapper"></div>
                               <div class="my-2 my-sm-0 d-flex flex-row justify-space-between align-center s-item-list-price" style=" font-weight: bold;">
                               <div class="d-flex flex-column align-end">
-                                  <div style="font-size: 20px">
+                                  <div v-if="el.price" style="font-size: 20px">
                                       <b><number :value="el.price" /> ₽</b>
+                                  </div>
+                                  <div v-else style="font-size: 20px">
+                                    <b>Цена не указана</b>
                                   </div>
                               </div>
                               <v-col class="col-5 col-sm-12 pa-0">
@@ -583,7 +586,7 @@
                             <tr class="white">
                                 <td><b>Общая стоимоcть:</b>
                                 </td>
-                                <td><span style="font-size: 28px">{{ totalCost }} ₽</span></td>
+                                <td><span style="font-size: 24px">{{ totalCost }} ₽</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -692,6 +695,9 @@ export default {
     methods: {
         toCatalog(){
             this.$router.push({path: '/catalog/allcategories'})
+        },
+        toItem(el){
+            this.$router.push({path: '/catalog/view/' + el.code})
         },
         updateDataClient(name1, value, name2){
             name2 ? this.$store.commit('cart/updateDataClient', {name1, value, name2}) : this.$store.commit('cart/updateDataClient', {name1, value});

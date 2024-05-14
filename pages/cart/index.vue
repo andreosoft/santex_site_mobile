@@ -40,22 +40,21 @@
                                     <span class="grey--text mr-2">Бренд:</span>
                                     <span>{{el.brand}}</span>
                                 </div>
-
                                 <div style="font-size: 13px" v-if="el.height && el.width && el.length"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
                                     <span>{{`${el.length} x ${el.width} x ${el.height}` }}</span>
-                                  </div>
-                                  <div style="font-size: 13px" v-else-if="!el.length && el.width && el.height"><span class="grey--text mr-2">Габариты (Ш.В): </span>
+                                    </div>
+                                    <div style="font-size: 13px" v-else-if="!el.length && el.width && el.height"><span class="grey--text mr-2">Габариты (Ш.В): </span>
                                     <span>{{`${el.width} ${' x ' + el.height}` }}</span>
-                                  </div>
-                                  <div style="font-size: 13px" v-else-if="!el.width && el.length && el.height"><span class="grey--text mr-2">Габариты (Д.В): </span>
+                                     </div>
+                                    <div style="font-size: 13px" v-else-if="!el.width && el.length && el.height"><span class="grey--text mr-2">Габариты (Д.В): </span>
                                     <span>{{`${el.length}${' x ' + el.height}` }}</span>
-                                  </div>
-                                  <div style="font-size: 13px" v-else-if="!el.height && el.length && el.width"><span class="grey--text mr-2">Габариты (Д.Ш): </span>
+                                    </div>
+                                    <div style="font-size: 13px" v-else-if="!el.height && el.length && el.width"><span class="grey--text mr-2">Габариты (Д.Ш): </span>
                                     <span>{{`${el.length} x ${el.width}` }}</span>
-                                  </div>
-                                  <div style="font-size: 13px" v-else-if="!el.height && !el.width && !el.length"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
+                                    </div>
+                                    <div style="font-size: 13px" v-else-if="!el.height && !el.width && !el.length"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
                                     <span>Не указаны</span>
-                                  </div>
+                                    </div>
 
 
                             </div>
@@ -107,18 +106,24 @@
                                     <v-btn class="s-btn-text">упак</v-btn>
                                 </div>
                                 <v-text-field
-                            type="number" 
-                            @blur="preventZero($event.target.value, el.code)" 
-                            hide-details 
-                            class="s-input-text-center" 
-                            outlined 
-                            dense 
-                            :value="el.count"
-                            >
-                                    <v-btn @click="countPlus(el)" style="margin-top: -6px;" slot="append" icon><i
-                                            class="fa-solid fa-plus"></i></v-btn>
-                                    <v-btn @click="countMinus(el)" style="margin-top: -6px;"
-                                        slot="prepend-inner" icon><i class="fa-solid fa-minus"></i></v-btn>
+                                    type="number" 
+                                    @blur="preventZero($event.target.value, el.code)" 
+                                    hide-details 
+                                    class="s-input-text-center" 
+                                    outlined 
+                                    dense 
+                                    :value="el.count"
+                                >
+                                    <v-btn @click="countPlus(el)" style="margin-top: -6px;" slot="append" icon>
+                                        <i class="fa-solid fa-plus"></i>
+                                    </v-btn>
+                                    <v-btn 
+                                        @click="countMinus(el)" 
+                                        style="margin-top: -6px;" 
+                                        slot="prepend-inner" 
+                                        icon>
+                                            <i class="fa-solid fa-minus"></i>
+                                    </v-btn>
                                 </v-text-field>
                             </div>
                         </v-col>
@@ -142,9 +147,12 @@
                                 <div class="d-flex flex-column align-start">
                                     <b v-show="el.price" style="font-size: 18px"><number :value="el.price" /> ₽</b>
                                     <b v-show="!el.price" style="font-size: 18px">Цена не указана</b>
-                                    <div v-show="el.count>1 && el.price">
-                                        <div style="font-size: 12px; color: #949494">
-                                            <b> {{ el.count }} x <number :value="el.count * el.price" /> ₽</b>
+                                    <div>
+                                        <div 
+                                            v-show="el.count>1 && el.price"
+                                            style="font-size: 12px; color: #949494"
+                                            >
+                                            <b> {{ el.count }} x <number :value="el.price" /> ₽</b>
                                         </div>
                                         <div v-show="el.old_price" style="font-size: 12px; text-decoration: line-through;"
                                             class="grey--text">
@@ -201,120 +209,106 @@
                     
                     <v-card id="s-card-good-small" class="s-card-good d-sm-none py-5">
                         <div>
-                          <v-col class="pa-0 col-12 d-flex flex-row justify-space-between">
-                            <v-col class="mb-2 pa-0 pr-4 d-flex flex-column align-start col-4" style="position: relative;">
-                              <div class="mr-4 pa-1" style="border: 0.5px solid black">
-                                <v-img class="s-item-list-img" contain style="width: 100px; height: 100px;" :src="$config.baseImageURL+el.img+'?width=250&height=250'" />
-                            </div>
-                              <!-- <div class="d-flex flex-column align-start mt-1 s-item-list-icons">
-                                <v-btn @click="toFavorite(el)" class="pa-0">
-                                  <img v-show="checkAvailable" src="/icons/like-black.svg" alt="favorite-black">
-                                  <img v-show="!checkAvailable" src="/icons/like.svg" alt="favorite">
-                                  <p class="ma-0 pa-0 ms-2">В избранное</p>
-                                </v-btn>
-                                <v-btn @click="toCompare(el)" class="pa-0">
-                                  <img src="/icon-similar.png" alt="" />
-                                  <p class="ma-0 pa-0 ms-2">Сравнить</p>
-                                </v-btn>
-                              </div> -->
-                            </v-col>
-                            <v-col class="pa-0 pl-3">
-                                <div class="d-flex flex-column" style="height: 100%;">
-                                    
-                                <div class="d-flex flex-row justify-space-between mb-2">
-                                  <!-- <div class="s-item-list-available" style="margin: 3px 0; font-size: 13px">
-                                    <catalog-available :value="el.store" />
-                                  </div> -->
-                                  <div class="s-item-list-id" style="margin: 3px 0; font-size: 13px; color: #949494">
-                                    Код товара: {{ el.code }}
-                                  </div>
-                                </div>
-                                <nuxt-link :to="'/catalog/view/' + el.code">
-                                    <div class="mb-4 s-item-list-name" style="margin: 3px 0; font-size: 16px; font-weight: bold; word-break: break-word">{{ el.name }}</div>
-                                </nuxt-link>
-                                <div class="my-1 s-item-list-size" style="font-size: 11px">
-                                  <div>
-                                    <!-- <span style="color: #949494">Габариты (Д.Ш.В): </span><span>{{ el.width }}</span> -->
-                                    <!-- <div v-if="itemList.depth && itemList.height"><span style="color: #949494">Габариты (Г.Ш.В): </span>
-                                      <span>{{`${itemList.depth + ' x '} ${itemList.width} ${' x ' + itemList.height}` }}</span>
-                                    </div>
-                                    <div v-else-if="!itemList.height"><span style="color: #949494">Габариты (Г.Ш): </span>
-                                      <span>{{`${itemList.depth + ' x '} ${itemList.width}`}}</span>
-                                    </div> -->
-                                    <div style="font-size: 13px" v-if="el.height && el.width && el.length"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
-                                        <span>{{`${el.length} x ${el.width} x ${el.height}` }}</span>
-                                      </div>
-                                      <div style="font-size: 13px" v-else-if="!el.length && el.width && el.height"><span class="grey--text mr-2">Габариты (Ш.В): </span>
-                                        <span>{{`${el.width} ${' x ' + el.height}` }}</span>
-                                      </div>
-                                      <div style="font-size: 13px" v-else-if="!el.width && el.length && el.height"><span class="grey--text mr-2">Габариты (Д.В): </span>
-                                        <span>{{`${el.length}${' x ' + el.height}` }}</span>
-                                      </div>
-                                      <div style="font-size: 13px" v-else-if="!el.height && el.length && el.width"><span class="grey--text mr-2">Габариты (Д.Ш): </span>
-                                        <span>{{`${el.length} x ${el.width}` }}</span>
-                                      </div>
-                                      <div style="font-size: 13px" v-else-if="!el.length && !el.width && !el.height"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
-                                        <span>Не указаны</span>
-                                      </div>
-                                      
-                                      
-                                      
-                                  </div>
-                                  <div class="s-item-list-brand">
-                                    <span style="color: #949494">Бренд: </span><span>{{ el.brand }}</span>
-                                  </div>
-                                </div>
-                                <!-- <div class="wrapper"></div> -->
-                                <div class="my-2 my-sm-0 d-flex flex-row align-end justify-space-between s-item-list-price" style=" font-weight: bold;">
-                                  <div class="d-flex flex-column align-start" :class="{'s-item-list-price-parent': !el.price}">
-                                    <span v-show="el.price" class="s-item-list-price-main" style="font-size: 18px">
-                                      <number :value="el.price" /> ₽
-                                    </span>
-                                    <span v-show="!el.price" class="s-item-list-price-second" style="font-size: 18px">
-                                      Цена не указана
-                                    </span>
-                                    <span class="mx-2" v-show="el.price_old" style="font-size: 13px; text-decoration: line-through; color: #949494">
-                                        <number :value="el.price_old" /> ₽
-                                      </span>
-                                        <div v-show="el.count>1 && el.price>0">
-                                            <div style="font-size: 12px; color: #949494">
-                                                <b> {{ el.count }} x <number :value="el.count * el.price" /> ₽</b>
-                                            </div>
-                                            <div v-show="el.old_price" style="font-size: 12px; text-decoration: line-through;"
-                                                class="grey--text">
-                                                <b><number :value="el.count * el.old_price" /> ₽</b>
-                                            </div>
+                            <v-col class="pa-0 col-12 d-flex flex-column">
+                                <v-col class="col-12 d-flex pa-0">
+                                    <v-col class="mb-2 pa-0 mr-2 col-4 w-100" style="position: relative;">
+                                        <div class="pa-1 h-100 d-flex align-center" style="border: 0.5px solid black">
+                                            <v-img class="s-item-list-img" contain style="width: 100px; height: 100%;" :src="$config.baseImageURL+el.img+'?width=250&height=250'" />
                                         </div>
-                                  </div>
-                                  <v-col class="col-5 pa-0">
-                                    <div class="cart-count">
-                                        <div class="mb-2 justify-space-between" v-show="el.type == 2" :class="{ 'd-flex': el.type == 2 }">
-                                            <v-btn class="s-btn-text" dark>м<sup>2</sup></v-btn>
-                                            <v-btn class="s-btn-text">упак</v-btn>
-                                        </div>
-                                        <v-text-field
-                                        type="number" 
-                                        @blur="preventZero($event.target.value, el.code)" 
-                                        hide-details 
-                                        class="s-input-text-center" 
-                                        outlined 
-                                        dense 
-                                        :value="el.count"
-                                        >
-                                            <v-btn class="s-btn-cart-field" @click="countPlus(el)" slot="append" icon>
-                                                <i class="fa-solid fa-plus"></i>
-                                            </v-btn>
-                                            <v-btn class="s-btn-cart-field" @click="countMinus(el)" slot="prepend-inner" icon>
-                                                <i class="fa-solid fa-minus"></i>
-                                            </v-btn>
-                                        </v-text-field>
-                                    </div>
+                                    </v-col>
+                                    <v-col class="col-8 pa-0 d-flex flex-column">
+                                        <div class="d-flex flex-row justify-space-between mb-2">
+                                            <div class="s-item-list-id" style="margin: 3px 0; font-size: 13px; color: #949494">
+                                              Код товара: {{ el.code }}
+                                            </div>
+                                          </div>
+                                          <nuxt-link :to="'/catalog/view/' + el.code">
+                                              <div class="mb-4 s-item-list-name" style="margin: 3px 0; font-size: 16px; font-weight: bold; word-break: break-word">{{ el.name }}</div>
+                                          </nuxt-link>
+                                          <div class="my-1 s-item-list-size" style="font-size: 11px">
+                                            <div>
+                                              <div style="font-size: 13px" v-if="el.height && el.width && el.length"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
+                                                  <span>{{`${el.length} x ${el.width} x ${el.height}` }}</span>
+                                                </div>
+                                                <div style="font-size: 13px" v-else-if="!el.length && el.width && el.height"><span class="grey--text mr-2">Габариты (Ш.В): </span>
+                                                  <span>{{`${el.width} ${' x ' + el.height}` }}</span>
+                                                </div>
+                                                <div style="font-size: 13px" v-else-if="!el.width && el.length && el.height"><span class="grey--text mr-2">Габариты (Д.В): </span>
+                                                  <span>{{`${el.length}${' x ' + el.height}` }}</span>
+                                                </div>
+                                                <div style="font-size: 13px" v-else-if="!el.height && el.length && el.width"><span class="grey--text mr-2">Габариты (Д.Ш): </span>
+                                                  <span>{{`${el.length} x ${el.width}` }}</span>
+                                                </div>
+                                                <div style="font-size: 13px" v-else-if="!el.length && !el.width && !el.height"><span class="grey--text mr-2">Габариты (Д.Ш.В): </span>
+                                                  <span>Не указаны</span>
+                                                </div>
+                                            </div>
+                                            <div class="s-item-list-brand">
+                                              <span style="color: #949494">Бренд: </span><span>{{ el.brand }}</span>
+                                            </div>
+                                          </div>
+                                    </v-col>
                                 </v-col>
-                                  <div>
+                            <v-col class="pa-0">
+                                <div class="my-2 my-sm-0 d-flex flex-row align-center justify-space-between s-item-list-price" style=" font-weight: bold;">
+                                    <div class="col-11 pa-0 d-flex flex-column">
+                                        <div class="d-flex flex-row justify-start align-end w-100 mb-2">
+                                          <span v-show="el.price" class="s-item-list-price-main" style="font-size: 18px">
+                                            <number :value="el.price * el.count" /> ₽
+                                          </span>
+                                          <span v-show="!el.price" class="s-item-list-price-second" style="font-size: 18px">
+                                            Цена не указана
+                                          </span>
+                                          <span class="ms-2" v-show="el.old_price" style="font-size: 13px; text-decoration: line-through; color: #949494">
+                                              <number :value="el.old_price * el.count" /> ₽
+                                            </span>
+                                              <!-- <div v-show="el.count>1 && el.price>0"> -->
+                                                  <!-- <div style="font-size: 12px; color: #949494">
+                                                      <b> {{ el.count }} x <number :value="el.price" /> ₽</b>
+                                                  </div> -->
+                                                  <!-- <div 
+                                                    v-show="el.old_price" 
+                                                    style="font-size: 13px; text-decoration: line-through;"
+                                                    class="ms-2 grey--text">
+                                                      <b><number :value="el.count * el.old_price" /> ₽</b>
+                                                  </div> -->
+                                              <!-- </div> -->
+                                                <span v-show="el.old_price && (el.old_price - el.price !== el.old_price)" class="ms-2 red--text" style="font-size: 13px;">
+                                                    –<number :value="(el.old_price * el.count) - (el.price * el.count)" /> ₽
+                                                </span>
+                                        </div>
+                                        <v-col class="col-5 pa-0">
+                                          <div class="cart-count">
+                                              <div class="mb-2 justify-space-between" v-show="el.type == 2" :class="{ 'd-flex': el.type == 2 }">
+                                                  <v-btn class="s-btn-text" dark>м<sup>2</sup></v-btn>
+                                                  <v-btn class="s-btn-text">упак</v-btn>
+                                              </div>
+                                              <v-text-field
+                                              type="number" 
+                                              @blur="preventZero($event.target.value, el.code)" 
+                                              hide-details 
+                                              class="s-input-text-center" 
+                                              outlined 
+                                              dense 
+                                              :value="el.count"
+                                              >
+                                                  <v-btn class="s-btn-cart-field" @click="countPlus(el)" slot="append" icon>
+                                                      <i class="fa-solid fa-plus"></i>
+                                                  </v-btn>
+                                                  <v-btn class="s-btn-cart-field" @click="countMinus(el)" slot="prepend-inner" icon>
+                                                      <i class="fa-solid fa-minus"></i>
+                                                  </v-btn>
+                                              </v-text-field>
+                                          </div>
+                                          <div class="mt-2 text-center" v-show="el.price">
+                                            <span class="grey--text" style="word-break: word-wrap;">{{ el.price }} ₽ за шт</span>
+                                          </div>
+                                      </v-col>
+                                    </div>
+                                <div>
                                     <v-btn style="width: 20px; height: 20px" icon>
                                         <img @click="deleteItem(el)" src="/icons/trash.png" alt="removeitem-icon"/>
                                     </v-btn>
-                                </div>
                                 </div>
                               </div>
                               </v-col>
@@ -452,16 +446,15 @@ export default {
                 url: "",
                 title: title,
             }
-        ];
-      
+        ]; 
         return { title, breadcrumbsData }
     },
     computed: {
         ...mapGetters ({
-      totalPrice: 'cart/totalPrice',
-      totalDiscount: 'cart/totalDiscount',
-      cart: 'cart/cart',
-      dataResultCart: 'cart/dataResult',
+        totalPrice: 'cart/totalPrice',
+        totalDiscount: 'cart/totalDiscount',
+        cart: 'cart/cart',
+        dataResultCart: 'cart/dataResult',
     }),
     },
     methods: {
@@ -501,7 +494,7 @@ export default {
 .s-cart-parent{
     .s-item-list-price{
         &>div:first-child{
-            width: 69px !important;
+            
         }
     }
 }
