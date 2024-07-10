@@ -1,6 +1,6 @@
 <template>
   <div class="s-header-parent-main">
-    <common-alert />
+    <!-- <common-alert /> -->
     <common-top class="d-none d-sm-block" @showCatalog="showCatalogMenu = false" />
     <v-container class="s-header-container" style="padding-top: 6px; position: relative">
       <!-- <div class="py-4 mb-6 d">
