@@ -100,35 +100,35 @@
             hide-overlay
             transition="dialog-transition"
             >
-              <div class="s-popup h-100" ref="dialogSearch">
-                  <div>
-                    <div class="text-right">
+            <div class="s-popup h-100" ref="dialogSearch">
+                <v-container class="d-flex flex-column h-100">
+                  <div class="d-flex justify-space-between">
+                    <form @submit.prevent="submitSearch()" class="ma-0 me-3 pa-0 w-100">
+                      <div class="s-header-menu-search">
+                        <v-text-field 
+                          ref="inputSearch"
+                          @input="submitSearch()" 
+                          @keyup.enter="redirectSearch()"
+                          v-model="search" 
+                          single-line 
+                          outlined 
+                          dense 
+                          label="Я хочу найти"
+                        >
+                          <template v-slot:append>
+                            <img style="cursor: pointer" @click="submitSearch()" src="/icons/Search.svg" />
+                          </template>
+                        </v-text-field>
+                      </div>
+                    </form>
+                    <div class="text-right" style="height: 36px">
                         <v-btn icon @click="showSearch = false"><img src="/icons/close_menu.svg" /></v-btn>
                     </div>
                 </div>
-                <div id="form-search" class="s-popup-main d-flex align-center justify-center flex-column" style="margin: 10px 64px;">
-                  <form @submit.prevent="submitSearch()" class="ma-0 pa-0 w-100">
-                    <div class="s-header-menu-search">
-                      <v-text-field 
-                        ref="inputSearch"
-                        @input="submitSearch()" 
-                        @keyup.enter="redirectSearch()"
-                        v-model="search" 
-                        single-line 
-                        outlined 
-                        dense 
-                        label="Я хочу найти"
-                      >
-                        <template v-slot:append>
-                          <img style="cursor: pointer" @click="submitSearch()" src="/icons/Search.svg" />
-                        </template>
-                      </v-text-field>
-                    </div>
-                  </form>
-
+                <div class="w-100 d-flex align-center justify-center flex-column">
                   <v-row
                   id="s-search-result" 
-                  class="d-flex flex-column ma-0 mt-5 flex-nowrap pa-0"  
+                  class="d-flex flex-column ma-0 mt-5 flex-nowrap pa-0 align-start"  
                   :class="{'visibility-active': showSearch && search.trim() && search.trim().length > 3}"
                   >
                   <v-col 
@@ -144,12 +144,12 @@
                   </v-col>
                   <v-col
                     v-if="searchData?.category && searchData?.category.length > 0"
-                    class="d-flex flex-row align-center w-100 mb-0 pa-0"    
+                    class="d-flex flex-row align-center w-100 mb-0 pa-0 mt-5"    
                   >
-                    <!-- <v-col class="col-3">
-                      <p class="mb-0">Категории</p>
-                    </v-col> -->
-                    <v-col class="ma-0 pa-0 d-flex flex-column">
+                    <v-col class="col-4">
+                      <p class="mb-0" style="font-size: 14px !important;">Категории</p>
+                    </v-col>
+                    <v-col class="ma-0 d-flex flex-column">
                         <v-col
                         @click="[showSearch = false, search = '']"
                         v-for="el in searchData?.category"
@@ -180,9 +180,9 @@
                     v-if="searchData?.brand && searchData?.brand.length > 0"
                     class="d-flex flex-row align-center w-100 pa-0 mt-5"    
                   >
-                    <!-- <v-col class="col-3">
-                      <p class="mb-0">Бренды</p>
-                    </v-col> -->
+                    <v-col class="col-4">
+                      <p class="mb-0" style="font-size: 14px !important;">Бренды</p>
+                    </v-col>
                     <v-col class="ma-0 pa-0 d-flex flex-column">
                         <v-col
                         @click="[showSearch = false, search = '']"
@@ -247,15 +247,17 @@
                         </v-col>
                     </v-col>
                   </v-col>
-                      <v-col 
+                      <div 
+                      class="pa-0 mt-5"
                       v-if="searchData?.category?.length !== 0 || searchData?.brand?.length !== 0 || searchData?.catalog?.length !== 0">
                         <nuxt-link 
                         style="font-size: 14px !important;"
                         @click.native="[showSearch = false, search = '']"
-                        class="underlined" :to="'/catalog/search?q=' + search">Посмотреть все результаты</nuxt-link>
-                      </v-col>
+                        class="underlined d-flex justify-start" :to="'/catalog/search?q=' + search">Посмотреть все результаты</nuxt-link>
+                      </div>
                   </v-row>      
                 </div>
+              </v-container>
               </div>
             </v-dialog>
     <common-catalog-menu v-model="showCatalogMenu" @openSearch="OpenSearch" :items="catalogMenuItems" />
@@ -317,8 +319,8 @@ export default {
       try {
         let alldata;
         if(this.search.trim() && this.search.trim().length > 2) {
-          document.querySelector(".dialog-search").scrollTop = 0;
-          // document.querySelector("#s-search-result").scrollLeft = 0;
+          document.querySelector("#s-search-result").scrollTop = 0;
+          document.querySelector("#s-search-result").scrollLeft = 0;
           // this.$router.push({ path: '/catalog/search', query: { q: this.search } })
           alldata = (await this.$axios.get(this.$config.baseURL + '/api/site/catalog/hits', { params: { q: this.search } })).data.data;
           // console.log(this.search);
