@@ -14,7 +14,7 @@
                         <v-btn icon @click="$emit('closePopUp')"><img src="/icons/close_menu.svg" /></v-btn>
                     </div>
                 </div>
-                <div class="s-popup-main" style="margin: 10px 64px 10px 64px;">
+                <div class="s-popup-main" style="margin: 10px 64px;">
                     <h2>Запись на консультацию онлайн</h2>
                     <v-divider class="mb-8" />
                     <div v-if="view == 1">

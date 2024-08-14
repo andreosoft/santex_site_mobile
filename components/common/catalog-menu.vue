@@ -93,7 +93,7 @@
             </v-col>
           </v-row>
           <v-row class="ma-0">
-            <form style="width: 100%" class="s-header-search mt-4 ms-3 me-3" @submit.prevent="submitSearch()">
+            <form @click="submitSearch()" style="width: 100%" class="s-header-search mt-4 ms-3 me-3">
               <div class="s-header-menu-search">
                 <v-text-field v-model="search" single-line outlined dense label="Я хочу найти">
                   <template v-slot:append>
@@ -220,9 +220,9 @@ export default {
   },
   methods: {
     submitSearch() {
-      this.$router.push({ path: '/catalog/search', query: { q: this.search } })
+      // this.$router.push({ path: '/catalog/search', query: { q: this.search } })
       this.showSearch = false
-      this.$emit('input')
+      this.$emit('openSearch')
     },
   },
   computed: {

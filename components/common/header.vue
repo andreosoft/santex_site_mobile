@@ -36,20 +36,13 @@
               <i v-else class="fa fa-bars"></i>
             </div>
             <div class="d-flex flex-row align-center">
-                  <transition name="fade">
-                  <form v-if="showSearch" @submit.prevent="submitSearch()" class="ma-0 ms-5 pa-0 form-search" style="width: 240px; position: absolute; top: 50px; z-index: 100; overflow: hidden">
-                    <div class="s-header-menu-search">
-                      <v-text-field @keyup.enter="submitSearch()" v-model="search" single-line outlined dense label="Я хочу найти">
-                        <template v-slot:append>
-                          <img style="cursor: pointer" @click="submitSearch()" src="/icons/Search.svg" />
-                        </template>
-                      </v-text-field>
-                    </div>
-                  </form>
-                </transition>
-            <img @click="[showSearch = !showSearch, showCatalogMenu = false]" class="ms-5 s-header-search-icon" style="cursor: pointer" src="/icons/Search.svg" />
+              <img @click="OpenSearch" class="ms-5 s-header-search-icon" style="cursor: pointer" src="/icons/Search.svg" />
             </div>
             </div>
+
+            
+            
+
           <!-- <div class="s-header-menu-links pt-2">
             <nuxt-link to="/brends">Бренды</nuxt-link>
             <nuxt-link to="/blog">Блог</nuxt-link>
@@ -96,12 +89,182 @@
           </form> -->
         </div>
     </v-container>
-    <common-catalog-menu v-model="showCatalogMenu" :items="catalogMenuItems" />
+
+
+
+    <v-dialog 
+            v-model="showSearch" 
+            max-width="810px"
+            :fullscreen="$vuetify.breakpoint.xs" 
+            persistent
+            hide-overlay
+            transition="dialog-transition"
+            >
+              <div class="s-popup h-100" ref="dialogSearch">
+                  <div>
+                    <div class="text-right">
+                        <v-btn icon @click="showSearch = false"><img src="/icons/close_menu.svg" /></v-btn>
+                    </div>
+                </div>
+                <div id="form-search" class="s-popup-main d-flex align-center justify-center flex-column" style="margin: 10px 64px;">
+                  <form @submit.prevent="submitSearch()" class="ma-0 pa-0 w-100">
+                    <div class="s-header-menu-search">
+                      <v-text-field 
+                        ref="inputSearch"
+                        @input="submitSearch()" 
+                        @keyup.enter="redirectSearch()"
+                        v-model="search" 
+                        single-line 
+                        outlined 
+                        dense 
+                        label="Я хочу найти"
+                      >
+                        <template v-slot:append>
+                          <img style="cursor: pointer" @click="submitSearch()" src="/icons/Search.svg" />
+                        </template>
+                      </v-text-field>
+                    </div>
+                  </form>
+
+                  <v-row
+                  id="s-search-result" 
+                  class="d-flex flex-column ma-0 mt-5 flex-nowrap pa-0"  
+                  :class="{'visibility-active': showSearch && search.trim() && search.trim().length > 3}"
+                  >
+                  <v-col 
+                  v-if="searchData?.category?.length === 0 && searchData?.brand?.length === 0 && searchData?.catalog?.length === 0"
+                  class="d-flex flex-row align-center w-100 mb-0 pa-0"
+                  >
+                    <v-col class="col-3 pa-0">
+                      <p class="mb-0" style="font-size: 14px !important;">Результаты поиска</p>
+                    </v-col>
+                    <v-col class="ma-0 pa-0">
+                      <p class="mb-0" style="font-size: 14px !important;">Ничего не найдено</p>
+                    </v-col>
+                  </v-col>
+                  <v-col
+                    v-if="searchData?.category && searchData?.category.length > 0"
+                    class="d-flex flex-row align-center w-100 mb-0 pa-0"    
+                  >
+                    <!-- <v-col class="col-3">
+                      <p class="mb-0">Категории</p>
+                    </v-col> -->
+                    <v-col class="ma-0 pa-0 d-flex flex-column">
+                        <v-col
+                        @click="[showSearch = false, search = '']"
+                        v-for="el in searchData?.category"
+                        :key="el._id" 
+                        class="ma-0 pa-0"
+                        >
+                        <nuxt-link 
+                        class="d-flex flex-row align-center w-100"
+                        :to="el._source.isparent == 1 ? `/allcategories/${el._id}` : `/catalog/${el._id}`">
+                          <div style="margin: 5px 10px">
+                            <v-img 
+                            contain 
+                            style="width: 50px; height: 50px;"
+                            v-if="el._source.images && el._source.images[0]"
+                            :src="$config.baseImageURL + el._source.images[0]"
+                            />
+                            <v-img 
+                            contain 
+                            style="width: 50px; height: 50px;"
+                            v-else src="/black-square.jpg" />
+                          </div>
+                          <p class="mb-0" style="font-size: 14px !important;">{{ el._source.name }}</p>
+                        </nuxt-link>
+                        </v-col>
+                    </v-col>
+                  </v-col>
+                  <v-col
+                    v-if="searchData?.brand && searchData?.brand.length > 0"
+                    class="d-flex flex-row align-center w-100 pa-0 mt-5"    
+                  >
+                    <!-- <v-col class="col-3">
+                      <p class="mb-0">Бренды</p>
+                    </v-col> -->
+                    <v-col class="ma-0 pa-0 d-flex flex-column">
+                        <v-col
+                        @click="[showSearch = false, search = '']"
+                        v-for="el in searchData?.brand"
+                        :key="el._id" 
+                        class="ma-0 pa-0"
+                        >
+                        <nuxt-link 
+                        class="d-flex flex-row align-center w-100"
+                        :to="'/catalog/search?q=' + el._source.name">
+                          <div style="margin: 5px 10px">
+                            <v-img 
+                            contain 
+                            style="width: 50px; height: 50px;"
+                            v-if="el._source.images && el._source.images[0]"
+                            :src="$config.baseImageURL + el._source.images[0]"
+                            />
+                            <v-img 
+                            contain 
+                            style="width: 50px; height: 50px;"
+                            v-else src="/black-square.jpg" />
+                          </div>
+                          <p class="mb-0" style="font-size: 14px !important;">{{ el._source.name }}</p>
+                        </nuxt-link>
+                        </v-col>
+                    </v-col>
+                  </v-col>
+                  <v-col
+                    v-if="searchData?.catalog && searchData?.catalog.length > 0"
+                    class="d-flex flex-row align-center w-100 pa-0 mt-5"    
+                  >
+                    <!-- <v-col class="col-3">
+                      <p class="mb-0">Товары</p>
+                    </v-col> -->
+                    <v-col class="ma-0 pa-0 d-flex flex-column">
+                        <v-col
+                        @click="[showSearch = false, search = '']"
+                        v-for="el in searchData?.catalog"
+                        :key="el._id" 
+                        class="ma-0 pa-0"
+                        >
+                        <nuxt-link 
+                        class="d-flex flex-row align-center w-100"
+                        :to="'/catalog/view/' + el._id">
+                          <div style="margin: 5px 10px">
+                            <v-img 
+                            contain 
+                            style="width: 50px; height: 50px;"
+                            v-if="el._source.images && el._source.images[0]"
+                            :src="$config.baseImageURL + el._source.images[0]"
+                            />
+                            <v-img 
+                            contain 
+                            style="width: 50px; height: 50px;"
+                            v-else src="/black-square.jpg" />
+                          </div>
+                          <p class="mb-0 w-50" style="font-size: 14px !important;">{{ el._source.name }}</p>
+                        <div class="wrapper mx-auto"></div>
+                        <p v-if="el._source.price" style="font-size: 14px !important;" class="mb-0"><number :value="el._source.price" /> ₽</p>
+                        <p v-else class="mb-0">Не указано</p>
+                        </nuxt-link>
+                        </v-col>
+                    </v-col>
+                  </v-col>
+                      <v-col 
+                      v-if="searchData?.category?.length !== 0 || searchData?.brand?.length !== 0 || searchData?.catalog?.length !== 0">
+                        <nuxt-link 
+                        style="font-size: 14px !important;"
+                        @click.native="[showSearch = false, search = '']"
+                        class="underlined" :to="'/catalog/search?q=' + search">Посмотреть все результаты</nuxt-link>
+                      </v-col>
+                  </v-row>      
+                </div>
+              </div>
+            </v-dialog>
+    <common-catalog-menu v-model="showCatalogMenu" @openSearch="OpenSearch" :items="catalogMenuItems" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import { debounce } from 'lodash';
 export default {
   props: {
     catalogMenuItems: Array
@@ -111,7 +274,8 @@ export default {
       showCatalogMenu: false,
       showSearch: false,
       search: '',
-      mass: []
+      mass: [],
+      searchData: [],
     }
   },
   watch: {
@@ -119,19 +283,53 @@ export default {
       if (this.showCatalogMenu) {
         this.showSearch = false;
       }
+    },
+    showSearch(){
+      if(this.showSearch){
+        this.$nextTick(() => {
+          this.$refs.dialogSearch.scrollTop = 0
+        })
+      }
     }
   },
   methods: {
+    OpenSearch() {
+      this.showSearch = !this.showSearch;
+      this.search = '';
+      this.showCatalogMenu = false;
+      window.scrollTo(0, 0);
+  },
   disableMenu(e){
     // console.log(e.target);
     if(e.target.classList.contains('s-main-link') || e.target.closest('.s-main-link')){
       this.showCatalogMenu = false;
     }
   },
-    submitSearch() {
-      this.$router.push({ path: '/catalog/search', query: { q: this.search } });
-      this.showSearch = false;
+  redirectSearch(){
+      if(this.search.trim() && this.search.trim().length > 3) {
+        this.$router.push({ path: '/catalog/search', query: { q: this.search } });
+        this.search = '';
+        this.showSearch = false;
+        this.$refs.inputSearch.$el.querySelector('input').blur();
+      }
     },
+  submitSearch: debounce(async function() {
+      try {
+        let alldata;
+        if(this.search.trim() && this.search.trim().length > 2) {
+          document.querySelector(".dialog-search").scrollTop = 0;
+          // document.querySelector("#s-search-result").scrollLeft = 0;
+          // this.$router.push({ path: '/catalog/search', query: { q: this.search } })
+          alldata = (await this.$axios.get(this.$config.baseURL + '/api/site/catalog/hits', { params: { q: this.search } })).data.data;
+          // console.log(this.search);
+          // console.log(alldata);
+          this.searchData = alldata;
+          this.showCatalogMenu = false;
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }, 800),
   },
   computed: {
     ...mapGetters ({
@@ -146,6 +344,23 @@ export default {
 
 
 <style lang="scss">
+.w-50{
+  width: 50% !important;
+}
+#s-search-result{
+  visibility: hidden;
+  z-index: 1000000;
+  background-color: #fff;
+  right: 0 !important;
+  a{
+    border-bottom: 1px solid #DBDBDB;
+  }
+}
+.visibility-active{
+  visibility: visible !important;
+}
+
+
 .s-header-menu-search{
   .v-input__slot{
     background-color: white !important;
@@ -276,6 +491,9 @@ export default {
   }
 }
 @media screen and (max-width: 390px) {
+  #form-search{
+    margin: 10px 10px !important;
+  }
   .s-header-actions-block{
     >a#hrefs{
       margin-right: 16px !important;

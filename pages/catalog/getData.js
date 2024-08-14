@@ -13,16 +13,31 @@ export async function getData({ route, $axios, $config, error }) {
 
   Object.assign(filters, { status: 1 });
   if (category_id) Object.assign(filters, { category_id: category_id });
-  if (searchInput) Object.assign(filters, { "OR": [
-    {id: { condition: "LIKE", value: "%" + searchInput + "%" }},
-    {name: { condition: "LIKE", value: "%" + searchInput + "%" }},
-    {vendor: { condition: "LIKE", value: "%" + searchInput + "%" }},
-    {factory_article: { condition: "LIKE", value: "%" + searchInput + "%" }}] });
+  // if (searchInput) Object.assign(filters, { "OR": [
+  //   {id: { condition: "LIKE", value: "%" + searchInput + "%" }},
+  //   {name: { condition: "LIKE", value: "%" + searchInput + "%" }},
+  //   {vendor: { condition: "LIKE", value: "%" + searchInput + "%" }},
+  //   {factory_article: { condition: "LIKE", value: "%" + searchInput + "%" }}] });
     
     
-  let res;
-    try {
-      if((route.name.match('catalog') && category_id>0) || (route.name.match('catalog-search'))){
+    let res;
+
+    if (searchInput && route.name.match('catalog-search')) {
+      try {
+        res = await $axios.get($config.baseURL + '/api/site/catalog/search', {
+          params: {
+            q: searchInput,
+            f: f,
+            filters: filters,
+            sort: sort,
+            pager: pager
+          }
+        });
+      } catch (error) {
+        console.error(e);
+      }
+    } else if (route.name.match('catalog') && category_id > 0) {
+      try {
         res = await $axios.get($config.baseURL + '/api/site/catalog', {
           params: {
             f: f,
@@ -31,9 +46,9 @@ export async function getData({ route, $axios, $config, error }) {
             pager: pager
           }
         });
+      } catch (e) {
+        console.error(e);
       }
-    } catch (e) {
-      console.error(e);
     }
 
     if (route.name.match('catalog') && searchInput == null && (res?.data?.data?.length == 0 || !res?.data?.data)) {
@@ -119,7 +134,7 @@ export async function getData({ route, $axios, $config, error }) {
 
   
   let resCat;
-  try { if (category_id && category_id !== 'allcategories' && res) resCat = await $axios.get($config.baseURL + '/api/site/categories/' + category_id);} catch (e) {console.error(e)}
+  try { if (category_id && res) resCat = await $axios.get($config.baseURL + '/api/site/categories/' + category_id);} catch (e) {console.error(e)}
   
   let filtersOnly = {};
   Object.assign(filtersOnly, { status: 1 });
