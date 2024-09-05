@@ -139,7 +139,24 @@
                   <b>Бренд</b>
                 </td>
                 <td>
-                  {{data.brand}}
+                  <nuxt-link 
+                  class="underlined pointer" 
+                  :to="`/catalog/brands?filters=%7B%22brand%22%3A%5B%22${data.brand}%22%5D%7D&f=%7B%7D&page=0`"
+                  >
+                    {{ data.brand }}
+                </nuxt-link>
+                </td>
+              </tr>
+              <tr v-if="data.collection">
+                <td>
+                  <b>Коллекция</b>
+                </td>
+                <td>
+                  <nuxt-link 
+                  class="underlined pointer" 
+                  :to="`/catalog/collections?filters=%7B%22brand%22%3A%5B%22${data.brand}%22%5D,%22collection%22%3A%5B%22${data.collection}%22%5D%7D&f=%7B%7D&page=0`">
+                    {{ data.collection }}
+                  </nuxt-link>
                 </td>
               </tr>
                 <tr v-for="(el, i) in data.filters.slice(0, 10)" :key="i">
@@ -245,6 +262,31 @@
                             </td>
                             <td v-else>
                               {{ data.factory_article}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <b>Бренд</b>
+                            </td>
+                            <td>
+                              <nuxt-link 
+                              class="underlined pointer" 
+                              :to="`/catalog/brands?filters=%7B%22brand%22%3A%5B%22${encodeURIComponent(data.brand)}%22%5D%7D&f=%7B%7D&page=0`"
+                              >
+                                {{ data.brand }}
+                            </nuxt-link>
+                            </td>
+                          </tr>
+                          <tr v-if="data.collection">
+                            <td>
+                              <b>Коллекция</b>
+                            </td>
+                            <td>
+                              <nuxt-link 
+                              class="underlined pointer" 
+                              :to="`/catalog/collections?filters=%7B%22brand%22%3A%5B%22${encodeURIComponent(data.brand)}%22%5D,%22collection%22%3A%5B%22${encodeURIComponent(data.collection)}%22%5D%7D&f=%7B%7D&page=0`">
+                                {{ data.collection }}
+                              </nuxt-link>
                             </td>
                           </tr>
                           <tr v-for="(el, i) in data.filters" :key="i">

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mb-10">
+  <v-container class="mb-10 s-promote-main">
     <v-divider class="mb-8" />
     <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
     <div class="w-100 s-static-main">
@@ -10,7 +10,8 @@
       :loading="loading" 
       :dataFilters="dataFilters" 
       :valueFilters="valueFilters" 
-      :pager="pager" 
+      :activeFilters="activeFilters"
+      :pager="pager"
       :sort="sort" 
       @update-data="valueFilters = $event"/>
     <div class="text-center mt-10 ">
@@ -20,15 +21,17 @@
 </template>
 
 <script>
-import {getData} from "@/pages/catalog/getData";
+import { getDataCatalog } from "@/pages/catalog/getDataCatalog";
 import BaseCatalog from "@/components/catalog/base-catalog.vue";
-
 export default {
   components: {BaseCatalog},
   data() {
     return { 
-      loading: true
+      loading: true,
     }
+  },
+  async asyncData({route, $axios, $config, error}) {
+    return await getDataCatalog({route, $axios, $config, error});
   },
   watch: {
     valueFilters(v) {
@@ -39,20 +42,21 @@ export default {
       if (v.brand && v.brand.length > 0) {
         filters.brand = v.brand;
       }
+      if (v.collection && v.collection.length > 0) {
+        filters.collection = v.collection;
+      }
       this.$router.push({ query: Object.assign({}, this.$route.query, { filters: JSON.stringify(filters), f: JSON.stringify(v.f), page: 0 }) });
     },
     "$route": {
       async handler() {
         this.loading = true;
-        let p = await getData({route: this.$route, $axios: this.$axios, $config: this.$config, error: this.$error});
+        let p = await getDataCatalog({route: this.$route, $axios: this.$axios, $config: this.$config, error: this.$error});
         this.loading = false;
         this.data = p.data;
+        this.activeFilters = p.activeFilters;
         this.pager = p.pager;
       },
     }
-  },
-  async asyncData({route, $axios, $config, error}) {
-    return await getData({route, $axios, $config, error});
   },
 };
 </script>

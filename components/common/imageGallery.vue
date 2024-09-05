@@ -1,8 +1,9 @@
 <template>
     <div v-if="images">
+        <common-openImage v-if="fullimg" :value="images" :index="galleryModel" @closeFullImg="fullimg = false" />
         <v-window v-model="galleryModel">
             <v-window-item v-for="(el, i) in images" :key="i">
-                <v-card class="mb-4">
+                <v-card @click="fullimg = true" class="mb-4">
                     <v-img style="border: 1px solid rgba(0, 0, 0, 0.12)" :src="$config.baseImageURL + el "  height="400" contain/>
                 </v-card>
             </v-window-item>
@@ -54,7 +55,17 @@ export default {
     },
     data() {
         return {
-            galleryModel: 0
+            galleryModel: 0,
+            fullimg: false
+        }
+    },
+    watch: {
+        fullimg() {
+            if (this.fullimg) {
+                document.querySelector('html').style.overflow = 'hidden';
+            } else {
+                document.querySelector('html').style.overflow = 'auto';
+            }
         }
     },
     computed: {

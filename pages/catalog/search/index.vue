@@ -2,11 +2,11 @@
   <v-container class="mb-10 s-static-main">
     <v-divider class="mb-8" />
     <common-beadcrumbs class="mb-4" :value="breadcrumbsData" />
-      <h1>Поиск</h1>
+    <h1>Поиск</h1>
     <div class="mb-10">
       <p><b>Вы искали: </b><span class="underlined">{{ searchInput }}</span>, найдено {{ pager.count }} шт.</p>
     </div>
-    <v-divider class="mb-4" />
+    <v-divider class="mb-10" />
     <div v-show="data.length == 0">
       <div class="mb-10" style="font-weight: bold;">К сожалению по вашему запросу ничего не найдено.</br>
           Попробуйте изменить ключевые слова поиска.</div>
@@ -23,18 +23,19 @@
     :data="data"
     :dataFilters="dataFilters"
     :valueFilters="valueFilters"
+    :activeFilters="activeFilters"
     :pager="pager"
     :sort="sort"
     @update-filters="dataFilters = $event" 
     @update-data="valueFiltersFinal" />
-    <div class="text-center mt-10">
+    <div class="text-center mt-10 ">
       <common-pagination :value="pager" />
     </div>
   </v-container>
 </template>
 
 <script>
-import { getData } from "@/pages/catalog/getData";
+import { getDataSearch } from "@/pages/catalog/search/getDataSearch";
 import BaseCatalog from "@/components/catalog/base-catalog.vue";
 
 export default {
@@ -42,12 +43,20 @@ export default {
   data() {
     return {
       loading: true,
-      search: "",
+      search: ''
     };
+  },
+  mounted() {
+    window.scrollTo(0,0);
+  },
+  async asyncData({ route, $axios, $config, error }) {
+    return await getDataSearch({ route, $axios, $config, error })
   },
   methods: {
     submitSearch() {
-      this.$router.push({ path: '/catalog/search', query: { q: this.search } })
+      if(this.search.trim()){
+        this.$router.push({ path: '/catalog/search', query: { q: this.search } })
+      }
     },
     valueFiltersFinal(v) {
       let filters = {};
@@ -57,8 +66,10 @@ export default {
       if (v.brand && v.brand.length > 0) {
         filters.brand = v.brand;
       }
-  
-      if(typeof v.price == 'object' || typeof v.brand == 'object' || v.f[0]) { 
+      if (v.collection && v.collection.length > 0) {
+        filters.collection = v.collection;
+      }
+      if(typeof v.price == 'object' || typeof v.brand == 'object' || v.f[0] || typeof v.collection == 'object') {
         this.$router.push({ query: Object.assign({}, this.$route.query, { filters: JSON.stringify(filters), f: JSON.stringify(v.f), page: 0 }) });
       }
     },
@@ -67,19 +78,30 @@ export default {
     "$route": {
       async handler() {
         this.loading = true;
-        let p = await getData({ route: this.$route, $axios: this.$axios, $config: this.$config });
+        let p = await getDataSearch({ route: this.$route, $axios: this.$axios, $config: this.$config, error: this.$error });
         this.loading = false;
         this.data = p.data;
-        this.dataFilters = p.dataFilters;
-        this.valueFilters = p.valueFilters;
+        for(const key in this.dataFilters) {
+          if(key == 'f') {
+            if(Object.values(this.dataFilters[key]).length > 0) {
+              break;
+            }
+          } else if (this.dataFilters[key].length > 0) {
+            break;  
+          } else {
+            this.dataFilters = p.dataFilters
+          }
+        }
+        window.scrollTo(0,0);
+
+        // this.dataFilters = p.dataFilters;
+        // this.valueFilters = p.valueFilters;
+        this.activeFilters = p.activeFilters;
         this.pager = p.pager;
         this.searchInput = p.searchInput;
         this.search = '';
       },
     },
-  },
-  async asyncData({ route, $axios, $config }) {
-    return await getData({ route, $axios, $config });
-  },
+  }
 }
 </script>

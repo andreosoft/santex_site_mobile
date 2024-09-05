@@ -29,7 +29,11 @@
     <v-row class="s-row">
       <v-col v-if="data" class="s-filter-col d-none d-md-block col-3">
         <div>
-          <catalog-filter :value="valueFilters" :filters="dataFilters" @input="$emit('update-data', $event);" />
+          <catalog-filter 
+          :value="valueFilters" 
+          :filters="dataFilters" 
+          :activeFilters="activeFilters" 
+          @input="$emit('update-data', $event);" />
         </div>
       </v-col>
       <v-col v-if="data" :class="{ 'd-block': filterSmall }" class="s-filter-col s-filter-small d-none d-md-none">
@@ -40,6 +44,7 @@
             :filterSmall="filterSmall" 
             :value="valueFilters" 
             :filters="dataFilters" 
+            :activeFilters="activeFilters"
             @input="emitFilters" 
             />
           </div>
@@ -88,7 +93,11 @@ export default {
       type: Boolean,
       default: false
     },
-    categoriesData: Object
+    categoriesData: Object,
+    activeFilters: {
+      type: Object,
+      default: () => ({})
+    }
   },
   data() {
     return {
@@ -227,17 +236,24 @@ export default {
   }
 }
 
-@media screen and (max-width: 452px) {
+@media screen and (max-width: 540px) {
   .catalog-items {
     &.close {
-      max-height: 580px !important;
+      max-height: 520px !important;
     }
   }
 }
-@media screen and (max-width: 388px) {
+@media screen and (max-width: 481px) {
   .catalog-items {
     &.close {
-      max-height: 610px !important;
+      max-height: 540px !important;
+    }
+  }
+}
+@media screen and (max-width: 466px) {
+  .catalog-items {
+    &.close {
+      max-height: 550px !important;
     }
   }
 }
