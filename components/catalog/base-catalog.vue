@@ -53,7 +53,7 @@
       <v-col v-if="data" class="col-12 pa-0 col-md-9">
         <catalog-top-bar :count="pager.count" :sort="sort" @filter-small="filterSmall = !filterSmall" />
         <v-row v-if="loading" class="s-row">
-          <v-col cols="4" v-for="(el, i) in pager.limit" :key="i">
+          <v-col cols="12" v-for="i in 10" :key="i">
             <v-skeleton-loader class="mx-auto" max-width="300" type="card"></v-skeleton-loader>
           </v-col>
         </v-row>
